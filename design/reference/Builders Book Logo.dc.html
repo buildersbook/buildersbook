@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #EDEBE4; }
+  a { color: #16150F; } a:hover { color: #6B675C; }
+</style>
+</helmet>
+<section style="font-family: 'JetBrains Mono', monospace; color: #16150F; padding: 56px; display: flex; flex-direction: column; gap: 44px; max-width: 1480px;">
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <g id="mk" fill="currentColor">
+        <path d="M4 4 H9.5 V7 H7.5 V17 H9.5 V20 H4 Z"></path>
+        <path d="M20 4 H14.5 V7 H16.5 V17 H14.5 V20 H20 Z"></path>
+        <rect x="10.25" y="6.5" width="3.5" height="11"></rect>
+      </g>
+      <g id="mk-px" fill="currentColor">
+        <rect x="1" y="2" width="2" height="12"></rect><rect x="3" y="2" width="2" height="2"></rect><rect x="3" y="12" width="2" height="2"></rect>
+        <rect x="13" y="2" width="2" height="12"></rect><rect x="11" y="2" width="2" height="2"></rect><rect x="11" y="12" width="2" height="2"></rect>
+        <rect x="7" y="4" width="2" height="8"></rect>
+      </g>
+    </defs>
+  </svg>
+
+  <header style="display: flex; flex-direction: column; gap: 8px; border-bottom: 2px solid #16150F; padding-bottom: 20px;">
+    <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C;">Final handoff reference · The Builder&rsquo;s Book · buildersbook.dev</div>
+    <div style="font-family: 'Source Serif 4', serif; font-size: 34px; font-weight: 700;">The Open Spread &mdash; production mark</div>
+    <div style="font-size: 12px; color: #6B675C; line-height: 1.6;">One mark, no alternates. Filled cover-forms with block cursor center. Single color, works reversed. All measurements below are the spec.</div>
+  </header>
+
+  <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 340px; background: #FBFAF7; border: 1px solid #D6D2C6; display: flex; flex-direction: column;">
+      <div style="padding: 14px 20px; border-bottom: 1px solid #D6D2C6; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;">THE MARK</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 56px;">
+        <svg width="220" height="220" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+      </div>
+      <div style="padding: 0 20px 20px; font-size: 12px; line-height: 1.65; color: #444136;">Two cover-forms, spines 3.5 u, terminals 2 u deep &times; 3 u thick. Block cursor 3.5 &times; 11 u, inset 2.5 u top and bottom. Grid: 24 u; glyph box 16 &times; 16 u.</div>
+    </div>
+
+    <div style="flex: 1; min-width: 340px; background: #FBFAF7; border: 1px solid #D6D2C6; display: flex; flex-direction: column;">
+      <div style="padding: 14px 20px; border-bottom: 1px solid #D6D2C6; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;">CLEAR SPACE &mdash; 1 CURSOR WIDTH MIN, ALL SIDES</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px;">
+        <div style="position: relative; display: inline-block;">
+          <div style="position: absolute; inset: -26px; border: 1px dashed #A39E8F;"></div>
+          <div style="position: absolute; top: -26px; left: -26px; width: 26px; height: 26px; background: #C9503C;"></div>
+          <div style="position: absolute; top: -26px; left: -36px; transform: translateX(-100%); width: 54px; font-size: 10px; color: #C9503C; line-height: 1.4; text-align: right;">1 cursor width</div>
+          <svg width="178" height="178" viewBox="4 4 16 16" style="display: block;"><use href="#mk"></use></svg>
+        </div>
+      </div>
+      <div style="padding: 0 20px 20px; font-size: 12px; line-height: 1.65; color: #444136;">The unit is the cursor block&rsquo;s width (3.5 u at mark scale). Dashed boundary = exclusion zone; nothing enters it, in the standalone mark or the lockup.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;">Lockup &mdash; metrics annotated</div>
+    <div style="background: #FBFAF7; border: 1px solid #D6D2C6; padding: 96px 64px 72px; display: flex; align-items: center; justify-content: center;">
+      <div style="position: relative; display: inline-block;">
+        <div style="position: absolute; inset: -24px; border: 1px dashed #A39E8F;"></div>
+        <div style="position: absolute; top: -46px; left: -24px; font-size: 10px; color: #A39E8F;">clear space: 1 cursor width</div>
+        <div style="display: flex; align-items: center; gap: 24px;">
+          <svg width="54" height="54" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+          <div style="font-family: 'Source Serif 4', serif; font-size: 46px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; line-height: 1;">The Builder<span style="margin-left: -0.015em; margin-right: 0.01em;">&rsquo;</span>s Book</div>
+        </div>
+        <div style="position: absolute; left: -14px; top: 9px; width: 6px; height: 36px; border: 1px solid #C9503C; border-right: none;"></div>
+        <div style="position: absolute; left: -34px; top: 14px; transform: translateX(-100%); width: 62px; font-size: 10px; color: #C9503C; line-height: 1.4; text-align: right;">A &middot; glyph height</div>
+        <div style="position: absolute; left: 45px; top: 62px; width: 33px; height: 6px; border: 1px solid #C9503C; border-top: none;"></div>
+        <div style="position: absolute; left: 38px; top: 84px; width: 80px; font-size: 10px; color: #C9503C;">B &middot; gap</div>
+        <div style="position: absolute; left: -24px; right: -24px; top: 26px; border-top: 1px dashed #C9503C; opacity: 0.6;"></div>
+        <div style="position: absolute; right: -24px; top: 30px; transform: translateX(100%); padding-left: 10px; font-size: 10px; color: #C9503C; white-space: nowrap;">C &middot; cap midline</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 28px; flex-wrap: wrap; font-size: 12px; line-height: 1.7; color: #444136;">
+      <div style="flex: 1; min-width: 260px;"><strong style="color: #C9503C;">A</strong> &mdash; <strong style="color: #16150F;">Icon glyph height = 1.15 &times; cap height</strong> of the wordmark (glyph box only, excluding the 24 u frame&rsquo;s built-in margin). Open forms need the overshoot to match the caps optically.</div>
+      <div style="flex: 1; min-width: 260px;"><strong style="color: #C9503C;">B</strong> &mdash; <strong style="color: #16150F;">Gap = 3 cursor widths</strong>, measured from the right cover&rsquo;s terminal edge to the T stem. At this scale: 24px against a 36px glyph.</div>
+      <div style="flex: 1; min-width: 260px;"><strong style="color: #C9503C;">C</strong> &mdash; <strong style="color: #16150F;">Vertical alignment:</strong> the icon&rsquo;s optical center sits on the cap-height midline (baseline + &frac12; cap height). Never baseline-align the icon.</div>
+    </div>
+    <div style="font-size: 12px; line-height: 1.7; color: #444136; border-left: 3px solid #C9503C; padding-left: 14px;"><strong style="color: #16150F;">Apostrophe:</strong> true typographic apostrophe U+2019, never a straight tick. Kerned &minus;1.5% into the r and +1% before the s so &ldquo;Builder&rsquo;s&rdquo; reads as one word; at this depth and weight it cannot be mistaken for an acute accent or backtick. Wordmark is Source Serif 4 semibold, title case &mdash; closed.</div>
+  </div>
+
+  <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+    <div style="flex: 1.4; min-width: 480px; background: #FBFAF7; border: 1px solid #D6D2C6; display: flex; flex-direction: column;">
+      <div style="padding: 14px 20px; border-bottom: 1px solid #D6D2C6; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;">FAVICON &mdash; DRAWN ON THE PIXEL GRID, NOT SCALED</div>
+      <div style="display: flex; align-items: center; gap: 40px; padding: 28px 24px; flex-wrap: wrap;">
+        <div style="position: relative; width: 320px; height: 320px; background: #FFFFFF; border: 1px solid #D6D2C6; background-image: linear-gradient(#EAE7DE 1px, transparent 1px), linear-gradient(90deg, #EAE7DE 1px, transparent 1px); background-size: 20px 20px;">
+          <svg width="320" height="320" viewBox="0 0 16 16" shape-rendering="crispEdges" style="position: absolute; inset: 0;"><use href="#mk-px"></use></svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="width: 28px; height: 28px; background: #FFFFFF; border: 1px solid #D6D2C6; display: inline-flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#mk-px"></use></svg></span>
+            <span style="width: 28px; height: 28px; background: #16150F; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#mk-px"></use></svg></span>
+            <span style="font-size: 10px; letter-spacing: 0.1em; color: #6B675C;">16 PX ACTUAL &middot; POSITIVE / REVERSED</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="width: 44px; height: 44px; background: #FFFFFF; border: 1px solid #D6D2C6; display: inline-flex; align-items: center; justify-content: center;"><svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#mk-px"></use></svg></span>
+            <span style="width: 44px; height: 44px; background: #16150F; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg width="32" height="32" viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#mk-px"></use></svg></span>
+            <span style="font-size: 10px; letter-spacing: 0.1em; color: #6B675C;">32 PX ACTUAL &middot; POSITIVE / REVERSED</span>
+          </div>
+          <div style="font-size: 11px; line-height: 1.7; color: #444136; max-width: 280px;">Spec: 2px stems; 2px terminal extensions; 2px cursor, inset 2px top and bottom; <strong style="color: #16150F;">2px minimum clearance between any two elements; 4px cursor-to-spine clearance through the cursor body</strong>. All rects on integer pixels &mdash; no anti-aliasing, no rounded-square container.</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex: 1; min-width: 420px; background: #FBFAF7; border: 1px solid #D6D2C6; display: flex; flex-direction: column;">
+      <div style="padding: 14px 20px; border-bottom: 1px solid #D6D2C6; font-size: 12px; font-weight: 700; letter-spacing: 0.1em;">CIRCULAR AVATAR CROP &mdash; GLYPH BOX = 62% OF DIAMETER</div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 28px; padding: 40px 24px; flex-wrap: wrap;">
+        <span style="width: 96px; height: 96px; border-radius: 50%; background: #16150F; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg width="60" height="60" viewBox="4 4 16 16"><use href="#mk"></use></svg></span>
+        <span style="width: 96px; height: 96px; border-radius: 50%; background: #FFFFFF; color: #16150F; border: 1px solid #D6D2C6; display: inline-flex; align-items: center; justify-content: center;"><svg width="60" height="60" viewBox="4 4 16 16"><use href="#mk"></use></svg></span>
+        <span style="width: 48px; height: 48px; border-radius: 50%; background: #16150F; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="4 4 16 16"><use href="#mk"></use></svg></span>
+        <span style="width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; color: #16150F; border: 1px solid #D6D2C6; display: inline-flex; align-items: center; justify-content: center;"><svg width="30" height="30" viewBox="4 4 16 16"><use href="#mk"></use></svg></span>
+      </div>
+      <div style="padding: 0 20px 20px; font-size: 12px; line-height: 1.7; color: #444136;">Glyph bounding box set at exactly 62% of avatar diameter (60px in 96px, 30px in 48px &mdash; measured on the visible glyph, not the artboard). Extreme points are the cover corners: at 62%, corner reach is 0.88 &times; radius &mdash; clears the circular crop with margin, no terminal clipping.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;">Reversed verification &mdash; single color on near-black</div>
+    <div style="background: #16150F; color: #FFFFFF; border: 1px solid #16150F; padding: 56px; display: flex; align-items: center; justify-content: center; gap: 72px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <svg width="54" height="54" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+        <div style="font-family: 'Source Serif 4', serif; font-size: 46px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap;">The Builder<span style="margin-left: -0.015em; margin-right: 0.01em;">&rsquo;</span>s Book</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <svg width="96" height="96" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px dashed #6B675C;"><svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#mk-px"></use></svg></span>
+        <span style="font-size: 10px; letter-spacing: 0.1em; color: #A39E8F;">MARK + 16 PX REVERSED</span>
+      </div>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #D6D2C6; padding: 36px; display: flex; align-items: center; justify-content: center;">
+      <div style="display: flex; align-items: center; gap: 13px;">
+        <svg width="32" height="32" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+        <span style="font-family: 'Source Serif 4', serif; font-size: 27px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap;">The Builder<span style="margin-left: -0.015em; margin-right: 0.01em;">&rsquo;</span>s Book</span>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

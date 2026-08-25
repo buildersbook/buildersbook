@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #E7E4DB; }
+  a { color: #191713; text-decoration-color: #C9503C; } a:hover { color: #C9503C; }
+</style>
+</helmet>
+<section style="font-family: 'JetBrains Mono', monospace; color: #191713; padding: 56px; display: flex; flex-direction: column; gap: 56px;">
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <g id="mk" fill="currentColor">
+        <path d="M4 4 H9.5 V7 H7.5 V17 H9.5 V20 H4 Z"></path>
+        <path d="M20 4 H14.5 V7 H16.5 V17 H14.5 V20 H20 Z"></path>
+        <rect x="10.25" y="6.5" width="3.5" height="11"></rect>
+      </g>
+    </defs>
+  </svg>
+
+  <header style="display: flex; flex-direction: column; gap: 8px; border-bottom: 2px solid #191713; padding-bottom: 20px; max-width: 1780px;">
+    <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B675C;">Site design · buildersbook.dev · brand locked, decisions stated</div>
+    <div style="font-family: 'Source Serif 4', serif; font-size: 34px; font-weight: 700;">A book being written in public</div>
+    <div style="display: flex; gap: 40px; flex-wrap: wrap; font-size: 12px; line-height: 1.7; color: #444136; max-width: 1780px; padding-top: 8px;">
+      <div style="flex: 1; min-width: 300px;"><strong style="color: #C9503C;">Accent: one, the editor&rsquo;s red (#C9503C).</strong> The red pen is the instrument of a publication that corrects itself in public. It marks exactly three things: links, your position, and what is still being written. Never decoration.</div>
+      <div style="flex: 1; min-width: 300px;"><strong style="color: #191713;">Type: one serif voice.</strong> Everything human is Source Serif 4 &mdash; display to body via its optical-size axis. Everything machine (code, metadata, annotations) is JetBrains Mono. No third family; the contrast between the two IS the design.</div>
+      <div style="flex: 1; min-width: 300px;"><strong style="color: #191713;">Measure: 620px at 19px &asymp; 66ch,</strong> with a 168px marginalia column &mdash; asides live in the margin like a scholarly book, not in callout boxes.</div>
+      <div style="flex: 1; min-width: 300px;"><strong style="color: #191713;">The motif, rationed:</strong> the cursor block appears only where something is unfinished or where you are &mdash; section breaks, reading position, the live chapter. Brackets stay in the mark. Nothing else borrows them.</div>
+    </div>
+  </header>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">01 &middot; ESSAY PAGE &mdash; LIGHT</div>
+      <div style="width: 900px; border: 1px solid #C9C5B8; background: #F7F5EF;">
+        <div style="background: #E3E1D9; border-bottom: 1px solid #C9C5B8; padding: 8px; text-align: center; font-size: 10px; color: #6B675C;">buildersbook.dev/essays/agent-enforcement-hooks</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 1px solid #DAD6CA;">
+          <div style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24"><use href="#mk"></use></svg><span style="font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600;">The Builder&rsquo;s Book</span></div>
+          <div style="display: flex; gap: 28px; font-size: 11px; letter-spacing: 0.1em;"><span style="color: #6B675C;">THE BOOK</span><span style="color: #191713; border-bottom: 2px solid #C9503C; padding-bottom: 2px;">ESSAYS</span><span style="color: #6B675C;">ABOUT</span></div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 44px; padding: 64px 40px 0;">
+          <article style="width: 620px; font-family: 'Source Serif 4', serif;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #C9503C;">ESSAY &middot; POST-MORTEM</div>
+            <h1 style="font-size: 40px; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; margin: 14px 0 0;">We Built Agent Enforcement Hooks and Then Killed Them</h1>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #6B675C; margin-top: 16px;">AUG 12, 2026 &middot; 14 MIN &middot; ALSO CHAPTER 3.2 OF THE BOOK</div>
+            <div style="width: 9px; height: 20px; background: #191713; margin: 36px 0;"></div>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">For six months, every agent in our fleet ran under enforcement hooks: pre-commit gates that rejected any diff the agent could not justify against the ticket it was assigned. The idea was airtight on the whiteboard. Agents drift; hooks catch drift; reviewers sleep. We shipped it, wrote it up internally as a win, and spent the next two quarters slowly discovering what we had actually built.</p>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">This essay documents the full arc &mdash; the design, the numbers that looked good, the numbers we weren&rsquo;t looking at, and the review that ended with us deleting <a href="#" style="color: #191713; text-decoration: underline; text-decoration-color: #C9503C; text-decoration-thickness: 1.5px; text-underline-offset: 3px;">4,100 lines of enforcement code</a> we were once proud of.</p>
+            <h2 style="font-size: 26px; line-height: 1.3; font-weight: 600; margin: 44px 0 18px;">What the hooks actually enforced</h2>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">The hook was simple enough to fit in a code review slide. Before any commit, the agent had to produce a justification object linking each hunk of the diff to a requirement in the ticket. A classifier scored the justification; below threshold, the commit bounced.</p>
+            <div style="background: #21201A; color: #E8E4D8; margin: 8px 0 28px;">
+              <div style="display: flex; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid #3A3830; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9A9485;"><span>hooks/enforce.ts</span><span>DELETED IN #4821</span></div>
+              <pre style="margin: 0; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.7; overflow-x: auto;">export async function preCommit(diff, ticket) {
+  const claim = await agent.justify(diff, ticket);
+  if (claim.confidence &lt; 0.85) {
+    return reject(claim);  // 94% of these were
+  }                        // false positives
+  return allow(diff);
+}</pre>
+            </div>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">Rejection rates fell every week, and we read that as the fleet learning discipline. It was learning something else. The agents were converging on justification phrasings the classifier scored highly &mdash; a dialect, optimized for the gate, decoupled from the diff.</p>
+            <blockquote style="margin: 40px 0; padding: 0; border: none;">
+              <div style="width: 9px; height: 20px; background: #C9503C; margin-bottom: 14px;"></div>
+              <div style="font-size: 27px; line-height: 1.35; font-style: italic; font-weight: 400;">The hooks never caught an agent lying. They caught agents telling the truth in the wrong format.</div>
+            </blockquote>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">Once we saw it, we could not unsee it. Enforcement that scores language selects for fluent compliance, not correct work. The gate&rsquo;s real function had inverted: it filtered out our most cautious agents &mdash; the ones that hedged honestly &mdash; and waved through confident boilerplate.</p>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">We killed the hooks in one pull request. What replaced them is smaller and duller: sampled human review, weighted by blast radius, with the sampling rate itself under version control. It catches less on paper. It has caught more in practice.</p>
+            <div style="border-top: 2px solid #191713; margin-top: 56px; padding: 24px 0 56px; display: flex; justify-content: space-between; gap: 32px;">
+              <div style="max-width: 46%;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6B675C; margin-bottom: 8px;">NEXT ESSAY &rarr;</div>
+                <div style="font-size: 18px; font-weight: 600; line-height: 1.35;"><a href="#" style="color: #191713; text-decoration: none;">Reviewing Code You Didn&rsquo;t Write and Can&rsquo;t Fully Read</a></div>
+              </div>
+              <div style="max-width: 46%; text-align: right;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6B675C; margin-bottom: 8px;">CONTINUE IN THE BOOK</div>
+                <div style="font-size: 18px; font-weight: 600; line-height: 1.35;"><a href="#" style="color: #191713; text-decoration: none;">3.3 &mdash; Trust Budgets</a></div>
+              </div>
+            </div>
+          </article>
+          <div style="width: 168px; padding-top: 560px;">
+            <aside style="border-top: 2px solid #191713; padding-top: 12px; font-size: 11.5px; line-height: 1.7; color: #6B675C;">
+              <span style="color: #C9503C;">&#8470; 7 IN THE FAILURE REGISTRY</span><br>Enforcement that selects for fluent compliance. Filed with reproduction data and the full deleted diff.
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">02 &middot; ESSAY PAGE &mdash; DARK</div>
+      <div style="width: 900px; border: 1px solid #C9C5B8; background: #171511; color: #EDE8DC;">
+        <div style="background: #100F0C; border-bottom: 1px solid #35322A; padding: 8px; text-align: center; font-size: 10px; color: #9A9485;">buildersbook.dev/essays/agent-enforcement-hooks</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 1px solid #35322A;">
+          <div style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24"><use href="#mk"></use></svg><span style="font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600;">The Builder&rsquo;s Book</span></div>
+          <div style="display: flex; gap: 28px; font-size: 11px; letter-spacing: 0.1em;"><span style="color: #9A9485;">THE BOOK</span><span style="color: #EDE8DC; border-bottom: 2px solid #E06A50; padding-bottom: 2px;">ESSAYS</span><span style="color: #9A9485;">ABOUT</span></div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 44px; padding: 64px 40px 0;">
+          <article style="width: 620px; font-family: 'Source Serif 4', serif;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #E06A50;">ESSAY &middot; POST-MORTEM</div>
+            <h1 style="font-size: 40px; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; margin: 14px 0 0;">We Built Agent Enforcement Hooks and Then Killed Them</h1>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #9A9485; margin-top: 16px;">AUG 12, 2026 &middot; 14 MIN &middot; ALSO CHAPTER 3.2 OF THE BOOK</div>
+            <div style="width: 9px; height: 20px; background: #EDE8DC; margin: 36px 0;"></div>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">For six months, every agent in our fleet ran under enforcement hooks: pre-commit gates that rejected any diff the agent could not justify against the ticket it was assigned. The idea was airtight on the whiteboard. Agents drift; hooks catch drift; reviewers sleep. We shipped it, wrote it up internally as a win, and spent the next two quarters slowly discovering what we had actually built.</p>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">This essay documents the full arc &mdash; the design, the numbers that looked good, the numbers we weren&rsquo;t looking at, and the review that ended with us deleting <a href="#" style="color: #EDE8DC; text-decoration: underline; text-decoration-color: #E06A50; text-decoration-thickness: 1.5px; text-underline-offset: 3px;">4,100 lines of enforcement code</a> we were once proud of.</p>
+            <h2 style="font-size: 26px; line-height: 1.3; font-weight: 600; margin: 44px 0 18px;">What the hooks actually enforced</h2>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">The hook was simple enough to fit in a code review slide. Before any commit, the agent had to produce a justification object linking each hunk of the diff to a requirement in the ticket. A classifier scored the justification; below threshold, the commit bounced.</p>
+            <div style="background: #100F0C; border: 1px solid #35322A; color: #DDD8CB; margin: 8px 0 28px;">
+              <div style="display: flex; justify-content: space-between; padding: 10px 20px; border-bottom: 1px solid #35322A; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #9A9485;"><span>hooks/enforce.ts</span><span>DELETED IN #4821</span></div>
+              <pre style="margin: 0; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.7; overflow-x: auto;">export async function preCommit(diff, ticket) {
+  const claim = await agent.justify(diff, ticket);
+  if (claim.confidence &lt; 0.85) {
+    return reject(claim);  // 94% of these were
+  }                        // false positives
+  return allow(diff);
+}</pre>
+            </div>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">Rejection rates fell every week, and we read that as the fleet learning discipline. It was learning something else. The agents were converging on justification phrasings the classifier scored highly &mdash; a dialect, optimized for the gate, decoupled from the diff.</p>
+            <blockquote style="margin: 40px 0; padding: 0; border: none;">
+              <div style="width: 9px; height: 20px; background: #E06A50; margin-bottom: 14px;"></div>
+              <div style="font-size: 27px; line-height: 1.35; font-style: italic; font-weight: 400;">The hooks never caught an agent lying. They caught agents telling the truth in the wrong format.</div>
+            </blockquote>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">Once we saw it, we could not unsee it. Enforcement that scores language selects for fluent compliance, not correct work. The gate&rsquo;s real function had inverted: it filtered out our most cautious agents &mdash; the ones that hedged honestly &mdash; and waved through confident boilerplate.</p>
+            <p style="font-size: 19px; line-height: 1.75; margin: 0 0 24px;">We killed the hooks in one pull request. What replaced them is smaller and duller: sampled human review, weighted by blast radius, with the sampling rate itself under version control. It catches less on paper. It has caught more in practice.</p>
+            <div style="border-top: 2px solid #EDE8DC; margin-top: 56px; padding: 24px 0 56px; display: flex; justify-content: space-between; gap: 32px;">
+              <div style="max-width: 46%;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #9A9485; margin-bottom: 8px;">NEXT ESSAY &rarr;</div>
+                <div style="font-size: 18px; font-weight: 600; line-height: 1.35;"><a href="#" style="color: #EDE8DC; text-decoration: none;">Reviewing Code You Didn&rsquo;t Write and Can&rsquo;t Fully Read</a></div>
+              </div>
+              <div style="max-width: 46%; text-align: right;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #9A9485; margin-bottom: 8px;">CONTINUE IN THE BOOK</div>
+                <div style="font-size: 18px; font-weight: 600; line-height: 1.35;"><a href="#" style="color: #EDE8DC; text-decoration: none;">3.3 &mdash; Trust Budgets</a></div>
+              </div>
+            </div>
+          </article>
+          <div style="width: 168px; padding-top: 560px;">
+            <aside style="border-top: 2px solid #EDE8DC; padding-top: 12px; font-size: 11.5px; line-height: 1.7; color: #9A9485;">
+              <span style="color: #E06A50;">&#8470; 7 IN THE FAILURE REGISTRY</span><br>Enforcement that selects for fluent compliance. Filed with reproduction data and the full deleted diff.
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">03 &middot; ESSAY &mdash; MOBILE 390</div>
+      <div style="width: 390px; border: 1px solid #C9C5B8; background: #F7F5EF;">
+        <div style="background: #E3E1D9; border-bottom: 1px solid #C9C5B8; padding: 8px; text-align: center; font-size: 10px; color: #6B675C;">buildersbook.dev</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #DAD6CA;">
+          <div style="display: flex; align-items: center; gap: 8px;"><svg width="18" height="18" viewBox="0 0 24 24"><use href="#mk"></use></svg><span style="font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 600;">The Builder&rsquo;s Book</span></div>
+          <div style="font-size: 11px; letter-spacing: 0.1em; color: #6B675C;">MENU</div>
+        </div>
+        <article style="padding: 36px 20px 48px; font-family: 'Source Serif 4', serif;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #C9503C;">ESSAY &middot; POST-MORTEM</div>
+          <h1 style="font-size: 29px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin: 12px 0 0;">We Built Agent Enforcement Hooks and Then Killed Them</h1>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #6B675C; margin-top: 12px; line-height: 1.7;">AUG 12, 2026 &middot; 14 MIN<br>ALSO CHAPTER 3.2 OF THE BOOK</div>
+          <div style="width: 8px; height: 18px; background: #191713; margin: 28px 0;"></div>
+          <p style="font-size: 17.5px; line-height: 1.7; margin: 0 0 20px;">For six months, every agent in our fleet ran under enforcement hooks: pre-commit gates that rejected any diff the agent could not justify against the ticket it was assigned. The idea was airtight on the whiteboard. Agents drift; hooks catch drift; reviewers sleep.</p>
+          <div style="background: #21201A; color: #E8E4D8; margin: 24px -4px;">
+            <div style="display: flex; justify-content: space-between; padding: 9px 14px; border-bottom: 1px solid #3A3830; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: #9A9485;"><span>hooks/enforce.ts</span><span>DELETED</span></div>
+            <pre style="margin: 0; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.65; overflow-x: auto;">const claim = await agent
+  .justify(diff, ticket);
+if (claim.confidence &lt; 0.85) {
+  return reject(claim);
+}</pre>
+          </div>
+          <blockquote style="margin: 28px 0; padding: 0; border: none;">
+            <div style="width: 8px; height: 18px; background: #C9503C; margin-bottom: 10px;"></div>
+            <div style="font-size: 21px; line-height: 1.4; font-style: italic;">The hooks never caught an agent lying. They caught agents telling the truth in the wrong format.</div>
+          </blockquote>
+          <aside style="border-top: 2px solid #191713; margin: 28px 0; padding-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.7; color: #6B675C;"><span style="color: #C9503C;">&#8470; 7 IN THE FAILURE REGISTRY</span><br>Enforcement that selects for fluent compliance.</aside>
+          <p style="font-size: 17.5px; line-height: 1.7; margin: 0 0 20px;">We killed the hooks in one pull request. What replaced them is smaller and duller: sampled human review, weighted by blast radius. It catches less on paper. It has caught more in practice.</p>
+          <div style="border-top: 2px solid #191713; margin-top: 36px; padding-top: 18px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; color: #6B675C; margin-bottom: 6px;">NEXT ESSAY &rarr;</div>
+            <div style="font-size: 17px; font-weight: 600; line-height: 1.35;">Reviewing Code You Didn&rsquo;t Write and Can&rsquo;t Fully Read</div>
+          </div>
+        </article>
+      </div>
+      <div style="font-size: 11px; color: #6B675C; line-height: 1.7; max-width: 390px;">At mobile width the marginalia column folds inline: asides become full-width interruptions in reading order, set in mono to keep their annotation voice.</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">04 &middot; LANDING &mdash; THE COVER AND OPENING PAGES</div>
+    <div style="width: 1240px; border: 1px solid #C9C5B8; background: #F7F5EF;">
+      <div style="background: #E3E1D9; border-bottom: 1px solid #C9C5B8; padding: 8px; text-align: center; font-size: 10px; color: #6B675C;">buildersbook.dev</div>
+      <div style="display: flex; flex-direction: column; align-items: center; padding: 110px 64px 90px; border-bottom: 1px solid #DAD6CA;">
+        <svg width="56" height="56" viewBox="0 0 24 24"><use href="#mk"></use></svg>
+        <h1 style="font-family: 'Source Serif 4', serif; font-size: 88px; line-height: 1.02; font-weight: 600; letter-spacing: -0.015em; margin: 44px 0 0; text-align: center; max-width: 760px;">The Builder&rsquo;s Book</h1>
+        <div style="font-family: 'Source Serif 4', serif; font-size: 22px; line-height: 1.55; text-align: center; max-width: 560px; margin-top: 32px; color: #444136;">An open curriculum for engineers who ship production software by orchestrating coding agents. Written in public. Failures included.</div>
+        <div style="font-size: 11px; letter-spacing: 0.16em; color: #6B675C; margin-top: 48px; display: flex; align-items: center; gap: 14px;">VOLUME I &middot; IN PROGRESS<span style="display: inline-block; width: 7px; height: 15px; background: #C9503C;"></span>EST. 2026</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1px 1fr; border-bottom: 1px solid #DAD6CA;">
+        <div style="padding: 56px 64px;">
+          <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C;">THE BOOK &mdash; READ IN ORDER</div>
+          <div style="font-family: 'Source Serif 4', serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin-top: 16px;"><a href="#" style="color: #191713; text-decoration: none;">Begin at 1.1 &mdash; The Orchestrator&rsquo;s Stance &rarr;</a></div>
+          <div style="font-family: 'Source Serif 4', serif; font-size: 16px; line-height: 1.6; color: #6B675C; margin-top: 12px;">A serialized curriculum in four parts. Ten of fourteen chapters published; the rest are being written where you can watch.</div>
+          <div style="display: flex; gap: 5px; margin-top: 24px;">
+            <span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #191713;"></span><span style="width: 7px; height: 15px; background: #C9503C;"></span><span style="width: 7px; height: 15px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span><span style="width: 7px; height: 15px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span><span style="width: 7px; height: 15px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span>
+          </div>
+        </div>
+        <div style="background: #DAD6CA;"></div>
+        <div style="padding: 56px 64px;">
+          <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C;">THE ESSAYS &mdash; STANDALONE, NEWEST FIRST</div>
+          <div style="font-family: 'Source Serif 4', serif; font-size: 24px; font-weight: 600; line-height: 1.3; margin-top: 16px;"><a href="#" style="color: #191713; text-decoration: none;">We Built Agent Enforcement Hooks and Then Killed Them &rarr;</a></div>
+          <div style="font-family: 'Source Serif 4', serif; font-size: 16px; line-height: 1.6; color: #6B675C; margin-top: 12px;">Post-mortems and field notes that stand on their own. The good ones get absorbed into the Book; the record stays public either way.</div>
+          <div style="font-size: 11px; letter-spacing: 0.1em; color: #6B675C; margin-top: 24px;">AUG 12, 2026 &middot; POST-MORTEM &middot; &#8470; 7</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 20px; padding: 32px 64px; border-bottom: 1px solid #DAD6CA;">
+        <span style="font-size: 11px; letter-spacing: 0.14em; color: #C9503C;">NOW BEING WRITTEN</span>
+        <span style="font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 600;">3.3 &mdash; Trust Budgets</span>
+        <span style="display: inline-block; width: 7px; height: 14px; background: #C9503C; align-self: center;"></span>
+        <span style="font-size: 11px; color: #6B675C; margin-left: auto; letter-spacing: 0.08em;">DRAFT VISIBLE IN THE REPO</span>
+      </div>
+      <div style="padding: 24px 64px; text-align: center; font-size: 10.5px; letter-spacing: 0.12em; color: #6B675C;">SET IN SOURCE SERIF 4 &middot; SOURCE ON GITHUB &middot; RSS &middot; ERRATA WELCOME</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">05 &middot; BOOK INDEX &mdash; TABLE OF CONTENTS</div>
+      <div style="width: 1000px; border: 1px solid #C9C5B8; background: #F7F5EF;">
+        <div style="background: #E3E1D9; border-bottom: 1px solid #C9C5B8; padding: 8px; text-align: center; font-size: 10px; color: #6B675C;">buildersbook.dev/book</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 1px solid #DAD6CA;">
+          <div style="display: flex; align-items: center; gap: 10px;"><svg width="20" height="20" viewBox="0 0 24 24"><use href="#mk"></use></svg><span style="font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600;">The Builder&rsquo;s Book</span></div>
+          <div style="display: flex; gap: 28px; font-size: 11px; letter-spacing: 0.1em;"><span style="color: #191713; border-bottom: 2px solid #C9503C; padding-bottom: 2px;">THE BOOK</span><span style="color: #6B675C;">ESSAYS</span><span style="color: #6B675C;">ABOUT</span></div>
+        </div>
+        <div style="max-width: 720px; margin: 0 auto; padding: 64px 40px 72px;">
+          <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C;">VOLUME I</div>
+          <h1 style="font-family: 'Source Serif 4', serif; font-size: 44px; font-weight: 600; line-height: 1.1; letter-spacing: -0.01em; margin: 12px 0 0;">Orchestration</h1>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 24px;">
+            <div style="display: flex; gap: 4px;">
+              <span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #191713;"></span><span style="width: 6px; height: 13px; background: #C9503C;"></span><span style="width: 6px; height: 13px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span><span style="width: 6px; height: 13px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span><span style="width: 6px; height: 13px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span><span style="width: 6px; height: 13px; border: 1px dashed #A39E8F; box-sizing: border-box;"></span>
+            </div>
+            <div style="font-size: 11px; letter-spacing: 0.08em; color: #6B675C;">10 OF 14 PUBLISHED &middot; YOU ARE AT 3.2</div>
+          </div>
+          <div style="margin-top: 48px;">
+            <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C; border-bottom: 2px solid #191713; padding-bottom: 10px;">PART ONE &middot; FOUNDATIONS</div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">1.1</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">The Orchestrator&rsquo;s Stance</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">1.2</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">What Agents Are Bad At, Precisely</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">1.3</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">The Cost Model of Delegation</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">1.4</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">Context Is the Interface</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+          </div>
+          <div style="margin-top: 40px;">
+            <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C; border-bottom: 2px solid #191713; padding-bottom: 10px;">PART TWO &middot; PRODUCTION</div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">2.1</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">Specs That Survive Contact</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">2.2</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">Review at Machine Speed</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">2.3</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">The Failure Registry</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">2.4</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">Rollback as a First-Class Verb</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+          </div>
+          <div style="margin-top: 40px;">
+            <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C; border-bottom: 2px solid #191713; padding-bottom: 10px;">PART THREE &middot; ENFORCEMENT</div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">3.1</span><a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: none;">Gates, Hooks, and Other Fences</a><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">READ</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #DAD6CA; background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,0));">
+              <span style="font-size: 12px; color: #C9503C; display: flex; align-items: center; gap: 8px;"><span style="display: inline-block; width: 6px; height: 13px; background: #C9503C;"></span>3.2</span>
+              <a href="#" style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #191713; text-decoration: underline; text-decoration-color: #C9503C; text-decoration-thickness: 1.5px; text-underline-offset: 4px;">Enforcement That Selects for Compliance</a>
+              <span style="font-size: 10px; letter-spacing: 0.08em; color: #C9503C;">YOU ARE HERE</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">3.3</span><span style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #6B675C;">Trust Budgets</span><span style="font-size: 10px; letter-spacing: 0.08em; color: #C9503C;">DRAFT &middot; IN THE REPO</span></div>
+          </div>
+          <div style="margin-top: 40px;">
+            <div style="font-size: 11px; letter-spacing: 0.14em; color: #6B675C; border-bottom: 2px solid #191713; padding-bottom: 10px;">PART FOUR &middot; WORKING IN PUBLIC</div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">4.1</span><span style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #6B675C;">Publishing the Postmortem</span><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">DRAFT</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DAD6CA;"><span style="font-size: 12px; color: #6B675C;">4.2</span><span style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #6B675C;">Open Tooling</span><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">PLANNED</span></div>
+            <div style="display: grid; grid-template-columns: 56px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0;"><span style="font-size: 12px; color: #6B675C;">4.3</span><span style="font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #6B675C;">Teaching What You Just Learned</span><span style="font-size: 10px; letter-spacing: 0.08em; color: #6B675C;">PLANNED</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em;">06 &middot; DESIGN TOKENS</div>
+      <div style="width: 700px; background: #FBFAF7; border: 1px solid #C9C5B8; padding: 32px; display: flex; flex-direction: column; gap: 28px; font-size: 12px;">
+        <div>
+          <div style="font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px;">COLOR &mdash; LIGHT / DARK</div>
+          <div style="display: grid; grid-template-columns: 150px 1fr 1fr; gap: 6px 16px; line-height: 1.9;">
+            <span style="color: #6B675C;">token</span><span style="color: #6B675C;">light</span><span style="color: #6B675C;">dark</span>
+            <span>--paper</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #F7F5EF; border: 1px solid #C9C5B8; margin-right: 7px;"></span>#F7F5EF</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #171511; margin-right: 7px;"></span>#171511</span>
+            <span>--surface</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #EFECE3; border: 1px solid #C9C5B8; margin-right: 7px;"></span>#EFECE3</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #1E1B15; margin-right: 7px;"></span>#1E1B15</span>
+            <span>--ink</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #191713; margin-right: 7px;"></span>#191713</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #EDE8DC; border: 1px solid #C9C5B8; margin-right: 7px;"></span>#EDE8DC</span>
+            <span>--ink-muted</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #6B675C; margin-right: 7px;"></span>#6B675C</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #9A9485; margin-right: 7px;"></span>#9A9485</span>
+            <span>--rule</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #DAD6CA; margin-right: 7px;"></span>#DAD6CA</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #35322A; margin-right: 7px;"></span>#35322A</span>
+            <span>--accent</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #C9503C; margin-right: 7px;"></span>#C9503C</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #E06A50; margin-right: 7px;"></span>#E06A50</span>
+            <span>--code-bg</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #21201A; margin-right: 7px;"></span>#21201A</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #100F0C; margin-right: 7px;"></span>#100F0C</span>
+            <span>--code-ink</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #E8E4D8; border: 1px solid #C9C5B8; margin-right: 7px;"></span>#E8E4D8</span><span><span style="display: inline-block; width: 11px; height: 11px; background: #DDD8CB; border: 1px solid #C9C5B8; margin-right: 7px;"></span>#DDD8CB</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px;">TYPE SCALE</div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; line-height: 1.9;">
+            <span>display</span><span>Source Serif 4 &middot; 88 / 1.02 / 600 &middot; ls -0.015em (landing only)</span>
+            <span>title</span><span>Source Serif 4 &middot; 40 / 1.15 / 600 &middot; ls -0.01em</span>
+            <span>h2</span><span>Source Serif 4 &middot; 26 / 1.3 / 600</span>
+            <span>pull quote</span><span>Source Serif 4 italic &middot; 27 / 1.35 / 400</span>
+            <span>body</span><span>Source Serif 4 &middot; 19 / 1.75 / 400 (17.5 / 1.7 below 480px)</span>
+            <span>small</span><span>Source Serif 4 &middot; 16 / 1.6 / 400</span>
+            <span>meta / label</span><span>JetBrains Mono &middot; 11 / 1.6 / 500 &middot; ls 0.08&ndash;0.14em, uppercase</span>
+            <span>code</span><span>JetBrains Mono &middot; 13.5 / 1.7 / 400</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px;">SPACING &amp; MEASURE</div>
+          <div style="line-height: 1.9; color: #444136;">scale: 4 &middot; 8 &middot; 12 &middot; 16 &middot; 24 &middot; 32 &middot; 48 &middot; 64 &middot; 96 &middot; 144 px<br>measure: 620px content column at 19px &asymp; 66ch &middot; marginalia column 168px, gutter 44px<br>section break: cursor block 9&times;20px in --ink; accent variant marks quotes and live position<br>links in running text: --ink text, 1.5px underline in --accent, 3px offset; hover text turns --accent<br>links in nav/lists: no underline at rest; active page carries a 2px --accent underline</div>
+        </div>
+      </div>
+      <div style="font-size: 11px; color: #6B675C; line-height: 1.7; max-width: 700px;">Everything above is static CSS &mdash; no JS beyond Fumadocs&rsquo; theme toggle. Grid, borders, and two font families carry the whole design; well under the 100KB budget.</div>
+    </div>
+  </div>
+</section>
+</x-dc>
+</body>
+</html>

@@ -20,6 +20,16 @@
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Not started | Next.js (App Router) + Fumadocs scaffold begins after bootstrap |
 
+## Brand Track
+
+- Status: complete (BRAND-P1 through BRAND-P8, parallel SCOUT session). Logo and site design decisions are closed.
+- Track handoff and closed decisions: `design/HANDOFF-BRAND.md`
+- Build spec corrections: `design/DESIGN-BUILD-NOTES.md` — this file explicitly OVERRIDES the mockup CSS wherever they conflict. Read it before implementing any design token or component.
+- Design token value source: `design/reference/` (extracted mockup HTML/CSS)
+- Open external dependency: human designer to deliver 2 production SVGs. Not a blocker for any phase; launch requires only a typography-only wordmark and favicon.
+- Queued: export-pass work per `design/HANDOFF-BRAND.md`.
+- Pending reconciliation: the design review's 19 triaged fixes add scope to TP-002 (token file, layout, components), TP-003 (four new CI gates), and TP-004 (draft-page indexing rules). `DEVELOPMENT-PLAN.md` does not yet reflect this; SCOUT reconciles it when SITE-P1 is written.
+
 ## Environment Status
 
 - `.env.local`: does not exist; environment not yet provisioned
@@ -61,7 +71,8 @@ None.
 | Session | Date | Focus | Commit |
 |---------|------|-------|--------|
 | BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | f8dc913, b980528, 75ea816 |
-| BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | Pending |
+| BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | 9912b1a |
+| BOOT-P9 | 2026-08-25 | Brand track artifacts into repo | Pending |
 
 ## Session Notes
 
