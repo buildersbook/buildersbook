@@ -1,5 +1,5 @@
 <!-- LEAD-V FRAMEWORK -->
-# [PROJECT_NAME] — Project State
+# Builder's Book — Project State
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -8,75 +8,63 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: [DATE] (Session [N])
-> Updated by: [ROLE — e.g., IMPLEMENT after VERIFY proposal — brief description of what changed]
+> Last updated: 2026-08-24 (BOOT-P1 through BOOT-P7)
+> Updated by: IMPLEMENT — BOOT-P7 template customization
 
 ## Phase Status
 
 > The codebase is the source of truth. `DEVELOPMENT-PLAN.md` tracks planning intent; this table summarizes current phase status. When plan and repo disagree, the repo wins — reconcile the plan to match.
 
-<!-- CUSTOMIZE: Replace with your project's actual phases -->
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
-| 0 | [Infrastructure Setup] | [X done, Y partial, Z not started] | [Key details] |
-| 1 | [Phase Name] | [Status] | [Key details] |
-| 2 | [Phase Name] | [Status] | [Key details] |
+| 0 | Bootstrap | Complete pending BOOT-P7 commit | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized |
+| 1 | Site scaffold | Not started | Next.js (App Router) + Fumadocs scaffold begins after bootstrap |
 
 ## Environment Status
 
-<!-- CUSTOMIZE: Replace with your project's environment details -->
-- `.env.local`: [EXISTS / DOES NOT EXIST] — [what it contains or what's missing]
-- `.env.production`: [populated / empty / partial]
-- [Service 1, e.g., Stripe]: [Status — registered, keys configured, not configured]
-- [Service 2, e.g., Resend]: [Status]
-- [Service 3, e.g., Sentry]: [Status]
-- [Hosting, e.g., Vercel]: [Status — deployed URL, DNS status]
-- [Database, e.g., Supabase]: [Status — local dev works, production configured]
-- Build: [PASSING / FAILING] as of [DATE]
+- `.env.local`: does not exist; environment not yet provisioned
+- `.env.production`: does not exist; environment not yet provisioned
+- Site scaffold: not yet provisioned; no `package.json` exists
+- Content and search: local MDX collections and FlexSearch planned for Phase 1; not yet provisioned
+- Hosting: Vercel personal account; project pending Phase 1
+- DNS: Cloudflare for `buildersbook.dev`; configuration pending Phase 1
+- Database: none — explicitly no database at launch
+- Auth: none — no user accounts
+- Build, test, lint, and dev commands: TBD at Phase 1 site scaffold
 
 ## Known Bugs
 
-<!-- CUSTOMIZE: Track bugs as they're found. Remove when fixed. -->
-1. [Description of bug, what it affects, and what it should do instead]
-2. [Another bug]
+None.
 
 ## Current Task
 
-<!-- CUSTOMIZE: What are you actively working on right now? Be specific. -->
-[Describe the current task. Not "working on auth" but "implementing password
-reset flow — email sending is done, need to build the token verification
-endpoint and the reset form UI."]
+BOOT-P7 — customize the installed LEAD-V v5 templates for Builder's Book. Editing is complete pending human diff review and commit.
 
 ## What Was Done Last Session
 
-<!-- CUSTOMIZE: Brief narrative of what was completed most recently. -->
-- [Bullet point of what was done]
-- [Another item]
-- [Include commit hashes if relevant]
+- BOOT-P1 through BOOT-P7 on 2026-08-24.
+- Created `buildersbook/buildersbook` under the organization and pinned the repo-local Git identity.
+- Selectively installed the 14 LEAD-V v5 framework files from commit `b9805284`.
+- Customized the LEAD-V templates for Builder's Book.
 
 ## Active Blockers
 
-<!-- CUSTOMIZE: Is anything stuck or waiting? -->
-[List anything blocking progress. If nothing is blocked, write "None."]
+None.
 
 ## Immediate Next Tasks (In Order)
 
-<!-- CUSTOMIZE: What comes after the current task? Ordered by priority/dependency. -->
-1. [Highest priority next task]
-2. [Second priority]
-3. [Third priority]
+1. BOOT-P8 — commit `DEVELOPMENT-PLAN.md` and `WORKING-PROTOCOL.md`.
 
 ## Session Log
 
 <!-- Track session history. One row per session. -->
 | Session | Date | Focus | Commit |
 |---------|------|-------|--------|
-| 1 | [DATE] | [Brief description] | [hash] |
+| BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | Pending |
 
 ## Session Notes
 
-<!-- Optional — anything the next session needs to know -->
-[Warnings, context, or handoff notes. Delete this section if there's nothing to note.]
+Environment, services, and deployment are not yet provisioned. The Vercel project is pending Phase 1.
 
 ---
 
@@ -85,7 +73,7 @@ endpoint and the reset form UI."]
 ### General opener (when resuming without a specific task)
 
 ~~~
-Continuing [PROJECT_NAME] development. Follow the Session Protocol.
+Continuing Builder's Book development. Follow the Session Protocol.
 Read PROJECT_STATE.md and tell me the current status and recommended next task.
 Don't start implementation until I confirm.
 ~~~

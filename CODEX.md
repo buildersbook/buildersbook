@@ -1,8 +1,8 @@
 <!-- LEAD-V FRAMEWORK v5 -->
 <!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
-# [PROJECT_NAME] — Codex Adapter
+# Builder's Book — Codex Adapter
 
-This file is the Codex-specific entry point for [PROJECT_NAME]. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules.
+This file is the Codex-specific entry point for Builder's Book. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules.
 
 ## Rule Zero
 
@@ -47,14 +47,18 @@ Codex should read the packet, inspect the referenced files, list intended file c
 
 <!-- CUSTOMIZE: Keep under ~20 lines. Add Codex-specific commands, checks, or constraints. -->
 
-**Tech stack:** [e.g., Next.js, Supabase, Tailwind, pnpm]
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `blog` collections; FlexSearch; pnpm. No database or user accounts at launch. Styling is TBD at the Phase 1 site scaffold.
 
 **Common checks:**
-- `[e.g., pnpm typecheck]` — [purpose]
-- `[e.g., pnpm test]` — [purpose]
+- Dev: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Build: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Test: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Lint: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
 
 **Adapter preference:**
-- SCOUT: [e.g., ChatGPT / Claude.ai / Gemini]
-- IMPLEMENT: [e.g., Codex / Claude Code / Cursor]
-- VERIFY: [e.g., Codex mechanical checks / Claude Code / human]
-- ADVERSARY: [e.g., different-family reviewer for sensitive work]
+- SCOUT: Claude.ai — Opus 5 default, Fable 5 on escalation.
+- IMPLEMENT: Primary is Codex terminal / browser plugin; secondary is Claude Code (Opus 5).
+- VERIFY: Either Codex or Claude Code, read-only and propose-only.
+- ADVERSARY: Cross-family and mandatory on sensitive scope. Claude Code (Opus 5) reviews Codex work; Codex reviews Claude work. The implementing family never reviews itself on sensitive scope.
+
+**Sensitive scope:** LEAD-V sanitization for public release; public repo creation; MCP server proprietary boundary. Any work that could expose client data, proprietary business logic from the operator's other projects, or private identity material.

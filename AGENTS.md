@@ -1,6 +1,6 @@
 <!-- LEAD-V FRAMEWORK v5 -->
 <!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
-# Agent Context — [PROJECT_NAME]
+# Agent Context — Builder's Book
 
 This file primes any LLM agent (Claude Code, Codex, Cursor, and others) with universal project context. Read it first.
 
@@ -16,9 +16,10 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 <!-- CUSTOMIZE: project identity, tech stack, deployment target -->
 
-**Name:** [PROJECT_NAME]
-**Description:** [One paragraph — what this project does, who it's for, what problem it solves.]
-**Status:** [e.g., Early development, MVP, Production, Maintenance]
+**Name:** Builder's Book
+**Description:** The Builder's Book — an open curriculum for engineers who build production software by orchestrating AI coding agents. The project combines a public serialized site for essays and book content with open tooling.
+**Status:** Phase 0 bootstrap complete; Phase 1 site scaffold not yet started
+**Repository:** `buildersbook/buildersbook` (private until launch)
 
 ## Tech Stack
 
@@ -26,13 +27,16 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 | Layer | Technology |
 |-------|-----------|
-| Language | [e.g., TypeScript strict] |
-| Framework | [e.g., Next.js 15] |
-| Database | [e.g., PostgreSQL via Supabase] |
-| Auth | [e.g., Supabase Auth] |
-| Styling | [e.g., Tailwind CSS v4] |
-| Hosting | [e.g., Vercel] |
-| Package Manager | [e.g., pnpm] |
+| Language | TypeScript |
+| Framework | Next.js (App Router) + Fumadocs |
+| Content | Local MDX in-repo; typed `book` and `blog` collections |
+| Search | FlexSearch |
+| Database | None — explicitly no database at launch |
+| Auth | None — no user accounts |
+| Styling | TBD at Phase 1 site scaffold |
+| Hosting | Vercel personal account, separate from any agency team |
+| DNS | Cloudflare — `buildersbook.dev` |
+| Package Manager | pnpm |
 
 ## Roles
 
@@ -40,10 +44,10 @@ Four roles, clear handoffs. Tools are adapters. See `roles/ROLES.md` for the can
 
 | Role | Responsibility | Write authority | Example adapters |
 |------|----------------|-----------------|------------------|
-| **SCOUT** | Planning, discovery, strategy, feature scoping, Task Packet / prompt creation | None | ChatGPT/GPT, Claude.ai, Gemini, another strong planning model |
-| **IMPLEMENT** | Repo-aware execution, code changes, file edits, migrations, tests, mechanical checks | Full (only role that writes files) | Codex app, Claude Code, Cursor, another repo-aware coding agent |
-| **VERIFY** | Independent review of diffs, claims, tests, instructions, and scope adherence | None | Claude Code, Codex, ChatGPT/GPT, Gemini, human checklist review |
-| **ADVERSARY** | Different-family critical review for sensitive work, hidden assumptions, edge cases, and blind spots | None | Claude, Codex/ChatGPT, Gemini, another different-family reviewer |
+| **SCOUT** | Planning, discovery, strategy, feature scoping, Task Packet / prompt creation | None | Claude.ai — Opus 5 default, Fable 5 on escalation |
+| **IMPLEMENT** | Repo-aware execution, code changes, file edits, migrations, tests, mechanical checks | Full (only role that writes files) | Primary: Codex terminal / browser plugin; secondary: Claude Code (Opus 5) |
+| **VERIFY** | Independent review of diffs, claims, tests, instructions, and scope adherence | None | Either Codex or Claude Code, operating read-only and propose-only |
+| **ADVERSARY** | Different-family critical review for sensitive work, hidden assumptions, edge cases, and blind spots | None | Claude Code (Opus 5) reviews Codex work; Codex reviews Claude work. The implementing family never reviews itself on sensitive scope. |
 
 File changes flow through IMPLEMENT only. VERIFY and ADVERSARY report; IMPLEMENT executes.
 

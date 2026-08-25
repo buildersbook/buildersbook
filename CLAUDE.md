@@ -2,9 +2,9 @@
 
 <!-- LEAD-V FRAMEWORK v5 -->
 <!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
-# [PROJECT_NAME] — Claude Code Adapter
+# Builder's Book — Claude Code Adapter
 
-This file is the Claude Code adapter for [PROJECT_NAME]. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules; Claude Code reads it through the `@AGENTS.md` include above, then uses this file for Claude-specific execution notes.
+This file is the Claude Code adapter for Builder's Book. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules; Claude Code reads it through the `@AGENTS.md` include above, then uses this file for Claude-specific execution notes.
 
 ## Rule Zero — The Codebase Is the Only Source of Truth
 
@@ -17,7 +17,7 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 ## Project Summary
 
 <!-- CUSTOMIZE: 2 sentences max -->
-[PROJECT_NAME] is a [type of application] built with [primary tech stack]. [One sentence about what it does or who it's for.]
+Builder's Book is a public serialized site and open-tooling repository built with TypeScript, Next.js (App Router), Fumadocs, local MDX, and FlexSearch. It is an open curriculum for engineers who build production software by orchestrating AI coding agents.
 
 ## Context Files
 
@@ -37,10 +37,10 @@ Read these when the task requires them:
 
 ## Roles (summary — see `roles/ROLES.md` for canonical definitions)
 
-- **SCOUT** — Strategic Consultant. Planning, architecture, prompt or Task Packet generation.
-- **IMPLEMENT** — Senior Engineer. Writes and modifies code. Claude Code, Codex, Cursor, and other repo-aware tools can serve here.
-- **VERIFY** — Auditor. Read-only. Reports findings as text. Claude Code can run verification through `/verify`.
-- **ADVERSARY** — Cross-Model Auditor. Read-only. Required on sensitive code and should use a different model family than the planner, implementer, or verifier.
+- **SCOUT** — Strategic Consultant. Claude.ai with Opus 5 by default and Fable 5 on escalation.
+- **IMPLEMENT** — Senior Engineer. Codex terminal / browser plugin is primary; Claude Code (Opus 5) is secondary.
+- **VERIFY** — Auditor. Either Codex or Claude Code, operating read-only and propose-only. Claude Code can run verification through `/verify`.
+- **ADVERSARY** — Cross-Model Auditor. Mandatory on sensitive scope. Claude Code (Opus 5) reviews Codex work; Codex reviews Claude work. The implementing family never reviews itself on sensitive scope.
 
 VERIFY and ADVERSARY never modify files. All file changes flow through IMPLEMENT.
 
@@ -103,19 +103,22 @@ These are Claude Code adapters for LEAD-V workflow steps. Other tools should fol
 
 ---
 
-## [PROJECT-SPECIFIC: customize during /scaffold]
+## Project-Specific Context
 
-<!-- CUSTOMIZE: Fill during /scaffold. Keep under ~30 lines. -->
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `blog` collections; FlexSearch; pnpm. Styling is TBD at the Phase 1 site scaffold.
 
-**Tech stack:** [e.g., Next.js 15, Supabase, Tailwind v4, pnpm]
+**Data model:** No database and no user accounts at launch.
+
+**Repository and deployment:** `buildersbook/buildersbook` (private until launch); Vercel personal account; Cloudflare DNS for `buildersbook.dev`. Environment, services, and deployment are not yet provisioned.
 
 **Key commands:**
-- `[e.g., pnpm dev]` — [purpose]
-- `[e.g., pnpm build]` — [purpose]
-- `[e.g., pnpm typecheck]` — [purpose]
+- Dev: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Build: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Test: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+- Lint: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
 
 **Domain rules:**
-- [Project-specific rule 1]
-- [Project-specific rule 2]
+- Keep launch architecture free of database and account dependencies.
+- ADVERSARY scope: LEAD-V sanitization for public release; public repo creation; MCP server proprietary boundary. Any work that could expose client data, proprietary business logic from the operator's other projects, or private identity material.
 
-**Escalation contact:** [OPERATOR_NAME]
+**Escalation contact:** Dustin Matlock
