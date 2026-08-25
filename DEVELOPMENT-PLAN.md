@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (private until launch)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-08-24
+**Last updated:** 2026-08-25
 
 ---
 
@@ -59,7 +59,7 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 9. Measurement: Google Search Console + Bing Webmaster Tools (AI Performance dashboard) verified.
 10. Offline: versioned Markdown ZIP in GitHub Releases. Deferred: sharded search, EPUB, PWA.
 
-**Exit condition:** all CI gates pass on main; landing and about live in production; sitemap and llms.txt resolve; a sample page in each collection renders from validated frontmatter; JS budget passes. Site goes live quietly at this point — deployed but unannounced.
+**Exit condition:** all CI gates pass on main; landing and about live in production at https://buildersbook.dev (Cloudflare DNS, HTTPS resolving); sitemap and llms.txt resolve; a sample page in each collection renders from validated frontmatter; JS budget passes. Site goes live quietly at this point — deployed but unannounced.
 
 ---
 
@@ -106,10 +106,12 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 
 **Track:** Content
 **Artifacts:** TP-011 (server) · TP-012 (publish + announce)
-**Feature Brief:** FB-04 — detection-layer scope
+**Feature Brief:** FB-04 — detection-layer scope (schema.org detection, NAP consistency, technical crawlability)
 **⚠ ADVERSARY mandatory:** the proprietary boundary. Detection layer only — no weighted scoring, category architecture, or benchmarking logic from the operator's commercial work.
 
 Begins after Phase 3's announce essay ships.
+
+The server's README cross-links the site and the public framework repo.
 
 **Exit condition:** package installable from npm under the org scope; listed in the MCP registry; ADVERSARY sign-off on the proprietary boundary; announce essay live.
 
