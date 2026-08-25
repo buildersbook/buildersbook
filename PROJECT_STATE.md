@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-24 (BOOT-P1 through BOOT-P7)
-> Updated by: IMPLEMENT — BOOT-P7 template customization
+> Last updated: 2026-08-25 (BOOT-P8)
+> Updated by: IMPLEMENT — BOOT-P8 governing documents
 
 ## Phase Status
 
@@ -17,7 +17,7 @@
 
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
-| 0 | Bootstrap | Complete pending BOOT-P7 commit | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized |
+| 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Not started | Next.js (App Router) + Fumadocs scaffold begins after bootstrap |
 
 ## Environment Status
@@ -38,7 +38,7 @@ None.
 
 ## Current Task
 
-BOOT-P7 — customize the installed LEAD-V v5 templates for Builder's Book. Editing is complete pending human diff review and commit.
+Phase 1 — site scaffold, not started
 
 ## What Was Done Last Session
 
@@ -53,14 +53,15 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. BOOT-P8 — commit `DEVELOPMENT-PLAN.md` and `WORKING-PROTOCOL.md`.
+1. SITE-P1 — Fumadocs scaffold
 
 ## Session Log
 
 <!-- Track session history. One row per session. -->
 | Session | Date | Focus | Commit |
 |---------|------|-------|--------|
-| BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | Pending |
+| BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | f8dc913, b980528, 75ea816 |
+| BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | Pending |
 
 ## Session Notes
 

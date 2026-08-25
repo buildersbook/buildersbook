@@ -177,7 +177,7 @@ Read these at session start:
 <!-- CUSTOMIZE: Replace with your project's actual file names -->
 1. **This file** — `VERIFY.md` (role and rules)
 2. **`PROJECT_STATE.md`** — current phase, known bugs, next tasks
-3. **`DEVELOPMENT-PLAN.md`** — phase structure and completion criteria (scheduled for BOOT-P8)
+3. **`DEVELOPMENT-PLAN.md`** — phase structure and completion criteria
 
 Read these when the task requires them:
 
@@ -196,7 +196,7 @@ Read these when the task requires them:
 | Project | Builder's Book |
 | Framework | Next.js (App Router) + Fumadocs |
 | App directory | [e.g., apps/web/] |
-| Dev plan | `DEVELOPMENT-PLAN.md` (scheduled for BOOT-P8) |
+| Dev plan | `DEVELOPMENT-PLAN.md` |
 | State file | `PROJECT_STATE.md` |
 | Locked specs | `docs/specs/` |
 | Sensitive-code scope | LEAD-V sanitization for public release; public repo creation; MCP server proprietary boundary. Any work that could expose client data, proprietary business logic from the operator's other projects, or private identity material. |
