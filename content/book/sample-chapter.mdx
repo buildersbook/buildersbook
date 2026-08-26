@@ -1,0 +1,23 @@
+---
+title: Sample Chapter
+description: An unpublished fixture that proves the typed book pipeline without occupying a launch chapter.
+contentId: sample-chapter
+locale: en
+translationOf: null
+sourceRevision: "0"
+translationStatus: source
+publicationStatus: draft
+chapter: "0.0"
+part: Pipeline fixture
+prerequisites: []
+---
+
+This unpublished chapter exists only to verify the book renderer and content validator.
+
+## A constrained document
+
+The shared registry recognizes an internal link to the [sample essay](/essays/sample-post), and processed Markdown preserves it.
+
+```ts title="sample.ts"
+const pipeline = 'validated';
+```

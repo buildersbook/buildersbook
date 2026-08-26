@@ -6,6 +6,8 @@ import type { Metadata } from 'next';
 import { JetBrains_Mono, Source_Serif_4 } from 'next/font/google';
 import type { ReactNode } from 'react';
 
+import { SiteSearchDialog } from '@/components/search-dialog';
+
 const sourceSerif = Source_Serif_4({
   axes: ['opsz'],
   display: 'swap',
@@ -41,7 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sourceSerif.variable} ${sourceSerifItalic.variable} ${jetBrainsMono.variable}`}>
-        <RootProvider>{children}</RootProvider>
+        <RootProvider search={{ SearchDialog: SiteSearchDialog }}>{children}</RootProvider>
       </body>
     </html>
   );

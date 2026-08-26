@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@mdx-js/mdx':
+        specifier: 3.1.1
+        version: 3.1.1
       '@types/mdx':
         specifier: 2.0.14
         version: 2.0.14
@@ -42,6 +45,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.3.3
         version: 4.3.3
+      '@types/mdast':
+        specifier: 4.0.4
+        version: 4.0.4
       '@types/node':
         specifier: 26.3.0
         version: 26.3.0
@@ -64,6 +70,9 @@ importers:
         specifier: 4.23.12
         version: 4.23.12
       typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vfile:
         specifier: 6.0.3
         version: 6.0.3
 
