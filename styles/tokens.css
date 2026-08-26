@@ -35,7 +35,7 @@
   --color-fd-background: var(--paper);
   --color-fd-foreground: var(--ink);
   --color-fd-muted: var(--surface);
-  --color-fd-muted-foreground: var(--ink-muted);
+  --color-fd-muted-foreground: var(--ink-secondary);
   --color-fd-popover: var(--paper);
   --color-fd-popover-foreground: var(--ink);
   --color-fd-card: var(--surface);
@@ -55,7 +55,7 @@
   color-scheme: dark;
 
   --paper: #171511;
-  --surface: #1E1B15;
+  --surface: #29251C;
   --ink: #EDE8DC;
   --ink-muted: #9A9485;
   --ink-secondary: #B8B1A3;

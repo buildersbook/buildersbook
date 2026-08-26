@@ -659,7 +659,7 @@ pre {
   align-items: start;
   min-width: 0;
   padding: 0.625rem 1rem;
-  border-bottom: 0.0625rem solid var(--rule-strong);
+  border-bottom: 0.0625rem solid var(--code-muted);
 }
 
 .code-block-filename {
