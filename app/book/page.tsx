@@ -10,7 +10,7 @@ export default function BookIndexPage() {
   }));
 
   return (
-    <main className="stage-one-main">
+    <main id="main-content" className="stage-one-main">
       <p className="functional-label">Volume I</p>
       <h1>The Book</h1>
       <p>Published chapters link to the site. Visible drafts link explicitly to their repository source.</p>

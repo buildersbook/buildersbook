@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-26 (SITE-P3)
-> Updated by: IMPLEMENT — SITE-P3 plan reconciliation
+> Last updated: 2026-08-26 (SITE-P5)
+> Updated by: IMPLEMENT — SITE-P5 TP-002 implementation
 
 ## Phase Status
 
@@ -18,7 +18,7 @@
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
-| 1 | Site scaffold | Not started | Next.js (App Router) + Fumadocs scaffold begins after bootstrap |
+| 1 | Site scaffold | In progress | TP-002 complete; TP-003 CI gates and TP-004 discovery layer remain |
 
 ## Brand Track
 
@@ -31,15 +31,15 @@
 
 ## Environment Status
 
-- `.env.local`: does not exist; environment not yet provisioned
-- `.env.production`: does not exist; environment not yet provisioned
-- Site scaffold: not yet provisioned; no `package.json` exists
-- Content and search: local MDX collections and FlexSearch planned for Phase 1; not yet provisioned
+- `.env.local`: does not exist; no local secrets are required for TP-002
+- `.env.production`: does not exist; production environment is not yet provisioned
+- Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
+- Content and search: typed local `book` and `blog` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
 - Hosting: Vercel personal account; project pending Phase 1
 - DNS: Cloudflare for `buildersbook.dev`; configuration pending Phase 1
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
-- Build, test, lint, and dev commands: TBD at Phase 1 site scaffold
+- Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`
 
 ## Known Bugs
 
@@ -47,14 +47,15 @@ None.
 
 ## Current Task
 
-Phase 1 — site scaffold, not started
+TP-002 complete; Phase 1 site scaffold remains in progress
 
 ## What Was Done Last Session
 
-- BOOT-P1 through BOOT-P7 on 2026-08-24.
-- Created `buildersbook/buildersbook` under the organization and pinned the repo-local Git identity.
-- Selectively installed the 14 LEAD-V v5 framework files from commit `b9805284`.
-- Customized the LEAD-V templates for Builder's Book.
+- Implemented the Next.js and Fumadocs site scaffold with pinned compatible dependencies and production webpack builds.
+- Added semantic light/dark tokens, Source Serif 4 and JetBrains Mono, and responsive reading layouts.
+- Added typed book/blog collections, constrained MDX, validation, Markdown fallbacks, and static FlexSearch.
+- Added accessible marginalia, code, citation, footnote, book-index, header, search, theme, mobile-menu, landing, about, and 404 states.
+- Verified responsive behavior, keyboard interaction, theme persistence, search results, validation, lint, types, privacy scanning of repository source, and production static generation.
 
 ## Active Blockers
 
@@ -62,7 +63,8 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P4 — draft TP-002 (SCOUT), then Fumadocs scaffold (IMPLEMENT)
+1. TP-003 — CI content gates and performance budget, including the four design-review gates.
+2. TP-004 — discovery layer, including draft/planned noindex and sitemap exclusion.
 
 ## Session Log
 
@@ -73,11 +75,12 @@ None.
 | BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | 9912b1a |
 | BOOT-P9 | 2026-08-25 | Brand track artifacts into repo | b47dab9 |
 | BOOT-P11 | 2026-08-25 | Plan reconciliation per BOOT-P10.1 audit | 4f5b184 |
-| SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and private Visibility-layer removal | Pending |
+| SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and private Visibility-layer removal | 33250a4 |
+| SITE-P5 | 2026-08-26 | TP-002 Fumadocs scaffold, content foundations, reading UI, and application states | 4e2487f, 3704582, 0d0db37, bdf05d5, 0021032, this commit |
 
 ## Session Notes
 
-Environment, services, and deployment are not yet provisioned. The Vercel project is pending Phase 1.
+The local site environment is provisioned; Vercel and DNS remain pending Phase 1. Dark `--surface` remains `#1E1B15`; candidate `#29251C` awaits an operator visual decision. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
 
 ---
 
