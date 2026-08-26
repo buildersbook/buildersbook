@@ -1,4 +1,5 @@
 import { getMDXComponents } from '@/components/mdx';
+import { ContentShell } from '@/components/content-shell';
 import type { blogSource } from '@/lib/source';
 
 type BlogPage = (typeof blogSource)['$inferPage'];
@@ -7,14 +8,13 @@ export function BlogRenderer({ page }: { page: BlogPage }) {
   const Body = page.data.body;
 
   return (
-    <article className="content-page blog-page">
-      <p className="functional-label">{page.data.category}</p>
-      <h1>{page.data.title}</h1>
-      <p className="content-standfirst">{page.data.description}</p>
-      <time className="functional-label" dateTime={page.data.publishedAt}>
-        {page.data.publishedAt}
-      </time>
+    <ContentShell
+      description={page.data.description}
+      eyebrow={page.data.category}
+      metadata={<time dateTime={page.data.publishedAt}>{page.data.publishedAt}</time>}
+      title={page.data.title}
+    >
       <Body components={getMDXComponents()} />
-    </article>
+    </ContentShell>
   );
 }

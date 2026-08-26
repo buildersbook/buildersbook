@@ -4,6 +4,7 @@ import type { MDXContent } from 'mdx/types';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
+import { Marginalia } from '../../components/marginalia';
 import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
@@ -12,6 +13,7 @@ type ContentEntry = {
   body: MDXContent;
   contentId: string;
   getText: (type: 'processed') => Promise<string>;
+  getMDAST: () => Promise<{ children: Array<{ depth?: number; type: string }> }>;
   info: { path: string };
   locale: string;
   publicationStatus: 'published' | 'draft' | 'planned';
@@ -105,8 +107,18 @@ async function validateEntries(): Promise<void> {
       }
 
       invariant(entry.sourceRevision.length > 0, `${url}: sourceRevision is required.`);
-      const html = renderToStaticMarkup(createElement(entry.body, { components: {} }));
+      const html = renderToStaticMarkup(createElement(entry.body, { components: { Marginalia } }));
       const markdown = await getProcessedMarkdown(entry);
+      const tree = await entry.getMDAST();
+      const headingDepths = tree.children
+        .filter((node) => node.type === 'heading')
+        .map((node) => node.depth)
+        .filter((depth): depth is number => typeof depth === 'number');
+      let previousDepth = 1;
+      for (const depth of headingDepths) {
+        invariant(depth <= previousDepth + 1, `${url}: heading hierarchy skips from h${previousDepth} to h${depth}.`);
+        previousDepth = depth;
+      }
       invariant(html.trim().length > 0, `${url}: rendered HTML is empty.`);
       invariant(!html.includes('<script'), `${url}: rendered HTML contains a script element.`);
       invariant(markdown.trim().length > 0, `${url}: processed Markdown export is empty.`);

@@ -1,4 +1,5 @@
 import { getMDXComponents } from '@/components/mdx';
+import { ContentShell } from '@/components/content-shell';
 import type { bookSource } from '@/lib/source';
 
 type BookPage = (typeof bookSource)['$inferPage'];
@@ -7,11 +8,12 @@ export function BookRenderer({ page }: { page: BookPage }) {
   const Body = page.data.body;
 
   return (
-    <article className="content-page book-page">
-      <p className="functional-label">{page.data.part} · Chapter {page.data.chapter}</p>
-      <h1>{page.data.title}</h1>
-      <p className="content-standfirst">{page.data.description}</p>
+    <ContentShell
+      description={page.data.description}
+      eyebrow={`${page.data.part} · Chapter ${page.data.chapter}`}
+      title={page.data.title}
+    >
       <Body components={getMDXComponents()} />
-    </article>
+    </ContentShell>
   );
 }

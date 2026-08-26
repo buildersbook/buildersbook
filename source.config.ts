@@ -4,6 +4,7 @@ import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './lib/content/con
 import { blogFrontmatterSchema, bookFrontmatterSchema } from './lib/content/schemas';
 
 const postprocess = {
+  includeMDAST: true,
   includeProcessedMarkdown: {
     mdxAsPlaceholder: [...MDX_COMPONENT_ALLOWLIST],
   },
