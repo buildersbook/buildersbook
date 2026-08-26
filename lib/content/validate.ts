@@ -1,4 +1,5 @@
 import { compile } from '@mdx-js/mdx';
+import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { register } from 'fumadocs-mdx/node';
 import type { MDXContent } from 'mdx/types';
 import { createElement } from 'react';
@@ -6,7 +7,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
-import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './constrained-mdx';
+import sourceConfig from '../../source.config';
+import { MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
 
@@ -43,11 +45,27 @@ function collectInternalLinks(value: string): string[] {
   return [...links];
 }
 
+async function configuredMdxOptions() {
+  const configured = typeof sourceConfig.mdxOptions === 'function'
+    ? await sourceConfig.mdxOptions()
+    : sourceConfig.mdxOptions;
+
+  invariant(configured, 'source.config.ts must define the constrained MDX pipeline.');
+  return applyMdxPreset(configured)('bundler');
+}
+
+async function compileConfiguredFixture(source: string, label: string) {
+  return compile(
+    { path: `lib/content/fixtures/${label}.mdx`, value: source },
+    await configuredMdxOptions(),
+  );
+}
+
 async function expectDialectRejection(source: string, label: string): Promise<void> {
   let rejected = false;
 
   try {
-    await compile(source, { remarkPlugins: [remarkConstrainedMdx] });
+    await compileConfiguredFixture(source, label.replaceAll(' ', '-'));
   } catch (error) {
     rejected = error instanceof Error && error.message.includes('FB-01');
   }
@@ -56,9 +74,8 @@ async function expectDialectRejection(source: string, label: string): Promise<vo
 }
 
 async function validateDialect(): Promise<void> {
-  await compile('<Marginalia label="Context">Safe content.</Marginalia>', {
-    remarkPlugins: [remarkConstrainedMdx],
-  });
+  await compileConfiguredFixture('![Architecture diagram](/fig.png)', 'plain-markdown-image');
+  await compileConfiguredFixture('<Marginalia condensed>Safe content.</Marginalia>', 'boolean-attribute');
   await expectDialectRejection("import Thing from './thing'", 'an import');
   await expectDialectRejection('export const value = 1', 'an export');
   await expectDialectRejection('The result is {1 + 1}.', 'an inline expression');

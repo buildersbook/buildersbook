@@ -35,7 +35,10 @@ export function validateConstrainedMdxTree(tree: Root, file: VFile): void {
       }
 
       for (const attribute of node.attributes ?? []) {
-        if (attribute.type !== 'mdxJsxAttribute' || typeof attribute.value === 'object') {
+        const isLiteralAttribute = attribute.type === 'mdxJsxAttribute'
+          && (attribute.value === null || typeof attribute.value === 'string');
+
+        if (!isLiteralAttribute) {
           file.fail('FB-01 allows only literal string attributes on approved MDX components.', node.position);
         }
       }
