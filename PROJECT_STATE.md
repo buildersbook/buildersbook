@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-25 (BOOT-P8)
-> Updated by: IMPLEMENT — BOOT-P8 governing documents
+> Last updated: 2026-08-26 (SITE-P3)
+> Updated by: IMPLEMENT — SITE-P3 plan reconciliation
 
 ## Phase Status
 
@@ -28,7 +28,6 @@
 - Design token value source: `design/reference/` (extracted mockup HTML/CSS)
 - Open external dependency: human designer to deliver 2 production SVGs. Not a blocker for any phase; launch requires only a typography-only wordmark and favicon.
 - Queued: export-pass work per `design/HANDOFF-BRAND.md`.
-- Pending reconciliation: the design review's 19 triaged fixes add scope to TP-002 (token file, layout, components), TP-003 (four new CI gates), and TP-004 (draft-page indexing rules). `DEVELOPMENT-PLAN.md` does not yet reflect this; SCOUT reconciles it when SITE-P1 is written.
 
 ## Environment Status
 
@@ -63,7 +62,7 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P1 — Fumadocs scaffold
+1. SITE-P4 — draft TP-002 (SCOUT), then Fumadocs scaffold (IMPLEMENT)
 
 ## Session Log
 
@@ -73,7 +72,8 @@ None.
 | BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | f8dc913, b980528, 75ea816 |
 | BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | 9912b1a |
 | BOOT-P9 | 2026-08-25 | Brand track artifacts into repo | b47dab9 |
-| BOOT-P11 | 2026-08-25 | Plan reconciliation per BOOT-P10.1 audit | Pending |
+| BOOT-P11 | 2026-08-25 | Plan reconciliation per BOOT-P10.1 audit | 4f5b184 |
+| SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and private Visibility-layer removal | Pending |
 
 ## Session Notes
 

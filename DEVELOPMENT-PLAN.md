@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (private until launch)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-08-25
+**Last updated:** 2026-08-26
 
 ---
 
@@ -80,9 +80,11 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 ### Phase 3 — LEAD-V Public Release
 
 **Track:** Content
-**Artifacts:** TP-006 (sanitization) · TP-007 (orphaned tests) · TP-008 (ContentEntity profile) · TP-009 (adoptions) · TP-010 (public repo + announce essay) · TP-013 (framework drift fixes)
-**Feature Briefs:** FB-02 — Visibility Standard entity-type parameterization · FB-03 — installable-skill distribution
+**Artifacts:** TP-006 (sanitization) · TP-007 (orphaned tests) · TP-009 (adoptions) · TP-010 (public repo + announce essay) · TP-013 (framework drift fixes)
+**Feature Briefs:** FB-03 — installable-skill distribution
 **⚠ ADVERSARY mandatory:** TP-006 and TP-010.
+
+**Closed 2026-08-26:** the Visibility layer ships in no public artifact — private commercial scope, excluded at sanitization.
 
 **Repo shape (closed):** fresh public repo `buildersbook/lead-v` initialized from a sanitized snapshot; the private framework repo is archived read-only. Commit-level audit trail preserved as a curated `VERSION-HISTORY.md`.
 
@@ -92,13 +94,12 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
    - The scaffold command declares v4.0 while the framework declares v5.0, and it omits the v5 `/retro` command. A public framework whose installer trails its docs is not shippable.
    - Install-path references disagree: one root file expects `roles/` and `workflow/` at project root, another points at `lead-framework/workflow/...`.
    - No git tag for v5.0 — latest tag is v4.0.2. Tag the release.
-4. **ContentEntity profile (FB-02):** parameterize the Visibility Standard; buildersbook.dev becomes the first ContentEntity implementation; the audit is itself a dogfooding essay.
-5. **Adoptions (FB-03, TP-009):** installable-skill distribution, à-la-carte Task Packets + ADVERSARY pattern, CONTEXT.md shared-language layer, gated diagnosis loop, grilling step before FEATURE-BRIEF.
-6. **README positioning:** state the contrast with composable-tactics repos explicitly — LEAD-V is a complete operating system for agent-driven production work.
-7. **Gated input:** orchestration-framework landscape research. If returned, fold into 5–6; if not, proceed. One round, then ship.
-8. **Announce essay.**
+4. **Adoptions (FB-03, TP-009):** installable-skill distribution, à-la-carte Task Packets + ADVERSARY pattern, CONTEXT.md shared-language layer, gated diagnosis loop, grilling step before FEATURE-BRIEF.
+5. **README positioning:** state the contrast with composable-tactics repos explicitly — LEAD-V is a complete operating system for agent-driven production work.
+6. **Gated input:** orchestration-framework landscape research. If returned, fold into 4–5; if not, proceed. One round, then ship.
+7. **Announce essay.**
 
-**Exit condition:** `buildersbook/lead-v` public with ADVERSARY sign-off on sanitization; orphaned tests removed; drift fixes shipped and v5 tagged; ContentEntity profile live with buildersbook.dev as its implementation; announce essay published; private repo archived.
+**Exit condition:** `buildersbook/lead-v` public with ADVERSARY sign-off on sanitization; orphaned tests removed; drift fixes shipped and v5 tagged; announce essay published; private repo archived.
 
 ---
 
@@ -123,9 +124,8 @@ Sources: `failure-modes.md` (11 documented failures), `retro-log.md`, task packe
 
 1. Same-Family Blind Spot (Failure 10)
 2. LEAD-V release announce (Phase 3)
-3. ContentEntity dogfooding audit (Phase 3)
-4. MCP server announce (Phase 4)
-5. Further extractions as evidence permits
+3. MCP server announce (Phase 4)
+4. Further extractions as evidence permits
 
 Each essay is a Task Packet and counts against the two-artifact WIP cap.
 
@@ -145,20 +145,18 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 | ID | Artifact | Phase | ADVERSARY |
 |---|---|---|---|
 | TP-001 | Repo bootstrap | 0 ✅ | — |
-| TP-002 | Fumadocs scaffold + collections | 1 | — |
-| TP-003 | CI content gates + perf budget | 1 | — |
-| TP-004 | Discovery layer | 1 | — |
+| TP-002 | Fumadocs scaffold + collections — includes design-token file seeded from `design/reference/` per `DESIGN-BUILD-NOTES.md` §1–5, and layout/component/state requirements per §6–14. Build notes override mockup values on conflict. Note: mockup CSS is inline `style=""` attributes plus a rendered token table, not a `<style>` block. | 1 | — |
+| TP-003 | CI content gates + perf budget — plus the four design-review CI gates per `DESIGN-BUILD-NOTES.md` §15–18 (no-raw-values lint, token contrast test with review failures as regression fixtures, 11px functional floor, heading hierarchy). | 1 | — |
+| TP-004 | Discovery layer — plus draft/planned-chapter noindex + sitemap exclusion per `DESIGN-BUILD-NOTES.md` §19. | 1 | — |
 | TP-005 | Essay #1 | 2 | — |
 | TP-006 | LEAD-V sanitization | 3 | **Yes** |
 | TP-007 | Orphaned-tests fix | 3 | — |
-| TP-008 | ContentEntity profile | 3 | — |
 | TP-009 | Adoptions | 3 | — |
 | TP-010 | Public repo + announce | 3 | **Yes** |
 | TP-011 | MCP server | 4 | **Yes** |
 | TP-012 | npm publish + announce | 4 | — |
 | TP-013 | Framework drift fixes | 3 | — |
 | FB-01 | Constrained MDX dialect | 1 | — |
-| FB-02 | Visibility Standard parameterization | 3 | — |
 | FB-03 | Installable-skill distribution | 3 | — |
 | FB-04 | MCP detection-layer scope | 4 | **Yes** |
 
@@ -169,3 +167,5 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 - [ ] Orchestration-framework landscape research: gated input to TP-009, one round.
 - [ ] Vercel Hobby terms: revisit if a "Work with me" page ships (phase-3 site scope, currently out of plan).
 - [ ] Reserved-handle recheck on/after 2026-09-23 (brand track).
+- [ ] Framework rename (decided in principle, name open): collision checks (npm/GitHub/trademark) then close at Phase 3 kickoff; rename + sanitization execute as one pass before TP-006.
+- [ ] Private-identifier manifest: populated by the operator outside the repo (see `scripts/check-private.sh` header); CI wiring lands in TP-003.
