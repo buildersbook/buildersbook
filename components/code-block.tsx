@@ -22,7 +22,12 @@ export function CodeBlock({ children, title, ...props }: CodeBlockProps) {
         <span className="code-block-filename functional-label">{title ?? 'Code'}</span>
         <CodeCopyButton value={value} />
       </figcaption>
-      <pre {...props} tabIndex={0} aria-label={title ? `Code: ${title}` : 'Code sample'}>
+      <pre
+        {...props}
+        tabIndex={0}
+        aria-label={title ? `Code: ${title}` : 'Code sample'}
+        role="region"
+      >
         {children}
       </pre>
     </figure>

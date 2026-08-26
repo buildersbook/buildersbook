@@ -15,4 +15,6 @@ export const blogSource = loader({
   source: toFumadocsSource(englishBlog, []),
 });
 
-export const contentPages = [...bookSource.getPages(), ...blogSource.getPages()];
+export const contentPages = [...bookSource.getPages(), ...blogSource.getPages()].filter(
+  (page) => page.data.publicationStatus === 'published',
+);

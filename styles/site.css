@@ -37,7 +37,7 @@ a:hover {
   text-underline-offset: 0.25rem;
 }
 
-:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 0.125rem solid var(--accent);
   outline-offset: 0.1875rem;
   box-shadow: 0 0 0 0.0625rem var(--paper);
@@ -489,7 +489,7 @@ samp,
   margin-inline-start: 0.5rem;
   color: var(--ink-muted);
   font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.55em;
+  font-size: max(0.6875rem, 0.55em);
   font-weight: 500;
   opacity: 0;
   text-decoration: none;
@@ -529,7 +529,7 @@ samp,
   margin-bottom: 0;
 }
 
-@media (max-width: 56.999rem) {
+@media (max-width: 57rem) {
   .content-shell {
     width: 100%;
     padding: 3.5rem 0 5rem;
@@ -586,7 +586,9 @@ samp,
   .marginalia {
     margin: 0.25rem 0 1.75rem;
   }
+}
 
+@media (hover: none) {
   .heading-anchor {
     opacity: 1;
   }
@@ -628,10 +630,6 @@ pre {
   color: var(--code-ink);
 }
 
-.dark pre {
-  border-color: var(--ink-muted);
-}
-
 .visually-hidden {
   position: absolute;
   width: 0.0625rem;
@@ -670,10 +668,21 @@ pre {
 
 .code-copy-button {
   flex: none;
+  padding: 0.125rem 0.25rem;
   border: 0;
   background: transparent;
   color: var(--code-ink);
   cursor: pointer;
+}
+
+.code-copy-button[data-state='copied'] {
+  background: var(--code-ink);
+  color: var(--code-bg);
+}
+
+.code-copy-button[data-state='failed'] {
+  outline: 0.125rem solid var(--accent);
+  outline-offset: 0.125rem;
 }
 
 .code-copy-button:hover {

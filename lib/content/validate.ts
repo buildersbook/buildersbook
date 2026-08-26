@@ -34,15 +34,65 @@ function slugFromPath(path: string): string {
   return path.replace(/\.(?:md|mdx)$/, '').replace(/\/index$/, '');
 }
 
-function collectInternalLinks(value: string): string[] {
-  const links = new Set<string>();
-  const patterns = [/href=["'](\/[^"'#?]*)/g, /\]\((\/[^)#?]*)/g];
+function normalizeInternalLink(href: string, currentUrl: string): string | null {
+  const candidate = href.trim().replace(/^<|>$/g, '');
+  if (!candidate || candidate.startsWith('#') || candidate.startsWith('//')) return null;
 
-  for (const pattern of patterns) {
-    for (const match of value.matchAll(pattern)) links.add(match[1].replace(/\/$/, '') || '/');
+  try {
+    const url = new URL(candidate, `https://buildersbook.dev${currentUrl}`);
+    if (url.origin !== 'https://buildersbook.dev') return null;
+    return url.pathname.replace(/\/$/, '') || '/';
+  } catch {
+    return null;
+  }
+}
+
+function normalizeReferenceLabel(label: string): string {
+  return label.trim().replace(/\s+/g, ' ').toLowerCase();
+}
+
+function collectInternalLinks(value: string, currentUrl: string): string[] {
+  const links = new Set<string>();
+  const destinations = [
+    ...value.matchAll(/href=["']([^"']+)["']/g),
+    ...value.matchAll(/(?<!!)\[[^\]]+\]\(\s*(<?[^\s)>]+>?)/g),
+  ];
+
+  for (const match of destinations) {
+    const link = normalizeInternalLink(match[1], currentUrl);
+    if (link) links.add(link);
+  }
+
+  const definitions = new Map<string, string>();
+  for (const match of value.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*(<?[^\s>]+>?)/gm)) {
+    definitions.set(normalizeReferenceLabel(match[1]), match[2]);
+  }
+
+  for (const match of value.matchAll(/(?<!!)\[([^\]]+)\]\[([^\]]*)\]/g)) {
+    const label = normalizeReferenceLabel(match[2] || match[1]);
+    const destination = definitions.get(label);
+    if (!destination) continue;
+    const link = normalizeInternalLink(destination, currentUrl);
+    if (link) links.add(link);
   }
 
   return [...links];
+}
+
+function validateInternalLinkCollection(): void {
+  const links = collectInternalLinks(
+    [
+      '<a href="./related?view=full#notes">Relative HTML link</a>',
+      '[Relative Markdown link](../book)',
+      '[Reference-style link][sample chapter]',
+      '[sample chapter]: ../book/sample-chapter#opening',
+    ].join('\n'),
+    '/essays/sample-post',
+  );
+
+  invariant(links.includes('/essays/related'), 'Relative HTML links must be collected.');
+  invariant(links.includes('/book'), 'Relative Markdown links must be collected.');
+  invariant(links.includes('/book/sample-chapter'), 'Reference-style links must be collected.');
 }
 
 async function configuredMdxOptions() {
@@ -104,6 +154,16 @@ async function validateEntries(): Promise<void> {
     }
   }
 
+  const { contentPages } = await import('../source');
+  const indexedUrls = new Set(contentPages.map((page) => page.url));
+  const draftUrls = groups.flatMap((group) => group.entries
+    .filter((entry) => entry.publicationStatus === 'draft')
+    .map((entry) => `${group.baseUrl}/${slugFromPath(entry.info.path)}`));
+  invariant(draftUrls.length > 0, 'The search exclusion test requires at least one draft fixture.');
+  for (const url of draftUrls) {
+    invariant(!indexedUrls.has(url), `Draft slug leaked into the search index: ${url}`);
+  }
+
   const identities = new Set<string>();
   const urls = new Set<string>();
 
@@ -143,7 +203,10 @@ async function validateEntries(): Promise<void> {
       invariant(!html.includes('<script'), `${url}: rendered HTML contains a script element.`);
       invariant(markdown.trim().length > 0, `${url}: processed Markdown export is empty.`);
 
-      for (const link of [...collectInternalLinks(html), ...collectInternalLinks(markdown)]) {
+      for (const link of [
+        ...collectInternalLinks(html, url),
+        ...collectInternalLinks(markdown, url),
+      ]) {
         invariant(knownTargets.has(link), `${url}: broken internal link to ${link}`);
       }
     }
@@ -153,6 +216,7 @@ async function validateEntries(): Promise<void> {
   invariant(collections.blog.length > 0, 'The blog collection needs a pipeline fixture.');
 }
 
+validateInternalLinkCollection();
 await validateDialect();
 await validateEntries();
 
