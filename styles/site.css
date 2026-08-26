@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-source-serif), serif;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 0.09375rem;
+  text-underline-offset: 0.1875rem;
+}
+
+a:hover {
+  color: var(--ink);
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.25rem;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 0.125rem solid var(--accent);
+  outline-offset: 0.1875rem;
+  box-shadow: 0 0 0 0.0625rem var(--paper);
+}
+
+em,
+i {
+  font-family: var(--font-source-serif-italic), serif;
+}
+
+code,
+kbd,
+samp,
+.mono {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+.functional-label {
+  color: var(--ink-muted);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.surface-strip {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.stage-one-main {
+  width: min(100% - 2.5rem, 45rem);
+  margin: 0 auto;
+  padding: 6rem 0;
+}
+
+.stage-one-main h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.stage-one-main p {
+  max-width: 35rem;
+  margin: 2rem 0 0;
+  color: var(--ink-secondary);
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+pre {
+  border: 0.0625rem solid transparent;
+  background: var(--code-bg);
+  color: var(--code-ink);
+}
+
+.dark pre {
+  border-color: var(--ink-muted);
+}

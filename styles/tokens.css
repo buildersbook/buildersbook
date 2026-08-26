@@ -1,0 +1,68 @@
+@import 'fumadocs-ui/css/style.css';
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-accent: var(--accent);
+  --color-code-bg: var(--code-bg);
+  --color-code-ink: var(--code-ink);
+  --color-code-muted: var(--code-muted);
+  --font-serif: var(--font-source-serif);
+  --font-serif-italic: var(--font-source-serif-italic);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+:root {
+  color-scheme: light;
+
+  --paper: #F7F5EF;
+  --surface: #E3E1D9;
+  --ink: #191713;
+  --ink-muted: #6B675C;
+  --ink-secondary: #444136;
+  --rule: #DAD6CA;
+  --rule-strong: #C9C5B8;
+  --accent: #C9503C;
+  --code-bg: #21201A;
+  --code-ink: #E8E4D8;
+  --code-muted: #9A9485;
+
+  --color-fd-background: var(--paper);
+  --color-fd-foreground: var(--ink);
+  --color-fd-muted: var(--surface);
+  --color-fd-muted-foreground: var(--ink-muted);
+  --color-fd-popover: var(--paper);
+  --color-fd-popover-foreground: var(--ink);
+  --color-fd-card: var(--surface);
+  --color-fd-card-foreground: var(--ink);
+  --color-fd-border: var(--rule);
+  --color-fd-primary: var(--ink);
+  --color-fd-primary-foreground: var(--paper);
+  --color-fd-secondary: var(--surface);
+  --color-fd-secondary-foreground: var(--ink);
+  --color-fd-accent: var(--surface);
+  --color-fd-accent-foreground: var(--ink);
+  --color-fd-ring: var(--accent);
+  --color-fd-overlay: color-mix(in srgb, var(--ink) 20%, transparent);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --paper: #171511;
+  --surface: #1E1B15;
+  --ink: #EDE8DC;
+  --ink-muted: #9A9485;
+  --ink-secondary: #B8B1A3;
+  --rule: #35322A;
+  --rule-strong: #423E35;
+  --accent: #E06A50;
+  --code-bg: #100F0C;
+  --code-ink: #DDD8CB;
+  --code-muted: #9A9485;
+}

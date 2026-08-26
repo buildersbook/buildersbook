@@ -1,8 +1,36 @@
-import 'fumadocs-ui/css/style.css';
+import '../styles/tokens.css';
+import '../styles/site.css';
 
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { Metadata } from 'next';
+import { JetBrains_Mono, Source_Serif_4 } from 'next/font/google';
 import type { ReactNode } from 'react';
+
+const sourceSerif = Source_Serif_4({
+  axes: ['opsz'],
+  display: 'swap',
+  subsets: ['latin'],
+  style: 'normal',
+  variable: '--font-source-serif',
+  weight: 'variable',
+});
+
+const sourceSerifItalic = Source_Serif_4({
+  axes: ['opsz'],
+  display: 'swap',
+  subsets: ['latin'],
+  style: 'italic',
+  variable: '--font-source-serif-italic',
+  weight: 'variable',
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  display: 'swap',
+  subsets: ['latin'],
+  style: 'normal',
+  variable: '--font-jetbrains-mono',
+  weight: ['400', '500', '700'],
+});
 
 export const metadata: Metadata = {
   title: "Builder's Book",
@@ -12,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={`${sourceSerif.variable} ${sourceSerifItalic.variable} ${jetBrainsMono.variable}`}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
