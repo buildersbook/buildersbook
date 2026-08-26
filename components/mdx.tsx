@@ -2,6 +2,8 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
+import { CodeBlock } from './code-block';
+import { Citation, Footnote, Footnotes } from './footnotes';
 import { Marginalia } from './marginalia';
 
 function textContent(node: ReactNode): string {
@@ -49,6 +51,10 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     h2: H2,
     h3: H3,
     h4: H4,
+    pre: CodeBlock,
+    Citation,
+    Footnote,
+    Footnotes,
     Marginalia,
     ...components,
   };

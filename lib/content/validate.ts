@@ -4,6 +4,7 @@ import type { MDXContent } from 'mdx/types';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
+import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
 import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
@@ -107,7 +108,9 @@ async function validateEntries(): Promise<void> {
       }
 
       invariant(entry.sourceRevision.length > 0, `${url}: sourceRevision is required.`);
-      const html = renderToStaticMarkup(createElement(entry.body, { components: { Marginalia } }));
+      const html = renderToStaticMarkup(
+        createElement(entry.body, { components: { Citation, Footnote, Footnotes, Marginalia } }),
+      );
       const markdown = await getProcessedMarkdown(entry);
       const tree = await entry.getMDAST();
       const headingDepths = tree.children
