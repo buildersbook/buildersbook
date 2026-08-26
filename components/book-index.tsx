@@ -1,24 +1,38 @@
 import Link from 'next/link';
 
-type BookIndexEntry = {
-  href?: string;
+type IndexEntryBase = {
   number: string;
-  repositoryUrl?: string;
-  state: 'draft' | 'planned' | 'published';
   title: string;
 };
 
+export type BookIndexEntry = IndexEntryBase & ({
+  href: string;
+  repositoryUrl?: never;
+  state: 'published';
+} | {
+  href?: never;
+  repositoryUrl: string;
+  state: 'draft';
+} | {
+  href?: never;
+  repositoryUrl?: never;
+  state: 'planned';
+});
+
+type BookIndexProps = {
+  ariaLabel?: string;
+  entries: BookIndexEntry[];
+};
+
 function ChapterTitle({ entry }: { entry: BookIndexEntry }) {
-  if (entry.state === 'published' && entry.href) return <Link href={entry.href}>{entry.title}</Link>;
-  if (entry.state === 'draft' && entry.repositoryUrl) {
-    return <a href={entry.repositoryUrl}>{entry.title}</a>;
-  }
+  if (entry.state === 'published') return <Link href={entry.href}>{entry.title}</Link>;
+  if (entry.state === 'draft') return <a href={entry.repositoryUrl}>{entry.title}</a>;
   return <span>{entry.title}</span>;
 }
 
-export function BookIndex({ entries }: { entries: BookIndexEntry[] }) {
+export function BookIndex({ ariaLabel = 'Book chapters', entries }: BookIndexProps) {
   return (
-    <ol className="book-index" aria-label="Book chapters">
+    <ol className="book-index" aria-label={ariaLabel}>
       {entries.map((entry) => (
         <li className="book-index-row" key={`${entry.number}-${entry.title}`}>
           <span className="book-index-number mono">{entry.number}</span>

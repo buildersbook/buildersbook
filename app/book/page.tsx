@@ -1,13 +1,28 @@
-import { BookIndex } from '@/components/book-index';
-import { book } from '@/.source/server';
+import { BookIndex, type BookIndexEntry } from '@/components/book-index';
+import { repositoryUrl } from '@/lib/navigation';
+import { bookSource } from '@/lib/source';
 
 export default function BookIndexPage() {
-  const chapters = book.map((entry) => ({
-    number: entry.chapter,
-    repositoryUrl: `https://github.com/buildersbook/buildersbook/blob/main/${entry.info.fullPath}`,
-    state: entry.publicationStatus,
-    title: entry.title,
-  }));
+  const chapters = bookSource.getPages().map((page): BookIndexEntry => {
+    const entry = {
+      number: page.data.chapter,
+      title: page.data.title,
+    };
+
+    if (page.data.publicationStatus === 'published') {
+      return { ...entry, href: `/book/${page.slugs.join('/')}`, state: 'published' };
+    }
+
+    if (page.data.publicationStatus === 'draft') {
+      return {
+        ...entry,
+        repositoryUrl: `${repositoryUrl}/blob/main/${page.data.info.fullPath}`,
+        state: 'draft',
+      };
+    }
+
+    return { ...entry, state: 'planned' };
+  });
 
   return (
     <main id="main-content" className="stage-one-main">
