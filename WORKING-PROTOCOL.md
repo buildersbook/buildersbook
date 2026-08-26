@@ -42,6 +42,7 @@ commits. IMPLEMENT is the sole writer.
 
 - The operator runs all prompts and performs all `git push` operations manually. **Nothing else is manual** — file manipulation, shell work, and repo operations short of push are delegated to agents.
 - Agents commit only with explicit authorization. Agents never push.
+- For non-sensitive scope, a single IMPLEMENT prompt may carry a multi-stage packet with checkpoint commits pre-authorized against a declared file scope, provided every stage is mechanically verifiable and a cross-family VERIFY runs on the full range before push. Sensitive scope (sanitization, public-repo cuts, proprietary boundaries) remains one-prompt-at-a-time. Agents never push.
 - **Identity gate:** every commit is authored from the personal account via the repo-local git identity pin, which overrides global config regardless of shell state. Verify authorship after committing and before pushing.
 - Credentials, payments, and 2FA are handled by the operator personally. Agents operate inside already-authenticated browser sessions or with scoped tokens. Tokens are never pasted into chat.
 - Private identity material never enters any repo, prompt, or agent context.

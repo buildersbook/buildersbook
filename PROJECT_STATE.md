@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-26 (SITE-P5)
-> Updated by: IMPLEMENT — SITE-P5 TP-002 implementation
+> Last updated: 2026-08-26 (SITE-P7)
+> Updated by: IMPLEMENT — SITE-P7 SITE-P6 findings resolution
 
 ## Phase Status
 
@@ -47,15 +47,15 @@ None.
 
 ## Current Task
 
-TP-002 complete; Phase 1 site scaffold remains in progress
+SITE-P7 fix batch complete; Phase 1 site scaffold remains in progress
 
 ## What Was Done Last Session
 
-- Implemented the Next.js and Fumadocs site scaffold with pinned compatible dependencies and production webpack builds.
-- Added semantic light/dark tokens, Source Serif 4 and JetBrains Mono, and responsive reading layouts.
-- Added typed book/blog collections, constrained MDX, validation, Markdown fallbacks, and static FlexSearch.
-- Added accessible marginalia, code, citation, footnote, book-index, header, search, theme, mobile-menu, landing, about, and 404 states.
-- Verified responsive behavior, keyboard interaction, theme persistence, search results, validation, lint, types, privacy scanning of repository source, and production static generation.
+- Enforced published, draft, and planned index behavior with a discriminated union and added a real essays index.
+- Moved constrained-MDX validation ahead of framework transforms and tested the configured Fumadocs pipeline.
+- Closed the dark-surface decision, corrected Fumadocs muted text and code-header contrast, and hardened focus, heading-anchor, copy-state, code-region, and responsive-grid behavior.
+- Excluded draft pages from the static search input and extended content validation for draft exclusion plus relative and reference-style links.
+- Amended the working protocol to allow mechanically verifiable, pre-authorized checkpoint batches on non-sensitive scope.
 
 ## Active Blockers
 
@@ -76,11 +76,13 @@ None.
 | BOOT-P9 | 2026-08-25 | Brand track artifacts into repo | b47dab9 |
 | BOOT-P11 | 2026-08-25 | Plan reconciliation per BOOT-P10.1 audit | 4f5b184 |
 | SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and private Visibility-layer removal | 33250a4 |
-| SITE-P5 | 2026-08-26 | TP-002 Fumadocs scaffold, content foundations, reading UI, and application states | 4e2487f, 3704582, 0d0db37, bdf05d5, 0021032, this commit |
+| SITE-P5 | 2026-08-26 | TP-002 Fumadocs scaffold, content foundations, reading UI, and application states | 4e2487f, 3704582, 0d0db37, bdf05d5, 0021032, a57293b |
+| SITE-P6 | 2026-08-26 | Independent VERIFY of SITE-P5 — FAIL (H-1, M-1–M-5, L-1–L-12) | — |
+| SITE-P7 | 2026-08-26 | Resolve the complete SITE-P6 findings batch | f736b95, b09761b, 16e92e5, 8379c43, this commit |
 
 ## Session Notes
 
-The local site environment is provisioned; Vercel and DNS remain pending Phase 1. Dark `--surface` remains `#1E1B15`; candidate `#29251C` awaits an operator visual decision. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
+The local site environment is provisioned; Vercel and DNS remain pending Phase 1. The operator closed the dark-surface decision at `#29251C` on 2026-08-26. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
 
 ---
 
