@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-27 (SITE-P11.1)
-> Updated by: IMPLEMENT — SITE-P11.1 findings batch
+> Last updated: 2026-08-27 (SITE-P11.3)
+> Updated by: IMPLEMENT — SITE-P11.3 findings closure
 
 ## Phase Status
 
@@ -18,7 +18,7 @@
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
-| 1 | Site scaffold | In progress | TP-002, TP-003, and TP-004 complete; SITE-P11.1 follow-up VERIFY and production deployment remain |
+| 1 | Site scaffold | In progress | TP-002, TP-003, and TP-004 complete; SITE-P11.2 VERIFY and SITE-P11.3 findings closure complete; production deployment remains |
 
 ## Brand Track
 
@@ -47,14 +47,14 @@ None.
 
 ## Current Task
 
-SITE-P11.1 findings batch complete on local `main`; awaiting cross-family VERIFY of the follow-up range
+SITE-P11.2 cross-family VERIFY is complete (PASS WITH FINDINGS), and SITE-P11.3 closes or records every finding. SITE-P11.1 is pushed and CI run 33076857085 is green; next is SITE-P12 deploy.
 
 ## What Was Done Last Session
 
-- Closed every generated-source import form outside the two audit exceptions and verified all four boundary probes fail lint.
-- Replaced design fixtures with repository-wide raw-value and font-size invariants; added the missing light-mode contrast regression pairs.
-- Derived discovery exclusions and positive assertions from the live unpublished and published page sets.
-- Added the IndexNow route invariant, Lighthouse ignore, main-only push CI with concurrency, and documentation/state reconciliation from SITE-P11.
+- Closed dynamic-import, TypeScript import-query, and `createRequire` bypasses in the generated-source boundary while preserving the two audit exceptions.
+- Converted raw design-value and functional-text scans to repository-root walks with explicit, documented exclusions.
+- Declared the empty published-page set as an intentional Phase 1 state and replaced substring discovery checks with exact pathname-set membership.
+- Verified the SITE-P11.1 push at `4dd0940` and successful CI run 33076857085, then recorded the F-5/F-6 dispositions.
 
 ## Active Blockers
 
@@ -66,14 +66,12 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P11.2 cross-family VERIFY of the SITE-P11.1 four-commit range.
-2. Operator push local `main` after VERIFY passes.
-3. SITE-P12 deploy: Vercel, Cloudflare DNS, Google Search Console, and Bing Webmaster Tools with operator checkpoints.
-4. Run the Phase 1 exit check.
+1. SITE-P12 deploy: Vercel, Cloudflare DNS, Google Search Console, and Bing Webmaster Tools with operator checkpoints.
+2. Run the Phase 1 exit check.
 
 ## Session Log
 
-<!-- Track session history. One row per session. -->
+<!-- Track session history. One row per session. Each session's first records commit pins the prior batch's "this commit" placeholder to its final SHA. -->
 | Session | Date | Focus | Commit |
 |---------|------|-------|--------|
 | BOOT-P1–BOOT-P7 | 2026-08-24 | Repository bootstrap, LEAD-V v5 selective install, and template customization | f8dc913, b980528, 75ea816 |
@@ -90,7 +88,9 @@ None.
 | SITE-P10.1 | 2026-08-27 | Amend the batch clause per the operator's 2026-08-26 decision; SITE-P10 correctly halted on the mismatch | 9ac2447 |
 | SITE-P10 | 2026-08-27 | TP-003 CI/hardening and TP-004 publication/discovery batch | 56cfedf, cf10a9c, 76ce826, 4910abe, 849e384, ed6d615 |
 | SITE-P11 | 2026-08-27 | Cross-family VERIFY of SITE-P10 — PASS WITH FINDINGS (H-1, M-1–M-4, L-1–L-7) | — |
-| SITE-P11.1 | 2026-08-27 | Resolve the SITE-P11 boundary, invariant-gate, discovery-test, and hygiene findings | 68b8243, c4ede2d, 7b1c250, this commit |
+| SITE-P11.1 | 2026-08-27 | Resolve the SITE-P11 boundary, invariant-gate, discovery-test, and hygiene findings | 68b8243, c4ede2d, 7b1c250, 4dd0940 |
+| SITE-P11.2 | 2026-08-27 | Cross-family VERIFY of SITE-P11.1 — PASS WITH FINDINGS (F-1–F-7) | — |
+| SITE-P11.3 | 2026-08-27 | Close F-1–F-4 and F-7; record the accepted F-5/F-6 dispositions | 9f66d67, 3517642, 5ac4f90, 1ad266e, this commit |
 
 ## Session Notes
 
