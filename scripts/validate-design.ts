@@ -17,10 +17,15 @@ function walk(directory: string): string[] {
 }
 
 function validateRawValues(): void {
-  const roots = ['app', 'components', 'content', 'lib', 'styles'];
+  const roots = ['app', 'components', 'content', 'lib', 'scripts', 'styles'];
   const files = roots.flatMap((root) => walk(join(repoRoot, root)))
-    .concat(join(repoRoot, 'source.config.ts'))
-    .filter((path) => /\.(?:css|mdx|ts|tsx)$/.test(path))
+    .concat(
+      join(repoRoot, 'source.config.ts'),
+      join(repoRoot, 'mdx-components.tsx'),
+      join(repoRoot, 'next.config.mjs'),
+      join(repoRoot, 'postcss.config.mjs'),
+    )
+    .filter((path) => /\.(?:cjs|css|js|mdx|mjs|ts|tsx)$/.test(path))
     .filter((path) => path !== join(repoRoot, 'styles/tokens.css'));
   const colorLiteral = /#[\da-f]{3,8}\b|(?:rgb|hsl|oklch)a?\([^)]*\)/gi;
   const arbitraryTailwindColor = /\b(?:bg|text|border|outline|ring|fill|stroke)-\[[^\]]*(?:#|rgba?\(|hsla?\(|oklch\()/gi;
@@ -89,6 +94,8 @@ function validateContrast(): void {
   }
 
   const regressions = [
+    ['light', 'accent', 'paper', 4.5, 4.1],
+    ['light', 'ink-muted', 'code-bg', 4.5, 2.89],
     ['light', 'ink-muted', 'surface', 4.5, 4.31],
     ['dark', 'rule-strong', 'code-bg', 3, 1.8],
     ['dark', 'code-bg', 'paper', 3, 1.05],
@@ -100,29 +107,75 @@ function validateContrast(): void {
   }
 }
 
-function fontSizeToPixels(value: string, parentPixels: number): number {
-  const candidates = value.startsWith('max(')
-    ? value.slice(4, -1).split(',').map((part) => part.trim())
-    : [value];
-  const pixels = candidates.map((candidate) => {
-    if (candidate.endsWith('rem')) return Number.parseFloat(candidate) * 16;
-    if (candidate.endsWith('em')) return Number.parseFloat(candidate) * parentPixels;
-    if (candidate.endsWith('px')) return Number.parseFloat(candidate);
-    throw new Error(`Unsupported functional font-size value: ${candidate}`);
-  });
-  return value.startsWith('max(') ? Math.max(...pixels) : pixels[0];
+function fontSizeToPixels(value: string, parentPixels?: number): number {
+  const normalized = value.trim().toLowerCase();
+  if (normalized.startsWith('clamp(') && normalized.endsWith(')')) {
+    const [minimum] = normalized.slice(6, -1).split(',').map((part) => part.trim());
+    return fontSizeToPixels(minimum, parentPixels);
+  }
+  if (normalized.startsWith('max(') && normalized.endsWith(')')) {
+    const candidates = normalized.slice(4, -1).split(',').map((part) => part.trim());
+    return Math.max(...candidates.map((candidate) => fontSizeToPixels(candidate, parentPixels)));
+  }
+  if (normalized.endsWith('rem')) return Number.parseFloat(normalized) * 16;
+  if (normalized.endsWith('em')) {
+    if (parentPixels === undefined) throw new Error('em size requires an explicit parent-size fixture');
+    return Number.parseFloat(normalized) * parentPixels;
+  }
+  if (normalized.endsWith('px')) return Number.parseFloat(normalized);
+  throw new Error(`unsupported font-size value: ${value}`);
 }
 
 function validateFunctionalTextFloor(): void {
   const source = readFileSync(join(repoRoot, 'styles/site.css'), 'utf8');
-  const checks = [
+  const parentFixtures = [
     ['.functional-label', 16],
     ['.heading-anchor', 19],
     ['.book-index-number', 16],
     ['.footnote-ref', 17],
   ] as const;
+  const parentPixelsBySelector = new Map<string, number>(parentFixtures);
+  const exemptions = new Map([
+    ['.static-page h1 .wordmark', {
+      expectedValue: 'inherit',
+      reason: 'decorative wordmark inherits the large static-page heading size',
+    }],
+  ]);
+  const exercisedExemptions = new Set<string>();
 
-  for (const [selector, parentPixels] of checks) {
+  for (const rule of source.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const selectors = rule[1].trim().split(',').map((selector) => selector.trim());
+    const declarations = [...rule[2].matchAll(/font-size\s*:\s*([^;}{]+)/gi)];
+    for (const declaration of declarations) {
+      const value = declaration[1].trim();
+      for (const selector of selectors) {
+        const exemption = exemptions.get(selector);
+        if (exemption) {
+          exercisedExemptions.add(selector);
+          invariant(
+            value === exemption.expectedValue,
+            `${selector}: exemption only permits ${exemption.expectedValue} (${exemption.reason})`,
+          );
+          continue;
+        }
+
+        try {
+          invariant(
+            fontSizeToPixels(value, parentPixelsBySelector.get(selector)) >= 11,
+            `${selector}: font-size ${value} computes below the 11px floor`,
+          );
+        } catch (error) {
+          invariant(false, `${selector}: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      }
+    }
+  }
+
+  for (const selector of exemptions.keys()) {
+    invariant(exercisedExemptions.has(selector), `${selector}: stale functional-text exemption`);
+  }
+
+  for (const [selector, parentPixels] of parentFixtures) {
     const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const body = source.match(new RegExp(`${escaped}\\s*\\{([\\s\\S]*?)\\}`))?.[1] ?? '';
     const value = body.match(/font-size\s*:\s*([^;]+)/)?.[1]?.trim();
