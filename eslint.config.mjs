@@ -11,7 +11,7 @@ export default defineConfig([
     rules: {
       'no-restricted-imports': ['error', {
         patterns: [{
-          group: ['@/.source/server'],
+          group: ['@/.source', '@/.source/*', '**/.source', '**/.source/*'],
           message: 'Import generated collections through lib/source.ts; validate.ts is the only audit exception.',
         }],
       }],
