@@ -82,6 +82,7 @@ None.
 | SITE-P8 | 2026-08-27 | Post-SITE-P7 review; findings carried into the merged SITE-P8/P8x triage | — |
 | SITE-P8x | 2026-08-27 | Supplemental review and merged disposition of F-1–F-9 | — |
 | SITE-P9 | 2026-08-27 | Resolve the SITE-P8/P8x dialect, naming, protocol, and records findings | 17d2d25, d2a9b8f, 605cc6a, this commit |
+| SITE-P10.1 | 2026-08-27 | Amend the batch clause per the operator's 2026-08-26 decision; SITE-P10 correctly halted on the mismatch | this commit |
 
 ## Session Notes
 
