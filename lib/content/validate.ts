@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
-import sourceConfig from '../../source.config';
+import sourceConfig, { blog, book } from '../../source.config';
 import { MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
@@ -111,6 +111,14 @@ async function compileConfiguredFixture(source: string, label: string) {
   );
 }
 
+function validateCollectionGlobs(): void {
+  const mdxOnly = JSON.stringify(['**/*.mdx']);
+  invariant(
+    JSON.stringify(book.files) === mdxOnly && JSON.stringify(blog.files) === mdxOnly,
+    'The book and blog fixtures document that .md files are excluded from both collection globs.',
+  );
+}
+
 async function expectDialectRejection(source: string, label: string): Promise<void> {
   let rejected = false;
 
@@ -126,11 +134,22 @@ async function expectDialectRejection(source: string, label: string): Promise<vo
 async function validateDialect(): Promise<void> {
   await compileConfiguredFixture('![Architecture diagram](/fig.png)', 'plain-markdown-image');
   await compileConfiguredFixture('<Marginalia condensed>Safe content.</Marginalia>', 'boolean-attribute');
+  await expectDialectRejection('<div>Raw HTML embedded in MDX.</div>', 'raw HTML embedded in an .mdx file');
   await expectDialectRejection("import Thing from './thing'", 'an import');
   await expectDialectRejection('export const value = 1', 'an export');
   await expectDialectRejection('The result is {1 + 1}.', 'an inline expression');
   await expectDialectRejection('<Unknown>content</Unknown>', 'a non-allowlisted component');
   await expectDialectRejection('<Marginalia label={value}>content</Marginalia>', 'an expression attribute');
+
+  const compiledCodeTab = await compileConfiguredFixture(
+    '```bash tab="npm"\nnpm install example\n```',
+    'disabled-code-tab-transform',
+  );
+  invariant(
+    !String(compiledCodeTab.value).includes('CodeBlockTabs')
+      && !String(compiledCodeTab.value).includes('Tabs'),
+    'Fenced code with tab="npm" must compile without emitting Tabs components.',
+  );
 
   const fallbackNames = Object.keys(markdownFallbacks).sort();
   invariant(
@@ -217,6 +236,7 @@ async function validateEntries(): Promise<void> {
 }
 
 validateInternalLinkCollection();
+validateCollectionGlobs();
 await validateDialect();
 await validateEntries();
 

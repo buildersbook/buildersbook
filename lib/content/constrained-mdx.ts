@@ -8,6 +8,8 @@ export const MDX_COMPONENT_ALLOWLIST = [
   'Marginalia',
 ] as const;
 
+export type AllowedMdxComponent = (typeof MDX_COMPONENT_ALLOWLIST)[number];
+
 type ConstrainedNode = {
   attributes?: Array<{ type: string; value?: unknown }>;
   children?: ConstrainedNode[];
@@ -17,7 +19,8 @@ type ConstrainedNode = {
 };
 
 const allowedComponents = new Set<string>(MDX_COMPONENT_ALLOWLIST);
-const expressionNodeTypes = new Set([
+const prohibitedNodeTypes = new Set([
+  'html',
   'mdxFlowExpression',
   'mdxTextExpression',
   'mdxjsEsm',
@@ -25,8 +28,8 @@ const expressionNodeTypes = new Set([
 
 export function validateConstrainedMdxTree(tree: Root, file: VFile): void {
   function visit(node: ConstrainedNode): void {
-    if (expressionNodeTypes.has(node.type)) {
-      file.fail('FB-01 forbids imports, exports, and inline JavaScript expressions.', node.position);
+    if (prohibitedNodeTypes.has(node.type)) {
+      file.fail('FB-01 forbids raw HTML, imports, exports, and inline JavaScript expressions.', node.position);
     }
 
     if (node.type === 'mdxJsxFlowElement' || node.type === 'mdxJsxTextElement') {

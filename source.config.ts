@@ -13,6 +13,7 @@ const postprocess = {
 export const book = defineCollections({
   type: 'doc',
   dir: 'content/book',
+  files: ['**/*.mdx'],
   schema: bookFrontmatterSchema,
   postprocess,
 });
@@ -20,12 +21,15 @@ export const book = defineCollections({
 export const blog = defineCollections({
   type: 'doc',
   dir: 'content/blog',
+  files: ['**/*.mdx'],
   schema: blogFrontmatterSchema,
   postprocess,
 });
 
 export default defineConfig({
   mdxOptions: {
+    remarkCodeTabOptions: false,
+    remarkNpmOptions: false,
     remarkPlugins: (plugins) => [remarkConstrainedMdx, ...plugins],
   },
 });
