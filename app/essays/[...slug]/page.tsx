@@ -1,5 +1,5 @@
-import { BlogRenderer } from '@/components/renderers/blog-renderer';
-import { blogSource } from '@/lib/source';
+import { EssayRenderer } from '@/components/renderers/essay-renderer';
+import { essaysSource } from '@/lib/source';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -9,15 +9,15 @@ type PageProps = {
 
 export default async function EssayContentPage({ params }: PageProps) {
   const { slug } = await params;
-  const page = blogSource.getPage(slug);
+  const page = essaysSource.getPage(slug);
   if (!page) notFound();
 
-  return <BlogRenderer page={page} />;
+  return <EssayRenderer page={page} />;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = blogSource.getPage(slug);
+  const page = essaysSource.getPage(slug);
   if (!page) notFound();
 
   return {
@@ -28,5 +28,5 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export function generateStaticParams() {
-  return blogSource.generateParams();
+  return essaysSource.generateParams();
 }

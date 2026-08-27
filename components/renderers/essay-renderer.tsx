@@ -1,10 +1,10 @@
-import { getMDXComponents } from '@/components/mdx';
 import { ContentShell } from '@/components/content-shell';
-import type { blogSource } from '@/lib/source';
+import { getMDXComponents } from '@/components/mdx';
+import type { essaysSource } from '@/lib/source';
 
-type BlogPage = (typeof blogSource)['$inferPage'];
+type EssayPage = (typeof essaysSource)['$inferPage'];
 
-export function BlogRenderer({ page }: { page: BlogPage }) {
+export function EssayRenderer({ page }: { page: EssayPage }) {
   const Body = page.data.body;
 
   return (

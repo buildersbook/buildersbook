@@ -5,7 +5,7 @@ export const localeFrontmatterSchema = z.object({
   locale: z.string().regex(/^[a-z]{2}(?:-[A-Z]{2})?$/),
   sourceRevision: z.string().min(1),
   translationOf: z.string().min(1).nullable(),
-  translationStatus: z.enum(['source', 'draft', 'review', 'current', 'stale']),
+  translationStatus: z.enum(['source', 'in-progress', 'review', 'current', 'stale']),
 });
 
 export const publicationStatusSchema = z.enum(['published', 'draft', 'planned']);
@@ -22,12 +22,12 @@ export const bookFrontmatterSchema = sharedContentSchema.extend({
   prerequisites: z.array(z.string().min(1)).default([]),
 });
 
-export const blogFrontmatterSchema = sharedContentSchema.extend({
+export const essayFrontmatterSchema = sharedContentSchema.extend({
   category: z.enum(['essay', 'field-note', 'post-mortem']),
   publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   relatedBookChapter: z.string().min(1).nullable(),
 });
 
 export type BookFrontmatter = z.infer<typeof bookFrontmatterSchema>;
-export type BlogFrontmatter = z.infer<typeof blogFrontmatterSchema>;
+export type EssayFrontmatter = z.infer<typeof essayFrontmatterSchema>;
 export type PublicationStatus = z.infer<typeof publicationStatusSchema>;

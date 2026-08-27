@@ -1,20 +1,20 @@
-import { blog, book } from '@/.source/server';
+import { book, essays } from '@/.source/server';
 import { loader } from 'fumadocs-core/source';
 import { toFumadocsSource } from 'fumadocs-mdx/runtime/server';
 
 const englishBook = book.filter((entry) => entry.locale === 'en');
-const englishBlog = blog.filter((entry) => entry.locale === 'en');
+const englishEssays = essays.filter((entry) => entry.locale === 'en');
 
 export const bookSource = loader({
   baseUrl: '/book',
   source: toFumadocsSource(englishBook, []),
 });
 
-export const blogSource = loader({
+export const essaysSource = loader({
   baseUrl: '/essays',
-  source: toFumadocsSource(englishBlog, []),
+  source: toFumadocsSource(englishEssays, []),
 });
 
-export const contentPages = [...bookSource.getPages(), ...blogSource.getPages()].filter(
+export const contentPages = [...bookSource.getPages(), ...essaysSource.getPages()].filter(
   (page) => page.data.publicationStatus === 'published',
 );

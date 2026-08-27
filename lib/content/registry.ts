@@ -1,8 +1,8 @@
-import { blog, book } from '@/.source/server';
+import { book, essays } from '@/.source/server';
 
 import type { PublicationStatus } from './schemas';
 
-export type ContentCollection = 'blog' | 'book';
+export type ContentCollection = 'book' | 'essays';
 
 export type ContentRegistryEntry = {
   collection: ContentCollection;
@@ -35,10 +35,10 @@ export const contentRegistry: ContentRegistryEntry[] = [
       url: `/book/${slug}`,
     };
   }),
-  ...blog.map((entry) => {
+  ...essays.map((entry) => {
     const slug = slugFromPath(entry.info.path);
     return {
-      collection: 'blog' as const,
+      collection: 'essays' as const,
       contentId: entry.contentId,
       locale: entry.locale,
       publicationStatus: entry.publicationStatus,

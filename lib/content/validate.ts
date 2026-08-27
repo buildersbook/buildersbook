@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
-import sourceConfig, { blog, book } from '../../source.config';
+import sourceConfig, { book, essays } from '../../source.config';
 import { MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
@@ -114,8 +114,8 @@ async function compileConfiguredFixture(source: string, label: string) {
 function validateCollectionGlobs(): void {
   const mdxOnly = JSON.stringify(['**/*.mdx']);
   invariant(
-    JSON.stringify(book.files) === mdxOnly && JSON.stringify(blog.files) === mdxOnly,
-    'The book and blog fixtures document that .md files are excluded from both collection globs.',
+    JSON.stringify(book.files) === mdxOnly && JSON.stringify(essays.files) === mdxOnly,
+    'The book and essay fixtures document that .md files are excluded from both collection globs.',
   );
 }
 
@@ -163,7 +163,7 @@ async function validateEntries(): Promise<void> {
   const collections = await import('../../.source/server');
   const groups = [
     { baseUrl: '/book', entries: collections.book as ContentEntry[] },
-    { baseUrl: '/essays', entries: collections.blog as ContentEntry[] },
+    { baseUrl: '/essays', entries: collections.essays as ContentEntry[] },
   ];
   const knownTargets = new Set(['/', '/about', '/book', '/essays']);
 
@@ -232,7 +232,7 @@ async function validateEntries(): Promise<void> {
   }
 
   invariant(collections.book.length > 0, 'The book collection needs a pipeline fixture.');
-  invariant(collections.blog.length > 0, 'The blog collection needs a pipeline fixture.');
+  invariant(collections.essays.length > 0, 'The essays collection needs a pipeline fixture.');
 }
 
 validateInternalLinkCollection();

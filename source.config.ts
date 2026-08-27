@@ -1,7 +1,7 @@
 import { defineCollections, defineConfig } from 'fumadocs-mdx/config';
 
 import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './lib/content/constrained-mdx';
-import { blogFrontmatterSchema, bookFrontmatterSchema } from './lib/content/schemas';
+import { bookFrontmatterSchema, essayFrontmatterSchema } from './lib/content/schemas';
 
 const postprocess = {
   includeMDAST: true,
@@ -18,11 +18,11 @@ export const book = defineCollections({
   postprocess,
 });
 
-export const blog = defineCollections({
+export const essays = defineCollections({
   type: 'doc',
-  dir: 'content/blog',
+  dir: 'content/essays',
   files: ['**/*.mdx'],
-  schema: blogFrontmatterSchema,
+  schema: essayFrontmatterSchema,
   postprocess,
 });
 

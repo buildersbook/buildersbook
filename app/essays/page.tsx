@@ -1,9 +1,9 @@
 import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { repositoryUrl } from '@/lib/navigation';
-import { blogSource } from '@/lib/source';
+import { essaysSource } from '@/lib/source';
 
 export default function EssaysIndexPage() {
-  const posts = blogSource.getPages().map((page): BookIndexEntry => {
+  const essays = essaysSource.getPages().map((page): BookIndexEntry => {
     const entry = {
       number: page.data.publishedAt,
       title: page.data.title,
@@ -29,7 +29,7 @@ export default function EssaysIndexPage() {
       <p className="functional-label">Field notes and post-mortems</p>
       <h1>Essays</h1>
       <p>Published essays link to the site. Visible drafts link explicitly to their repository source.</p>
-      <BookIndex ariaLabel="Essays" entries={posts} />
+      <BookIndex ariaLabel="Essays" entries={essays} />
     </main>
   );
 }
