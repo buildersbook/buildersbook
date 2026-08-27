@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-27 (SITE-P9)
-> Updated by: IMPLEMENT — SITE-P9 SITE-P8/P8x findings resolution
+> Last updated: 2026-08-27 (SITE-P10)
+> Updated by: IMPLEMENT — SITE-P10 TP-003 + TP-004 batch
 
 ## Phase Status
 
@@ -18,7 +18,7 @@
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
-| 1 | Site scaffold | In progress | TP-002 complete; TP-003 CI gates and TP-004 discovery layer remain |
+| 1 | Site scaffold | In progress | TP-002, TP-003, and TP-004 complete; cross-family VERIFY and production deployment remain |
 
 ## Brand Track
 
@@ -31,7 +31,7 @@
 
 ## Environment Status
 
-- `.env.local`: does not exist; no local secrets are required for TP-002
+- `.env.local`: does not exist; no local application secrets are required for the completed scaffold
 - `.env.production`: does not exist; production environment is not yet provisioned
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
@@ -47,15 +47,15 @@ None.
 
 ## Current Task
 
-SITE-P9 fix batch complete on `site-p9-fixes`; awaiting operator merge and push
+SITE-P10 TP-003 + TP-004 batch complete on local `main`; awaiting SITE-P11 cross-family VERIFY
 
 ## What Was Done Last Session
 
-- Closed the constrained-MDX boundary in both directions: MDX-only collection globs, explicit raw-HTML rejection, an allowlist-derived reader component map, and disabled out-of-dialect tab/npm transforms.
-- Renamed the internal blog collection, schema, source, renderer, content folder, and fixture vocabulary to essays, matching the existing `/essays` URLs.
-- Renamed translation status `draft` to `in-progress` while retaining publication status `draft`.
-- Finalized the checkpoint-batch protocol and added the required read-only reviewer attestation line.
-- Reconciled the SITE-P8/P8x findings and recorded both pre-execution scope extensions in TP-002.
+- Installed a fail-closed local private-identifier pre-push hook and added push/PR CI for lint, typecheck, tests, build, the hard 100 KiB application-JS budget, and report-only Lighthouse vitals.
+- Added no-raw-value, token contrast, 11px functional-text, recursive heading-hierarchy, and complete Fumadocs bridge gates.
+- Hardened strict frontmatter, real publication dates, URL schemes, prerequisite and related-content references, heading IDs, document IDs, internal links, orphan detection, and publication-state exhaustiveness.
+- Consolidated generated content access in `lib/source.ts`; unpublished content is absent from search/static params and returns 404 at HTML and Markdown URLs.
+- Added truthful sitemap dates, RSS and Atom, canonicals, Article/Breadcrumb JSON-LD, explicit crawler rules, Fumadocs LLM alternates, and production-only IndexNow submission.
 
 ## Active Blockers
 
@@ -63,8 +63,10 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. Operator merge `site-p9-fixes` into `main` and push.
-2. Execute the TP-003 + TP-004 batch.
+1. SITE-P11 cross-family VERIFY of the full SITE-P10 commit range.
+2. Operator push local `main` after VERIFY passes.
+3. SITE-P12 deploy: Vercel, Cloudflare DNS, Google Search Console, and Bing Webmaster Tools with operator checkpoints.
+4. Run the Phase 1 exit check.
 
 ## Session Log
 
@@ -83,10 +85,11 @@ None.
 | SITE-P8x | 2026-08-27 | Supplemental review and merged disposition of F-1–F-9 | — |
 | SITE-P9 | 2026-08-27 | Resolve the SITE-P8/P8x dialect, naming, protocol, and records findings | 17d2d25, d2a9b8f, 605cc6a, this commit |
 | SITE-P10.1 | 2026-08-27 | Amend the batch clause per the operator's 2026-08-26 decision; SITE-P10 correctly halted on the mismatch | this commit |
+| SITE-P10 | 2026-08-27 | TP-003 CI/hardening and TP-004 publication/discovery batch | 56cfedf, cf10a9c, 76ce826, 4910abe, 849e384, this commit |
 
 ## Session Notes
 
-The local site environment is provisioned; Vercel and DNS remain pending Phase 1. The constrained authoring lane is MDX-only, and internal collection terminology now matches `/essays`. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
+The local site and discovery layer are provisioned; Vercel, DNS, and webmaster-tool verification remain pending Phase 1. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
 
 ---
 
