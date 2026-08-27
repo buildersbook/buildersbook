@@ -1,38 +1,60 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, relative, resolve } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 
 const repoRoot = resolve(import.meta.dirname, '..');
 const lintOnly = process.argv.includes('--lint-only');
 const violations: string[] = [];
+const excludedDirectories = new Set([
+  // Installed dependencies are third-party code outside the design contract.
+  'node_modules',
+  // Git internals contain metadata and historical objects, not repository source.
+  '.git',
+  // Next.js generates this build output from already-scanned source files.
+  '.next',
+  // Fumadocs generates these collection modules from already-scanned content.
+  '.source',
+  // pnpm generates this local cache from third-party packages.
+  '.pnpm-store',
+  // Extracted mockup sources preserve raw reference values by design.
+  'design/reference',
+]);
+const excludedFiles = new Set([
+  // Next.js generates this ambient type declaration.
+  'next-env.d.ts',
+]);
+const rawValueExcludedFiles = new Set([
+  // Semantic token definitions are the one permitted source of raw colors.
+  'styles/tokens.css',
+]);
 
 function invariant(condition: unknown, message: string): asserts condition {
   if (!condition) violations.push(message);
 }
 
+function repoRelative(path: string): string {
+  return relative(repoRoot, path).split(sep).join('/');
+}
+
 function walk(directory: string): string[] {
   return readdirSync(directory).flatMap((name) => {
     const path = join(directory, name);
-    return statSync(path).isDirectory() ? walk(path) : [path];
+    const label = repoRelative(path);
+    if (excludedDirectories.has(label)) return [];
+    if (statSync(path).isDirectory()) return walk(path);
+    return excludedFiles.has(label) ? [] : [path];
   });
 }
 
 function validateRawValues(): void {
-  const roots = ['app', 'components', 'content', 'lib', 'scripts', 'styles'];
-  const files = roots.flatMap((root) => walk(join(repoRoot, root)))
-    .concat(
-      join(repoRoot, 'source.config.ts'),
-      join(repoRoot, 'mdx-components.tsx'),
-      join(repoRoot, 'next.config.mjs'),
-      join(repoRoot, 'postcss.config.mjs'),
-    )
+  const files = walk(repoRoot)
     .filter((path) => /\.(?:cjs|css|js|mdx|mjs|ts|tsx)$/.test(path))
-    .filter((path) => path !== join(repoRoot, 'styles/tokens.css'));
+    .filter((path) => !rawValueExcludedFiles.has(repoRelative(path)));
   const colorLiteral = /#[\da-f]{3,8}\b|(?:rgb|hsl|oklch)a?\([^)]*\)/gi;
   const arbitraryTailwindColor = /\b(?:bg|text|border|outline|ring|fill|stroke)-\[[^\]]*(?:#|rgba?\(|hsla?\(|oklch\()/gi;
 
   for (const path of files) {
     const source = readFileSync(path, 'utf8');
-    const label = relative(repoRoot, path);
+    const label = repoRelative(path);
     invariant(!colorLiteral.test(source), `${label}: raw color literal outside styles/tokens.css`);
     colorLiteral.lastIndex = 0;
     invariant(!arbitraryTailwindColor.test(source), `${label}: arbitrary Tailwind color value`);
@@ -127,7 +149,9 @@ function fontSizeToPixels(value: string, parentPixels?: number): number {
 }
 
 function validateFunctionalTextFloor(): void {
-  const source = readFileSync(join(repoRoot, 'styles/site.css'), 'utf8');
+  const stylesheets = walk(repoRoot)
+    .filter((path) => path.endsWith('.css'))
+    .map((path) => ({ label: repoRelative(path), source: readFileSync(path, 'utf8') }));
   const parentFixtures = [
     ['.functional-label', 16],
     ['.heading-anchor', 19],
@@ -143,29 +167,31 @@ function validateFunctionalTextFloor(): void {
   ]);
   const exercisedExemptions = new Set<string>();
 
-  for (const rule of source.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
-    const selectors = rule[1].trim().split(',').map((selector) => selector.trim());
-    const declarations = [...rule[2].matchAll(/font-size\s*:\s*([^;}{]+)/gi)];
-    for (const declaration of declarations) {
-      const value = declaration[1].trim();
-      for (const selector of selectors) {
-        const exemption = exemptions.get(selector);
-        if (exemption) {
-          exercisedExemptions.add(selector);
-          invariant(
-            value === exemption.expectedValue,
-            `${selector}: exemption only permits ${exemption.expectedValue} (${exemption.reason})`,
-          );
-          continue;
-        }
+  for (const { label, source } of stylesheets) {
+    for (const rule of source.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const selectors = rule[1].trim().split(',').map((selector) => selector.trim());
+      const declarations = [...rule[2].matchAll(/font-size\s*:\s*([^;}{]+)/gi)];
+      for (const declaration of declarations) {
+        const value = declaration[1].trim();
+        for (const selector of selectors) {
+          const exemption = exemptions.get(selector);
+          if (exemption) {
+            exercisedExemptions.add(selector);
+            invariant(
+              value === exemption.expectedValue,
+              `${label}: ${selector}: exemption only permits ${exemption.expectedValue} (${exemption.reason})`,
+            );
+            continue;
+          }
 
-        try {
-          invariant(
-            fontSizeToPixels(value, parentPixelsBySelector.get(selector)) >= 11,
-            `${selector}: font-size ${value} computes below the 11px floor`,
-          );
-        } catch (error) {
-          invariant(false, `${selector}: ${error instanceof Error ? error.message : String(error)}`);
+          try {
+            invariant(
+              fontSizeToPixels(value, parentPixelsBySelector.get(selector)) >= 11,
+              `${label}: ${selector}: font-size ${value} computes below the 11px floor`,
+            );
+          } catch (error) {
+            invariant(false, `${label}: ${selector}: ${error instanceof Error ? error.message : String(error)}`);
+          }
         }
       }
     }
@@ -177,10 +203,20 @@ function validateFunctionalTextFloor(): void {
 
   for (const [selector, parentPixels] of parentFixtures) {
     const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const body = source.match(new RegExp(`${escaped}\\s*\\{([\\s\\S]*?)\\}`))?.[1] ?? '';
-    const value = body.match(/font-size\s*:\s*([^;]+)/)?.[1]?.trim();
-    invariant(Boolean(value), `${selector}: functional text must declare a font size`);
-    if (value) invariant(fontSizeToPixels(value, parentPixels) >= 11, `${selector}: computed functional text is below 11px`);
+    const match = stylesheets
+      .map(({ label, source }) => {
+        const body = source.match(new RegExp(`${escaped}\\s*\\{([\\s\\S]*?)\\}`))?.[1] ?? '';
+        const value = body.match(/font-size\s*:\s*([^;]+)/)?.[1]?.trim();
+        return value ? { label, value } : null;
+      })
+      .find((fixture): fixture is { label: string; value: string } => fixture !== null);
+    invariant(Boolean(match), `${selector}: functional text must declare a font size`);
+    if (match) {
+      invariant(
+        fontSizeToPixels(match.value, parentPixels) >= 11,
+        `${match.label}: ${selector}: computed functional text is below 11px`,
+      );
+    }
   }
 }
 
