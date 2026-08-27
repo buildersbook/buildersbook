@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-26 (SITE-P7)
-> Updated by: IMPLEMENT — SITE-P7 SITE-P6 findings resolution
+> Last updated: 2026-08-27 (SITE-P9)
+> Updated by: IMPLEMENT — SITE-P9 SITE-P8/P8x findings resolution
 
 ## Phase Status
 
@@ -34,7 +34,7 @@
 - `.env.local`: does not exist; no local secrets are required for TP-002
 - `.env.production`: does not exist; production environment is not yet provisioned
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
-- Content and search: typed local `book` and `blog` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
+- Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
 - Hosting: Vercel personal account; project pending Phase 1
 - DNS: Cloudflare for `buildersbook.dev`; configuration pending Phase 1
 - Database: none — explicitly no database at launch
@@ -47,15 +47,15 @@ None.
 
 ## Current Task
 
-SITE-P7 fix batch complete; Phase 1 site scaffold remains in progress
+SITE-P9 fix batch complete on `site-p9-fixes`; awaiting operator merge and push
 
 ## What Was Done Last Session
 
-- Enforced published, draft, and planned index behavior with a discriminated union and added a real essays index.
-- Moved constrained-MDX validation ahead of framework transforms and tested the configured Fumadocs pipeline.
-- Closed the dark-surface decision, corrected Fumadocs muted text and code-header contrast, and hardened focus, heading-anchor, copy-state, code-region, and responsive-grid behavior.
-- Excluded draft pages from the static search input and extended content validation for draft exclusion plus relative and reference-style links.
-- Amended the working protocol to allow mechanically verifiable, pre-authorized checkpoint batches on non-sensitive scope.
+- Closed the constrained-MDX boundary in both directions: MDX-only collection globs, explicit raw-HTML rejection, an allowlist-derived reader component map, and disabled out-of-dialect tab/npm transforms.
+- Renamed the internal blog collection, schema, source, renderer, content folder, and fixture vocabulary to essays, matching the existing `/essays` URLs.
+- Renamed translation status `draft` to `in-progress` while retaining publication status `draft`.
+- Finalized the checkpoint-batch protocol and added the required read-only reviewer attestation line.
+- Reconciled the SITE-P8/P8x findings and recorded both pre-execution scope extensions in TP-002.
 
 ## Active Blockers
 
@@ -63,8 +63,8 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. TP-003 — CI content gates and performance budget, including the four design-review gates.
-2. TP-004 — discovery layer, including draft/planned noindex and sitemap exclusion.
+1. Operator merge `site-p9-fixes` into `main` and push.
+2. Execute the TP-003 + TP-004 batch.
 
 ## Session Log
 
@@ -78,11 +78,14 @@ None.
 | SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and private Visibility-layer removal | 33250a4 |
 | SITE-P5 | 2026-08-26 | TP-002 Fumadocs scaffold, content foundations, reading UI, and application states | 4e2487f, 3704582, 0d0db37, bdf05d5, 0021032, a57293b |
 | SITE-P6 | 2026-08-26 | Independent VERIFY of SITE-P5 — FAIL (H-1, M-1–M-5, L-1–L-12) | — |
-| SITE-P7 | 2026-08-26 | Resolve the complete SITE-P6 findings batch | f736b95, b09761b, 16e92e5, 8379c43, this commit |
+| SITE-P7 | 2026-08-26 | Resolve the complete SITE-P6 findings batch | f736b95, b09761b, 16e92e5, 8379c43, 8d49bd9 |
+| SITE-P8 | 2026-08-27 | Post-SITE-P7 review; findings carried into the merged SITE-P8/P8x triage | — |
+| SITE-P8x | 2026-08-27 | Supplemental review and merged disposition of F-1–F-9 | — |
+| SITE-P9 | 2026-08-27 | Resolve the SITE-P8/P8x dialect, naming, protocol, and records findings | 17d2d25, d2a9b8f, 605cc6a, this commit |
 
 ## Session Notes
 
-The local site environment is provisioned; Vercel and DNS remain pending Phase 1. The operator closed the dark-surface decision at `#29251C` on 2026-08-26. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
+The local site environment is provisioned; Vercel and DNS remain pending Phase 1. The constrained authoring lane is MDX-only, and internal collection terminology now matches `/essays`. `scripts/check-private.sh` currently scans ignored dependency/build directories unless they are omitted; CI wiring and scanner scope belong to TP-003.
 
 ---
 
