@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
+
 import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { repositoryUrl } from '@/lib/navigation';
 import { allPagesIncludingUnpublished } from '@/lib/source';
+
+export const metadata: Metadata = {
+  title: 'The Book',
+  description: "The serialized Builder's Book curriculum.",
+  alternates: { canonical: '/book' },
+};
 
 function assertNever(value: never): never {
   throw new Error(`Unhandled publication status: ${String(value)}`);

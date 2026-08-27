@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
+
 import { Wordmark } from '@/components/wordmark';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: "About Builder's Book and its evidence-led curriculum.",
+  alternates: { canonical: '/about' },
+};
 
 export default function AboutPage() {
   return (

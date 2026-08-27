@@ -354,11 +354,30 @@ async function validateEntries(): Promise<void> {
   invariant(collections.essays.length > 0, 'The essays collection needs a pipeline fixture.');
 }
 
+async function validateDiscoverySurfaces(): Promise<void> {
+  const discovery = await import('../discovery');
+  const draftSlugs = ['sample-chapter', 'sample-essay'];
+  const surfaces = new Map([
+    ['sitemap', JSON.stringify(discovery.buildSitemapEntries())],
+    ['RSS', discovery.buildRssFeed()],
+    ['Atom', discovery.buildAtomFeed()],
+    ['llms.txt', discovery.buildLlmsIndex()],
+    ['llms-full.txt', await discovery.buildLlmsFull()],
+  ]);
+
+  for (const [surface, output] of surfaces) {
+    for (const slug of draftSlugs) {
+      invariant(!output.includes(slug), `${surface}: draft slug leaked into discovery output: ${slug}`);
+    }
+  }
+}
+
 validateInternalLinkCollection();
 validateCollectionGlobs();
 validateSchemaContracts();
 validateHeadingFixture();
 await validateDialect();
 await validateEntries();
+await validateDiscoverySurfaces();
 
-console.log('Content validation passed: strict schemas, constrained URLs, recursive headings, unique IDs, references, HTML, Markdown, and internal links.');
+console.log('Content validation passed: strict schemas, constrained URLs, recursive headings, unique IDs, references, HTML, Markdown, internal links, and draft-free discovery.');

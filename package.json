@@ -19,6 +19,7 @@
     "validate:design:lint": "tsx scripts/validate-design.ts --lint-only",
     "perf:budget": "node scripts/check-js-budget.mjs",
     "perf:lab": "lhci autorun --config=scripts/lighthouserc.cjs",
+    "indexnow:submit": "tsx scripts/submit-indexnow.ts",
     "test": "pnpm validate:content && pnpm validate:design",
     "validate": "pnpm lint && pnpm typecheck && pnpm test",
     "postinstall": "fumadocs-mdx"

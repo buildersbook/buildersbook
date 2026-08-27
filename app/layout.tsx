@@ -36,8 +36,19 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Builder's Book",
+  metadataBase: new URL('https://buildersbook.dev'),
+  title: {
+    default: "Builder's Book",
+    template: "%s · Builder's Book",
+  },
   description: 'An open curriculum for engineers who build production software with coding agents.',
+  alternates: {
+    canonical: '/',
+    types: {
+      'application/atom+xml': '/atom.xml',
+      'application/rss+xml': '/rss.xml',
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

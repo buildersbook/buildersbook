@@ -1,7 +1,12 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { Wordmark } from '@/components/wordmark';
 import { repositoryUrl } from '@/lib/navigation';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (

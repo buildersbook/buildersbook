@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
+
 import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { repositoryUrl } from '@/lib/navigation';
 import { allPagesIncludingUnpublished } from '@/lib/source';
+
+export const metadata: Metadata = {
+  title: 'Essays',
+  description: "Builder's Book field notes and post-mortems.",
+  alternates: { canonical: '/essays' },
+};
 
 function assertNever(value: never): never {
   throw new Error(`Unhandled publication status: ${String(value)}`);

@@ -1,4 +1,5 @@
 import { EssayRenderer } from '@/components/renderers/essay-renderer';
+import { articleJsonLd } from '@/lib/discovery';
 import { essaysSource } from '@/lib/source';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -12,7 +13,12 @@ export default async function EssayContentPage({ params }: PageProps) {
   const page = essaysSource.getPage(slug);
   if (!page || page.data.publicationStatus !== 'published') notFound();
 
-  return <EssayRenderer page={page} />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd(page) }} />
+      <EssayRenderer page={page} />
+    </>
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -23,6 +29,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: { canonical: page.url },
+    openGraph: {
+      type: 'article',
+      title: page.data.title,
+      description: page.data.description,
+      url: page.url,
+      publishedTime: page.data.publishedAt,
+    },
   };
 }
 
