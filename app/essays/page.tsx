@@ -2,26 +2,32 @@ import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { repositoryUrl } from '@/lib/navigation';
 import { essaysSource } from '@/lib/source';
 
+function assertNever(value: never): never {
+  throw new Error(`Unhandled publication status: ${String(value)}`);
+}
+
 export default function EssaysIndexPage() {
   const essays = essaysSource.getPages().map((page): BookIndexEntry => {
     const entry = {
-      number: page.data.publishedAt,
+      number: page.data.publishedAt ?? 'Unscheduled',
       title: page.data.title,
     };
 
-    if (page.data.publicationStatus === 'published') {
-      return { ...entry, href: `/essays/${page.slugs.join('/')}`, state: 'published' };
+    const status = page.data.publicationStatus;
+    switch (status) {
+      case 'published':
+        return { ...entry, href: `/essays/${page.slugs.join('/')}`, state: 'published' };
+      case 'draft':
+        return {
+          ...entry,
+          repositoryUrl: `${repositoryUrl}/blob/main/${page.data.info.fullPath}`,
+          state: 'draft',
+        };
+      case 'planned':
+        return { ...entry, state: 'planned' };
+      default:
+        return assertNever(status);
     }
-
-    if (page.data.publicationStatus === 'draft') {
-      return {
-        ...entry,
-        repositoryUrl: `${repositoryUrl}/blob/main/${page.data.info.fullPath}`,
-        state: 'draft',
-      };
-    }
-
-    return { ...entry, state: 'planned' };
   });
 
   return (

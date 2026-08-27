@@ -1,29 +1,28 @@
 import { compile } from '@mdx-js/mdx';
 import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { register } from 'fumadocs-mdx/node';
-import type { MDXContent } from 'mdx/types';
+import type { Root } from 'mdast';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
 import sourceConfig, { book, essays } from '../../source.config';
-import { MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
+import { deduplicateHeadingIds, MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
+import { bookFrontmatterSchema, essayFrontmatterSchema } from './schemas';
 
-type ContentEntry = {
-  body: MDXContent;
-  contentId: string;
-  getText: (type: 'processed') => Promise<string>;
-  getMDAST: () => Promise<{ children: Array<{ depth?: number; type: string }> }>;
-  info: { path: string };
-  locale: string;
-  publicationStatus: 'published' | 'draft' | 'planned';
-  sourceRevision: string;
-  title: string;
-  translationOf: string | null;
-  translationStatus: string;
+type GeneratedCollections = typeof import('../../.source/server');
+type BookEntry = GeneratedCollections['book'][number];
+type EssayEntry = GeneratedCollections['essays'][number];
+type ContentEntry = BookEntry | EssayEntry;
+
+type TreeNode = {
+  children?: TreeNode[];
+  data?: { hProperties?: { id?: unknown } };
+  depth?: number;
+  type: string;
 };
 
 function invariant(condition: unknown, message: string): asserts condition {
@@ -77,6 +76,12 @@ function collectInternalLinks(value: string, currentUrl: string): string[] {
   }
 
   return [...links];
+}
+
+function collectTreeNodes(root: TreeNode): TreeNode[] {
+  const nodes: TreeNode[] = [root];
+  for (const child of root.children ?? []) nodes.push(...collectTreeNodes(child));
+  return nodes;
 }
 
 function validateInternalLinkCollection(): void {
@@ -133,13 +138,17 @@ async function expectDialectRejection(source: string, label: string): Promise<vo
 
 async function validateDialect(): Promise<void> {
   await compileConfiguredFixture('![Architecture diagram](/fig.png)', 'plain-markdown-image');
+  await compileConfiguredFixture('[HTTPS](https://example.com) [mail](mailto:hello@example.com) [relative](../book)', 'allowed-link-schemes');
   await compileConfiguredFixture('<Marginalia condensed>Safe content.</Marginalia>', 'boolean-attribute');
+  await compileConfiguredFixture('<Citation href="https://example.com">Safe source.</Citation>', 'allowed-component-href');
   await expectDialectRejection('<div>Raw HTML embedded in MDX.</div>', 'raw HTML embedded in an .mdx file');
   await expectDialectRejection("import Thing from './thing'", 'an import');
   await expectDialectRejection('export const value = 1', 'an export');
   await expectDialectRejection('The result is {1 + 1}.', 'an inline expression');
   await expectDialectRejection('<Unknown>content</Unknown>', 'a non-allowlisted component');
   await expectDialectRejection('<Marginalia label={value}>content</Marginalia>', 'an expression attribute');
+  await expectDialectRejection('[Unsafe](javascript:alert)', 'a non-allowlisted Markdown URL scheme');
+  await expectDialectRejection('<Citation href="http://example.com">Unsafe.</Citation>', 'a non-allowlisted component href scheme');
 
   const compiledCodeTab = await compileConfiguredFixture(
     '```bash tab="npm"\nnpm install example\n```',
@@ -158,33 +167,120 @@ async function validateDialect(): Promise<void> {
   );
 }
 
+function validateSchemaContracts(): void {
+  const localeFields = {
+    contentId: 'fixture',
+    locale: 'en',
+    sourceRevision: '0',
+    translationOf: null,
+    translationStatus: 'source' as const,
+  };
+  const sharedFields = {
+    ...localeFields,
+    description: 'Fixture description.',
+    title: 'Fixture',
+  };
+  const bookFixture = {
+    ...sharedFields,
+    chapter: '0.0',
+    part: 'Fixture',
+    prerequisites: [],
+    publicationStatus: 'draft' as const,
+  };
+  const essayFixture = {
+    ...sharedFields,
+    category: 'essay' as const,
+    publicationStatus: 'draft' as const,
+    relatedBookChapter: null,
+  };
+
+  invariant(bookFrontmatterSchema.safeParse(bookFixture).success, 'A valid book fixture must parse.');
+  invariant(!bookFrontmatterSchema.safeParse({ ...bookFixture, unknownField: true }).success, 'Book frontmatter must be strict.');
+  invariant(essayFrontmatterSchema.safeParse(essayFixture).success, 'Draft essays must not require publishedAt.');
+  invariant(!essayFrontmatterSchema.safeParse({ ...essayFixture, unknownField: true }).success, 'Essay frontmatter must be strict.');
+  invariant(!essayFrontmatterSchema.safeParse({ ...essayFixture, publicationStatus: 'published' }).success, 'Published essays must require publishedAt.');
+  invariant(!essayFrontmatterSchema.safeParse({ ...essayFixture, publicationStatus: 'published', publishedAt: '2026-13-45' }).success, 'Invalid calendar dates must fail.');
+  invariant(essayFrontmatterSchema.safeParse({ ...essayFixture, publicationStatus: 'published', publishedAt: '2026-08-27' }).success, 'Real publication dates must parse.');
+}
+
+function validateHeadingFixture(): void {
+  const tree: Root = {
+    type: 'root',
+    children: [
+      { type: 'heading', depth: 2, children: [{ type: 'text', value: 'Repeated heading' }] },
+      {
+        type: 'blockquote',
+        children: [{ type: 'heading', depth: 2, children: [{ type: 'text', value: 'Repeated heading' }] }],
+      },
+    ],
+  };
+  deduplicateHeadingIds(tree);
+  const headings = collectTreeNodes(tree as TreeNode).filter((node) => node.type === 'heading');
+  const ids = headings.map((node) => node.data?.hProperties?.id);
+  invariant(ids[0] === 'repeated-heading', 'The first heading must receive its plain slug.');
+  invariant(ids[1] === 'repeated-heading-1', 'Recursive duplicate headings must receive a counter suffix.');
+
+  const hierarchyTree: TreeNode = {
+    type: 'root',
+    children: [
+      { type: 'heading', depth: 2 },
+      { type: 'blockquote', children: [{ type: 'heading', depth: 4 }] },
+    ],
+  };
+  let nestedSkipRejected = false;
+  try {
+    assertHeadingHierarchy(collectTreeNodes(hierarchyTree), 'recursive-heading-fixture');
+  } catch (error) {
+    nestedSkipRejected = error instanceof Error && error.message.includes('skips from h2 to h4');
+  }
+  invariant(nestedSkipRejected, 'Heading hierarchy validation must recurse into blockquotes and other child containers.');
+}
+
+function assertHeadingHierarchy(nodes: TreeNode[], url: string): void {
+  const headingDepths = nodes
+    .filter((node) => node.type === 'heading')
+    .map((node) => node.depth)
+    .filter((depth): depth is number => typeof depth === 'number');
+  let previousDepth = 1;
+  for (const depth of headingDepths) {
+    invariant(depth <= previousDepth + 1, `${url}: heading hierarchy skips from h${previousDepth} to h${depth}.`);
+    previousDepth = depth;
+  }
+}
+
 async function validateEntries(): Promise<void> {
   register();
   const collections = await import('../../.source/server');
   const groups = [
-    { baseUrl: '/book', entries: collections.book as ContentEntry[] },
-    { baseUrl: '/essays', entries: collections.essays as ContentEntry[] },
+    { baseUrl: '/book', entries: collections.book },
+    { baseUrl: '/essays', entries: collections.essays },
   ];
   const knownTargets = new Set(['/', '/about', '/book', '/essays']);
+  const publicationByUrl = new Map<string, ContentEntry['publicationStatus']>();
 
   for (const group of groups) {
     for (const entry of group.entries) {
-      knownTargets.add(`${group.baseUrl}/${slugFromPath(entry.info.path)}`);
+      const url = `${group.baseUrl}/${slugFromPath(entry.info.path)}`;
+      knownTargets.add(url);
+      publicationByUrl.set(url, entry.publicationStatus);
     }
   }
 
-  const { contentPages } = await import('../source');
-  const indexedUrls = new Set(contentPages.map((page) => page.url));
-  const draftUrls = groups.flatMap((group) => group.entries
-    .filter((entry) => entry.publicationStatus === 'draft')
-    .map((entry) => `${group.baseUrl}/${slugFromPath(entry.info.path)}`));
+  const source = await import('../source');
+  const allSourceUrls = new Set([
+    ...source.bookSource.getPages().map((page) => page.url),
+    ...source.essaysSource.getPages().map((page) => page.url),
+  ]);
+  const indexedUrls = new Set(source.contentPages.map((page) => page.url));
+  const draftUrls = [...publicationByUrl]
+    .filter(([, status]) => status === 'draft')
+    .map(([url]) => url);
   invariant(draftUrls.length > 0, 'The search exclusion test requires at least one draft fixture.');
-  for (const url of draftUrls) {
-    invariant(!indexedUrls.has(url), `Draft slug leaked into the search index: ${url}`);
-  }
+  for (const url of draftUrls) invariant(!indexedUrls.has(url), `Draft slug leaked into the search index: ${url}`);
 
   const identities = new Set<string>();
   const urls = new Set<string>();
+  const bookContentIds = new Set(collections.book.map((entry) => entry.contentId));
 
   for (const group of groups) {
     for (const entry of group.entries) {
@@ -194,6 +290,8 @@ async function validateEntries(): Promise<void> {
       invariant(!urls.has(url), `Duplicate content URL: ${url}`);
       identities.add(identity);
       urls.add(url);
+      invariant(allSourceUrls.has(url), `${url}: orphaned content page is absent from its collection source.`);
+      invariant(entry.description.trim().length > 0, `${url}: description is required.`);
 
       if (entry.locale === 'en') {
         invariant(entry.translationOf === null, `${url}: English source content cannot declare translationOf.`);
@@ -204,20 +302,28 @@ async function validateEntries(): Promise<void> {
       }
 
       invariant(entry.sourceRevision.length > 0, `${url}: sourceRevision is required.`);
+      if ('prerequisites' in entry) {
+        for (const prerequisite of entry.prerequisites) {
+          invariant(bookContentIds.has(prerequisite), `${url}: unknown prerequisite contentId ${prerequisite}.`);
+        }
+      }
+
       const html = renderToStaticMarkup(
         createElement(entry.body, { components: { Citation, Footnote, Footnotes, Marginalia } }),
       );
       const markdown = await getProcessedMarkdown(entry);
       const tree = await entry.getMDAST();
-      const headingDepths = tree.children
+      const nodes = collectTreeNodes(tree as TreeNode);
+      assertHeadingHierarchy(nodes, url);
+
+      const headingIds = nodes
         .filter((node) => node.type === 'heading')
-        .map((node) => node.depth)
-        .filter((depth): depth is number => typeof depth === 'number');
-      let previousDepth = 1;
-      for (const depth of headingDepths) {
-        invariant(depth <= previousDepth + 1, `${url}: heading hierarchy skips from h${previousDepth} to h${depth}.`);
-        previousDepth = depth;
-      }
+        .map((node) => node.data?.hProperties?.id);
+      invariant(headingIds.every((id) => typeof id === 'string' && id.length > 0), `${url}: every heading must have an ID.`);
+      invariant(new Set(headingIds).size === headingIds.length, `${url}: duplicate heading IDs detected.`);
+
+      const documentIds = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+      invariant(new Set(documentIds).size === documentIds.length, `${url}: duplicate rendered document IDs detected.`);
       invariant(html.trim().length > 0, `${url}: rendered HTML is empty.`);
       invariant(!html.includes('<script'), `${url}: rendered HTML contains a script element.`);
       invariant(markdown.trim().length > 0, `${url}: processed Markdown export is empty.`);
@@ -231,13 +337,16 @@ async function validateEntries(): Promise<void> {
     }
   }
 
+  for (const url of allSourceUrls) invariant(urls.has(url), `${url}: source page has no content entry.`);
   invariant(collections.book.length > 0, 'The book collection needs a pipeline fixture.');
   invariant(collections.essays.length > 0, 'The essays collection needs a pipeline fixture.');
 }
 
 validateInternalLinkCollection();
 validateCollectionGlobs();
+validateSchemaContracts();
+validateHeadingFixture();
 await validateDialect();
 await validateEntries();
 
-console.log('Content validation passed: schemas, constrained MDX, HTML, processed Markdown, and internal links.');
+console.log('Content validation passed: strict schemas, constrained URLs, recursive headings, unique IDs, references, HTML, Markdown, and internal links.');

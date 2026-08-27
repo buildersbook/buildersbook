@@ -1,6 +1,10 @@
 import { defineCollections, defineConfig } from 'fumadocs-mdx/config';
 
-import { MDX_COMPONENT_ALLOWLIST, remarkConstrainedMdx } from './lib/content/constrained-mdx';
+import {
+  MDX_COMPONENT_ALLOWLIST,
+  remarkConstrainedMdx,
+  remarkDeduplicateHeadingIds,
+} from './lib/content/constrained-mdx';
 import { bookFrontmatterSchema, essayFrontmatterSchema } from './lib/content/schemas';
 
 const postprocess = {
@@ -30,6 +34,6 @@ export default defineConfig({
   mdxOptions: {
     remarkCodeTabOptions: false,
     remarkNpmOptions: false,
-    remarkPlugins: (plugins) => [remarkConstrainedMdx, ...plugins],
+    remarkPlugins: (plugins) => [remarkConstrainedMdx, ...plugins, remarkDeduplicateHeadingIds],
   },
 });
