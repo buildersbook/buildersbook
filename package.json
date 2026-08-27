@@ -10,11 +10,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
+    "postbuild": "pnpm perf:budget",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . && pnpm validate:design:lint",
     "typecheck": "tsc --noEmit",
     "validate:content": "tsx lib/content/validate.ts",
-    "test": "pnpm validate:content",
+    "validate:design": "tsx scripts/validate-design.ts",
+    "validate:design:lint": "tsx scripts/validate-design.ts --lint-only",
+    "perf:budget": "node scripts/check-js-budget.mjs",
+    "perf:lab": "lhci autorun --config=scripts/lighthouserc.cjs",
+    "test": "pnpm validate:content && pnpm validate:design",
     "validate": "pnpm lint && pnpm typecheck && pnpm test",
     "postinstall": "fumadocs-mdx"
   },
@@ -32,6 +37,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@lhci/cli": "0.15.1",
     "@tailwindcss/postcss": "4.3.3",
     "@types/mdast": "4.0.4",
     "@types/node": "26.3.0",

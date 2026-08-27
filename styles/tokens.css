@@ -49,6 +49,15 @@
   --color-fd-accent-foreground: var(--ink);
   --color-fd-ring: var(--accent);
   --color-fd-overlay: color-mix(in srgb, var(--ink) 20%, transparent);
+  --color-fd-diff-add: var(--surface);
+  --color-fd-diff-add-symbol: var(--ink);
+  --color-fd-diff-remove: var(--surface);
+  --color-fd-diff-remove-symbol: var(--accent);
+  --color-fd-error: var(--accent);
+  --color-fd-idea: var(--ink);
+  --color-fd-info: var(--ink);
+  --color-fd-success: var(--ink);
+  --color-fd-warning: var(--accent);
 }
 
 .dark {

@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchContext } from 'fumadocs-ui/contexts/search';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 import { siteNavigation } from '@/lib/navigation';
 
@@ -9,8 +10,13 @@ import { MobileMenu } from './mobile-menu';
 import { ThemeToggle } from './theme-toggle';
 import { Wordmark } from './wordmark';
 
+const SiteSearchDialog = dynamic(
+  () => import('./search-dialog').then((module) => module.SiteSearchDialog),
+  { ssr: false },
+);
+
 export function SiteHeader() {
-  const { setOpenSearch } = useSearchContext();
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <header className="site-header">
@@ -26,7 +32,7 @@ export function SiteHeader() {
             className="search-trigger functional-label"
             type="button"
             aria-label="Search Builder’s Book"
-            onClick={() => setOpenSearch(true)}
+            onClick={() => setSearchOpen(true)}
           >
             Search
           </button>
@@ -34,6 +40,7 @@ export function SiteHeader() {
           <MobileMenu />
         </div>
       </div>
+      {searchOpen ? <SiteSearchDialog open onOpenChange={setSearchOpen} /> : null}
     </header>
   );
 }
