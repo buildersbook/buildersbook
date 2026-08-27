@@ -27,6 +27,9 @@ LC_ALL=C grep -RInFi \
   --exclude='.DS_Store' \
   --exclude='check-private.sh' \
   --exclude-dir='.git' \
+  --exclude-dir='node_modules' \
+  --exclude-dir='.next' \
+  --exclude-dir='.source' \
   -f "$patterns" .
 status=$?
 

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -u
+
+repo_root=$(git rev-parse --show-toplevel) || exit 1
+
+if [ -z "${BUILDERSBOOK_PRIVATE_MANIFEST:-}" ]; then
+  echo "pre-push: BUILDERSBOOK_PRIVATE_MANIFEST is unset; refusing to push because the private-identifier gate is disabled" >&2
+  echo "pre-push: configure the operator-only manifest or use git push --no-verify for an emergency override" >&2
+  exit 2
+fi
+
+"$repo_root/scripts/check-private.sh"
