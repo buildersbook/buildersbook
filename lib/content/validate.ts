@@ -273,7 +273,17 @@ async function validateEntries(): Promise<void> {
   const draftUrls = [...publicationByUrl]
     .filter(([, status]) => status === 'draft')
     .map(([url]) => url);
+  // Flip to false in the Phase 2 publish commit — this flag makes gate dormancy a declared state.
+  const EXPECT_NO_PUBLISHED_PAGES = true;
   invariant(draftUrls.length > 0, 'The search exclusion test requires at least one draft fixture.');
+  invariant(
+    !EXPECT_NO_PUBLISHED_PAGES || source.publishedPages.length === 0,
+    'Published pages exist while EXPECT_NO_PUBLISHED_PAGES is true.',
+  );
+  invariant(
+    EXPECT_NO_PUBLISHED_PAGES || source.publishedPages.length > 0,
+    'EXPECT_NO_PUBLISHED_PAGES is false, but the published page set is empty.',
+  );
   for (const url of draftUrls) invariant(!indexedUrls.has(url), `Draft slug leaked into the search index: ${url}`);
 
   const identities = new Set<string>();
