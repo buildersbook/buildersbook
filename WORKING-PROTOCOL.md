@@ -37,12 +37,13 @@ commits. IMPLEMENT is the sole writer.
 6. **Expected values stated inline** so the agent reports deviation as a finding instead of normalizing it away.
 7. **Output format declared.** Read-only prompts return PASS / FAIL / PASS WITH FINDINGS, a findings list with severity, and a verified-clean list. Findings are reported, never fixed in the same prompt.
 8. **Expected evidence named** — what the operator pastes back so SCOUT verifies rather than trusts a summary.
+9. Every read-only report opens with an attestation line: model, version, and harness (e.g. REVIEWER: Claude Fable 5 / Claude Code).
 
 ## Execution boundaries
 
 - The operator runs all prompts and performs all `git push` operations manually. **Nothing else is manual** — file manipulation, shell work, and repo operations short of push are delegated to agents.
 - Agents commit only with explicit authorization. Agents never push.
-- For non-sensitive scope, a single IMPLEMENT prompt may carry a multi-stage packet with checkpoint commits pre-authorized against a declared file scope, provided every stage is mechanically verifiable and a cross-family VERIFY runs on the full range before push. Sensitive scope (sanitization, public-repo cuts, proprietary boundaries) remains one-prompt-at-a-time. Agents never push.
+- For non-sensitive scope, a single IMPLEMENT prompt may carry a multi-stage packet with checkpoint commits pre-authorized against the Task Packet's `allowed_files` list, provided: the batch executes on a work branch, never directly on main; each stage passes its declared verification commands before the next stage begins; and a cross-family VERIFY runs on the full range before merge and push. Any edit outside `allowed_files` voids the pre-authorization for that and all subsequent checkpoints. Canon and protocol files (`AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `VERIFY.md`, `ADVERSARY.md`, `WORKING-PROTOCOL.md`, `roles/`, `workflow/`) are never batchable. Sensitive scope — as defined by the ADVERSARY scope in `CLAUDE.md`, not limited to sanitization, public-repo cuts, and proprietary boundaries — remains one-prompt-at-a-time. Agents never push.
 - **Identity gate:** every commit is authored from the personal account via the repo-local git identity pin, which overrides global config regardless of shell state. Verify authorship after committing and before pushing.
 - Credentials, payments, and 2FA are handled by the operator personally. Agents operate inside already-authenticated browser sessions or with scoped tokens. Tokens are never pasted into chat.
 - Private identity material never enters any repo, prompt, or agent context.
