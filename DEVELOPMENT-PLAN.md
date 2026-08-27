@@ -49,10 +49,10 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 **Feature Brief:** FB-01 — constrained MDX dialect
 
 1. Fumadocs on Next.js App Router, local MDX, FlexSearch, TypeScript, pnpm.
-2. **Typed `book` and `blog` collections** — distinct schemas/renderers, shared content registry + link validator.
+2. **Typed `book` and `essays` collections** — distinct schemas/renderers, shared content registry + link validator.
 3. **Constrained MDX dialect** (FB-01): component allowlist with Markdown fallbacks; no arbitrary imports/exports/inline JS. CI validates rendered HTML AND processed `.md` exports.
 4. **Locale contract now, translations later** — `contentId`, `locale`, `translationOf`, `sourceRevision`, `translationStatus` frontmatter; unprefixed English URLs; no fallback-language publishing.
-5. **Discovery layer** — truthful-lastmod sitemap, RSS/Atom for blog, canonicals, Article/BreadcrumbList JSON-LD, explicit crawler allowances (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot), IndexNow on deploy. llms.txt / llms-full.txt / per-page `.md` via Fumadocs native generation, treated as supplemental alternates (noindex X-Robots-Tag, HTML canonical) — an affordance for agents, not an SEO strategy.
+5. **Discovery layer** — truthful-lastmod sitemap, RSS/Atom for essays, canonicals, Article/BreadcrumbList JSON-LD, explicit crawler allowances (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot), IndexNow on deploy. llms.txt / llms-full.txt / per-page `.md` via Fumadocs native generation, treated as supplemental alternates (noindex X-Robots-Tag, HTML canonical) — an affordance for agents, not an SEO strategy.
 6. **CI content gates:** fail on broken internal links, orphan pages, missing descriptions, duplicate slugs, bad prerequisite refs.
 7. **CI performance budget:** <100KB compressed first-party JS on reading pages; LCP ≤2.5s / INP ≤200ms / CLS ≤0.1.
 8. Landing + about pages (typography-only wordmark from Brand track).

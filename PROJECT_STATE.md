@@ -8,8 +8,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-27 (SITE-P10)
-> Updated by: IMPLEMENT — SITE-P10 TP-003 + TP-004 batch
+> Last updated: 2026-08-27 (SITE-P11.1)
+> Updated by: IMPLEMENT — SITE-P11.1 findings batch
 
 ## Phase Status
 
@@ -18,7 +18,7 @@
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
-| 1 | Site scaffold | In progress | TP-002, TP-003, and TP-004 complete; cross-family VERIFY and production deployment remain |
+| 1 | Site scaffold | In progress | TP-002, TP-003, and TP-004 complete; SITE-P11.1 follow-up VERIFY and production deployment remain |
 
 ## Brand Track
 
@@ -47,23 +47,26 @@ None.
 
 ## Current Task
 
-SITE-P10 TP-003 + TP-004 batch complete on local `main`; awaiting SITE-P11 cross-family VERIFY
+SITE-P11.1 findings batch complete on local `main`; awaiting cross-family VERIFY of the follow-up range
 
 ## What Was Done Last Session
 
-- Installed a fail-closed local private-identifier pre-push hook and added push/PR CI for lint, typecheck, tests, build, the hard 100 KiB application-JS budget, and report-only Lighthouse vitals.
-- Added no-raw-value, token contrast, 11px functional-text, recursive heading-hierarchy, and complete Fumadocs bridge gates.
-- Hardened strict frontmatter, real publication dates, URL schemes, prerequisite and related-content references, heading IDs, document IDs, internal links, orphan detection, and publication-state exhaustiveness.
-- Consolidated generated content access in `lib/source.ts`; unpublished content is absent from search/static params and returns 404 at HTML and Markdown URLs.
-- Added truthful sitemap dates, RSS and Atom, canonicals, Article/Breadcrumb JSON-LD, explicit crawler rules, Fumadocs LLM alternates, and production-only IndexNow submission.
+- Closed every generated-source import form outside the two audit exceptions and verified all four boundary probes fail lint.
+- Replaced design fixtures with repository-wide raw-value and font-size invariants; added the missing light-mode contrast regression pairs.
+- Derived discovery exclusions and positive assertions from the live unpublished and published page sets.
+- Added the IndexNow route invariant, Lighthouse ignore, main-only push CI with concurrency, and documentation/state reconciliation from SITE-P11.
 
 ## Active Blockers
 
 None.
 
+## Open Items
+
+- `AGENTS.md`, `CLAUDE.md`, and `CODEX.md` retain stale `blog` collection references; correcting canon files requires a dedicated prompt.
+
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P11 cross-family VERIFY of the full SITE-P10 commit range.
+1. SITE-P11.2 cross-family VERIFY of the SITE-P11.1 four-commit range.
 2. Operator push local `main` after VERIFY passes.
 3. SITE-P12 deploy: Vercel, Cloudflare DNS, Google Search Console, and Bing Webmaster Tools with operator checkpoints.
 4. Run the Phase 1 exit check.
@@ -83,13 +86,15 @@ None.
 | SITE-P7 | 2026-08-26 | Resolve the complete SITE-P6 findings batch | f736b95, b09761b, 16e92e5, 8379c43, 8d49bd9 |
 | SITE-P8 | 2026-08-27 | Post-SITE-P7 review; findings carried into the merged SITE-P8/P8x triage | — |
 | SITE-P8x | 2026-08-27 | Supplemental review and merged disposition of F-1–F-9 | — |
-| SITE-P9 | 2026-08-27 | Resolve the SITE-P8/P8x dialect, naming, protocol, and records findings | 17d2d25, d2a9b8f, 605cc6a, this commit |
-| SITE-P10.1 | 2026-08-27 | Amend the batch clause per the operator's 2026-08-26 decision; SITE-P10 correctly halted on the mismatch | this commit |
-| SITE-P10 | 2026-08-27 | TP-003 CI/hardening and TP-004 publication/discovery batch | 56cfedf, cf10a9c, 76ce826, 4910abe, 849e384, this commit |
+| SITE-P9 | 2026-08-27 | Resolve the SITE-P8/P8x dialect, naming, protocol, and records findings | 17d2d25, d2a9b8f, 605cc6a, b4a2653 |
+| SITE-P10.1 | 2026-08-27 | Amend the batch clause per the operator's 2026-08-26 decision; SITE-P10 correctly halted on the mismatch | 9ac2447 |
+| SITE-P10 | 2026-08-27 | TP-003 CI/hardening and TP-004 publication/discovery batch | 56cfedf, cf10a9c, 76ce826, 4910abe, 849e384, ed6d615 |
+| SITE-P11 | 2026-08-27 | Cross-family VERIFY of SITE-P10 — PASS WITH FINDINGS (H-1, M-1–M-4, L-1–L-7) | — |
+| SITE-P11.1 | 2026-08-27 | Resolve the SITE-P11 boundary, invariant-gate, discovery-test, and hygiene findings | 68b8243, c4ede2d, 7b1c250, this commit |
 
 ## Session Notes
 
-The local site and discovery layer are provisioned; Vercel, DNS, and webmaster-tool verification remain pending Phase 1. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
+The local site and discovery layer are provisioned; Vercel, DNS, and webmaster-tool verification remain pending Phase 1. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner. Canon collection naming still needs the dedicated reconciliation prompt recorded above.
 
 ---
 

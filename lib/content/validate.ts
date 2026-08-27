@@ -2,6 +2,7 @@ import { compile } from '@mdx-js/mdx';
 import { applyMdxPreset } from 'fumadocs-mdx/config';
 import { register } from 'fumadocs-mdx/node';
 import type { Root } from 'mdast';
+import { existsSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -357,6 +358,11 @@ async function validateEntries(): Promise<void> {
 async function validateDiscoverySurfaces(): Promise<void> {
   const discovery = await import('../discovery');
   const source = await import('../source');
+  const indexNowRoute = new URL(`../../app/${discovery.INDEXNOW_KEY}.txt/route.ts`, import.meta.url);
+  invariant(
+    existsSync(indexNowRoute),
+    `IndexNow key route is missing for the current INDEXNOW_KEY: ${discovery.INDEXNOW_KEY}`,
+  );
   const draftUrls = source.allPagesIncludingUnpublished
     .filter((page) => page.data.publicationStatus !== 'published')
     .map((page) => page.url);
