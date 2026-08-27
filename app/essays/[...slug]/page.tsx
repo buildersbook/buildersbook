@@ -10,7 +10,7 @@ type PageProps = {
 export default async function EssayContentPage({ params }: PageProps) {
   const { slug } = await params;
   const page = essaysSource.getPage(slug);
-  if (!page) notFound();
+  if (!page || page.data.publicationStatus !== 'published') notFound();
 
   return <EssayRenderer page={page} />;
 }
@@ -18,15 +18,16 @@ export default async function EssayContentPage({ params }: PageProps) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const page = essaysSource.getPage(slug);
-  if (!page) notFound();
+  if (!page || page.data.publicationStatus !== 'published') notFound();
 
   return {
     title: page.data.title,
     description: page.data.description,
-    robots: page.data.publicationStatus === 'published' ? undefined : { index: false, follow: false },
   };
 }
 
 export function generateStaticParams() {
-  return essaysSource.generateParams();
+  return essaysSource.getPages()
+    .filter((page) => page.data.publicationStatus === 'published')
+    .map((page) => ({ slug: page.slugs }));
 }

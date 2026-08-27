@@ -1,13 +1,16 @@
 import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { repositoryUrl } from '@/lib/navigation';
-import { essaysSource } from '@/lib/source';
+import { allPagesIncludingUnpublished } from '@/lib/source';
 
 function assertNever(value: never): never {
   throw new Error(`Unhandled publication status: ${String(value)}`);
 }
 
 export default function EssaysIndexPage() {
-  const essays = essaysSource.getPages().map((page): BookIndexEntry => {
+  const essays = allPagesIncludingUnpublished
+    .filter((page) => page.url.startsWith('/essays/'))
+    .map((page): BookIndexEntry => {
+    if (!('category' in page.data)) throw new Error(`${page.url}: expected essay frontmatter.`);
     const entry = {
       number: page.data.publishedAt ?? 'Unscheduled',
       title: page.data.title,
@@ -28,7 +31,7 @@ export default function EssaysIndexPage() {
       default:
         return assertNever(status);
     }
-  });
+    });
 
   return (
     <main id="main-content" className="stage-one-main">

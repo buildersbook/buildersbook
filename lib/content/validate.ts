@@ -267,11 +267,8 @@ async function validateEntries(): Promise<void> {
   }
 
   const source = await import('../source');
-  const allSourceUrls = new Set([
-    ...source.bookSource.getPages().map((page) => page.url),
-    ...source.essaysSource.getPages().map((page) => page.url),
-  ]);
-  const indexedUrls = new Set(source.contentPages.map((page) => page.url));
+  const allSourceUrls = new Set(source.allPagesIncludingUnpublished.map((page) => page.url));
+  const indexedUrls = new Set(source.publishedPages.map((page) => page.url));
   const draftUrls = [...publicationByUrl]
     .filter(([, status]) => status === 'draft')
     .map(([url]) => url);
@@ -281,6 +278,9 @@ async function validateEntries(): Promise<void> {
   const identities = new Set<string>();
   const urls = new Set<string>();
   const bookContentIds = new Set(collections.book.map((entry) => entry.contentId));
+  const contentById = new Map(
+    [...collections.book, ...collections.essays].map((entry) => [entry.contentId, entry]),
+  );
 
   for (const group of groups) {
     for (const entry of group.entries) {
@@ -305,6 +305,13 @@ async function validateEntries(): Promise<void> {
       if ('prerequisites' in entry) {
         for (const prerequisite of entry.prerequisites) {
           invariant(bookContentIds.has(prerequisite), `${url}: unknown prerequisite contentId ${prerequisite}.`);
+        }
+      }
+      if ('relatedBookChapter' in entry && entry.relatedBookChapter) {
+        const target = contentById.get(entry.relatedBookChapter);
+        invariant(target, `${url}: relatedBookChapter does not resolve to contentId ${entry.relatedBookChapter}.`);
+        if (target.publicationStatus !== 'published') {
+          console.warn(`${url}: relatedBookChapter target ${entry.relatedBookChapter} is unpublished.`);
         }
       }
 
@@ -333,6 +340,11 @@ async function validateEntries(): Promise<void> {
         ...collectInternalLinks(markdown, url),
       ]) {
         invariant(knownTargets.has(link), `${url}: broken internal link to ${link}`);
+        const targetStatus = publicationByUrl.get(link);
+        invariant(
+          entry.publicationStatus !== 'published' || targetStatus === undefined || targetStatus === 'published',
+          `${url}: published content links to unpublished target ${link}.`,
+        );
       }
     }
   }

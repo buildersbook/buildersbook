@@ -15,6 +15,8 @@ export const essaysSource = loader({
   source: toFumadocsSource(englishEssays, []),
 });
 
-export const contentPages = [...bookSource.getPages(), ...essaysSource.getPages()].filter(
+export const allPagesIncludingUnpublished = [...bookSource.getPages(), ...essaysSource.getPages()];
+
+export const publishedPages = allPagesIncludingUnpublished.filter(
   (page) => page.data.publicationStatus === 'published',
 );
