@@ -51,6 +51,14 @@ function normalizeReferenceLabel(label: string): string {
   return label.trim().replace(/\s+/g, ' ').toLowerCase();
 }
 
+function collectDiscoveryPaths(output: string): Set<string> {
+  const candidates = [
+    ...[...output.matchAll(/https:\/\/buildersbook\.dev(?:\/[^\s<>"')\]]*)?/g)].map((match) => match[0]),
+    ...[...output.matchAll(/\]\((\/[^)\s]+)\)/g)].map((match) => match[1]),
+  ];
+  return new Set(candidates.map((candidate) => new URL(candidate, 'https://buildersbook.dev').pathname));
+}
+
 function collectInternalLinks(value: string, currentUrl: string): string[] {
   const links = new Set<string>();
   const destinations = [
@@ -379,23 +387,24 @@ async function validateDiscoverySurfaces(): Promise<void> {
   const sitemapEntries = discovery.buildSitemapEntries();
   const sitemapUrls = new Set(sitemapEntries.map((entry) => new URL(entry.url).pathname));
   const llmsIndex = discovery.buildLlmsIndex();
-  const surfaces = new Map([
-    ['sitemap', JSON.stringify(sitemapEntries)],
-    ['RSS', discovery.buildRssFeed()],
-    ['Atom', discovery.buildAtomFeed()],
-    ['llms.txt', llmsIndex],
-    ['llms-full.txt', await discovery.buildLlmsFull()],
+  const llmsIndexUrls = collectDiscoveryPaths(llmsIndex);
+  const surfaceUrls = new Map([
+    ['sitemap', sitemapUrls],
+    ['RSS', collectDiscoveryPaths(discovery.buildRssFeed())],
+    ['Atom', collectDiscoveryPaths(discovery.buildAtomFeed())],
+    ['llms.txt', llmsIndexUrls],
+    ['llms-full.txt', collectDiscoveryPaths(await discovery.buildLlmsFull())],
   ]);
 
-  for (const [surface, output] of surfaces) {
+  for (const [surface, urls] of surfaceUrls) {
     for (const url of draftUrls) {
-      invariant(!output.includes(url), `${surface}: draft URL leaked into discovery output: ${url}`);
+      invariant(!urls.has(url), `${surface}: draft URL leaked into discovery output: ${url}`);
     }
   }
 
   for (const page of source.publishedPages) {
     invariant(sitemapUrls.has(page.url), `sitemap: published URL is missing from discovery output: ${page.url}`);
-    invariant(llmsIndex.includes(page.url), `llms.txt: published URL is missing from discovery output: ${page.url}`);
+    invariant(llmsIndexUrls.has(page.url), `llms.txt: published URL is missing from discovery output: ${page.url}`);
   }
 }
 
