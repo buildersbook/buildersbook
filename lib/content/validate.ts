@@ -356,19 +356,30 @@ async function validateEntries(): Promise<void> {
 
 async function validateDiscoverySurfaces(): Promise<void> {
   const discovery = await import('../discovery');
-  const draftSlugs = ['sample-chapter', 'sample-essay'];
+  const source = await import('../source');
+  const draftUrls = source.allPagesIncludingUnpublished
+    .filter((page) => page.data.publicationStatus !== 'published')
+    .map((page) => page.url);
+  const sitemapEntries = discovery.buildSitemapEntries();
+  const sitemapUrls = new Set(sitemapEntries.map((entry) => new URL(entry.url).pathname));
+  const llmsIndex = discovery.buildLlmsIndex();
   const surfaces = new Map([
-    ['sitemap', JSON.stringify(discovery.buildSitemapEntries())],
+    ['sitemap', JSON.stringify(sitemapEntries)],
     ['RSS', discovery.buildRssFeed()],
     ['Atom', discovery.buildAtomFeed()],
-    ['llms.txt', discovery.buildLlmsIndex()],
+    ['llms.txt', llmsIndex],
     ['llms-full.txt', await discovery.buildLlmsFull()],
   ]);
 
   for (const [surface, output] of surfaces) {
-    for (const slug of draftSlugs) {
-      invariant(!output.includes(slug), `${surface}: draft slug leaked into discovery output: ${slug}`);
+    for (const url of draftUrls) {
+      invariant(!output.includes(url), `${surface}: draft URL leaked into discovery output: ${url}`);
     }
+  }
+
+  for (const page of source.publishedPages) {
+    invariant(sitemapUrls.has(page.url), `sitemap: published URL is missing from discovery output: ${page.url}`);
+    invariant(llmsIndex.includes(page.url), `llms.txt: published URL is missing from discovery output: ${page.url}`);
   }
 }
 
