@@ -105,7 +105,7 @@ These are Claude Code adapters for LEAD-V workflow steps. Other tools should fol
 
 ## Project-Specific Context
 
-**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `blog` collections; FlexSearch; pnpm. Styling is TBD at the Phase 1 site scaffold.
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. Styling is TBD at the Phase 1 site scaffold.
 
 **Data model:** No database and no user accounts at launch.
 

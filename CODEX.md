@@ -47,7 +47,7 @@ Codex should read the packet, inspect the referenced files, list intended file c
 
 <!-- CUSTOMIZE: Keep under ~20 lines. Add Codex-specific commands, checks, or constraints. -->
 
-**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `blog` collections; FlexSearch; pnpm. No database or user accounts at launch. Styling is TBD at the Phase 1 site scaffold.
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. No database or user accounts at launch. Styling is TBD at the Phase 1 site scaffold.
 
 **Common checks:**
 - Dev: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.

@@ -29,7 +29,7 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 |-------|-----------|
 | Language | TypeScript |
 | Framework | Next.js (App Router) + Fumadocs |
-| Content | Local MDX in-repo; typed `book` and `blog` collections |
+| Content | Local MDX in-repo; typed `book` and `essays` collections |
 | Search | FlexSearch |
 | Database | None — explicitly no database at launch |
 | Auth | None — no user accounts |
