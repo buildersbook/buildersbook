@@ -169,8 +169,8 @@ export function articleJsonLd(page: PublishedPage): string {
     headline: page.data.title,
     description: page.data.description,
     mainEntityOfPage: absoluteUrl(page.url),
-    author: { '@type': 'Organization', name: "Builder's Book" },
-    publisher: { '@type': 'Organization', name: "Builder's Book" },
+    author: { '@type': 'Organization', name: "The Builder’s Book" },
+    publisher: { '@type': 'Organization', name: "The Builder’s Book" },
     ...(publishedAt(page) ? { datePublished: `${publishedAt(page)}T00:00:00Z` } : {}),
     ...(modified ? { dateModified: modified } : {}),
   };

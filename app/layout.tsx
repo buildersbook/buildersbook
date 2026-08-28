@@ -38,8 +38,8 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://buildersbook.dev'),
   title: {
-    default: "Builder's Book",
-    template: "%s · Builder's Book",
+    default: "The Builder’s Book",
+    template: "%s · The Builder’s Book",
   },
   description: 'An open curriculum for engineers who build production software with coding agents.',
   alternates: {
