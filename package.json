@@ -20,7 +20,8 @@
     "perf:budget": "node scripts/check-js-budget.mjs",
     "perf:lab": "lhci autorun --config=scripts/lighthouserc.cjs",
     "indexnow:submit": "tsx scripts/submit-indexnow.ts",
-    "test": "pnpm validate:content && pnpm validate:design",
+    "test:budget": "node --test scripts/check-js-budget.test.mjs",
+    "test": "pnpm validate:content && pnpm validate:design && pnpm test:budget",
     "validate": "pnpm lint && pnpm typecheck && pnpm test",
     "postinstall": "fumadocs-mdx"
   },
