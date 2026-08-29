@@ -12,6 +12,9 @@ test('isFirstPartyModuleKey requires an existing file for every accepted path', 
     isFirstPartyModuleKey(resolve(projectRoot, 'does-not-exist.tsx'), projectRoot),
     'rejected:unrecognized-path',
   );
+  assert.equal(isFirstPartyModuleKey('components/ghost.tsx', projectRoot), 'rejected:unrecognized-path');
+  assert.equal(isFirstPartyModuleKey('totally/made/up.tsx', projectRoot), 'rejected:unrecognized-path');
+  assert.equal(isFirstPartyModuleKey('components/site-header.tsx', projectRoot), 'accepted');
   assert.equal(isFirstPartyModuleKey(siteHeaderPath, projectRoot), 'accepted');
   assert.equal(isFirstPartyModuleKey('[project]/components/site-header.tsx', projectRoot), 'accepted');
 });
