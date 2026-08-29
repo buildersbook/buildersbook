@@ -40,6 +40,47 @@ export function isFirstPartyModuleKey(modulePath, projectRoot = repoRoot) {
   return isSafeProjectRelativePath(relativePath) || hasProjectRelativeSuffix(normalizedKey, projectRoot);
 }
 
+export function extractJsChunks(rawChunks) {
+  // Chunk arrays interleave ids and filenames; position is an implementation detail, the .js suffix is the contract.
+  return rawChunks.flatMap((chunk) => {
+    if (typeof chunk !== 'string') return [];
+    const path = chunk.replace(/[?#].*$/, '');
+    return path.endsWith('.js') ? [path] : [];
+  });
+}
+
+function classifyClientModule(modulePath, entry) {
+  if (typeof modulePath === 'string' && nodeModulesSegment.test(modulePath)) return 'rejected:node_modules';
+  if (entry.async !== false) return 'rejected:async';
+  if (!isFirstPartyModuleKey(modulePath)) return 'rejected:unrecognized-path';
+  return 'accepted';
+}
+
+function formatClassificationSummary(route, classifications) {
+  const counts = {
+    'rejected:node_modules': 0,
+    'rejected:async': 0,
+    'rejected:unrecognized-path': 0,
+    accepted: 0,
+  };
+  for (const { verdict } of classifications) counts[verdict] += 1;
+  return (
+    `${route} classification: total=${classifications.length} ` +
+    `rejected:node_modules=${counts['rejected:node_modules']} ` +
+    `rejected:async=${counts['rejected:async']} ` +
+    `rejected:unrecognized-path=${counts['rejected:unrecognized-path']} accepted=${counts.accepted}`
+  );
+}
+
+function formatClassificationTable(classifications) {
+  return classifications
+    .map(({ modulePath, entry, verdict }) => {
+      const chunks = verdict === 'accepted' ? ` chunks=${JSON.stringify(entry.chunks)}` : '';
+      return `${verdict} key=${JSON.stringify(modulePath)}${chunks}`;
+    })
+    .join('\n');
+}
+
 function checkBudget() {
   for (const route of routes) {
     const manifestPath = resolve(repoRoot, `.next/server/app/${route}/[...slug]/page_client-reference-manifest.js`);
@@ -48,24 +89,26 @@ function checkBudget() {
     const serialized = source.slice(source.indexOf(marker) + marker.length, source.lastIndexOf(';'));
     const manifest = JSON.parse(serialized);
     const clientModules = Object.entries(manifest.clientModules);
+    const classifications = clientModules.map(([modulePath, entry]) => ({
+      modulePath,
+      entry,
+      verdict: classifyClientModule(modulePath, entry),
+    }));
     const chunks = new Set();
 
     // First-party-ness is a property of module location relative to the project, never of the
     // host's absolute path prefix; async entries and node_modules segments remain load-bearing exclusions.
-    for (const [modulePath, entry] of clientModules) {
-      if (!isFirstPartyModuleKey(modulePath) || entry.async !== false) continue;
-      for (let index = 1; index < entry.chunks.length; index += 2) {
-        const chunk = entry.chunks[index];
-        if (typeof chunk === 'string' && chunk.endsWith('.js')) chunks.add(chunk);
-      }
+    for (const { entry, verdict } of classifications) {
+      if (verdict !== 'accepted') continue;
+      for (const chunk of extractJsChunks(entry.chunks)) chunks.add(chunk);
     }
 
     if (chunks.size === 0) {
-      const sampleKeys = clientModules.slice(0, 5).map(([modulePath]) => modulePath);
       throw new Error(
-        `${route}: no first-party client chunks found in the reading route manifest. ` +
-          `Manifest: ${manifestPath}. clientModules: ${clientModules.length}. ` +
-          `Sample keys: ${JSON.stringify(sampleKeys)}`,
+        `${route}: no first-party client chunks found in the reading route manifest.\n` +
+          `Manifest: ${manifestPath}\n` +
+          `${formatClassificationSummary(route, classifications)}\n` +
+          `Classification table:\n${formatClassificationTable(classifications)}`,
       );
     }
     let compressedBytes = 0;
@@ -79,6 +122,7 @@ function checkBudget() {
     if (compressedBytes > limit) {
       throw new Error(`${route}: compressed first-party JS exceeds the 100 KiB hard budget.`);
     }
+    console.log(formatClassificationSummary(route, classifications));
   }
 }
 
