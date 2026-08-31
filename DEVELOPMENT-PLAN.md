@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (private until launch)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-08-26
+**Last updated:** 2026-08-31
 
 ---
 
@@ -17,7 +17,7 @@
 3. **Anti-fortress rule:** one review round per decision; converged decisions are closed; content ships before polish.
 4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Everything beyond this trails content — never the reverse.
 5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. `pre-commit` verification runs before every push. First-commit attribution is permanent.
-6. **Hosting:** Vercel personal account (free tier), separate from any agency team.
+6. **Hosting — SUPERSEDED (operator decision 2026-08-28):** the original constraint specified a separate personal Vercel Hobby project. Production now runs from the agency Vercel Pro team through Git auto-deploy. The original separation rationale is retained as hygiene and severability, not technical necessity.
 7. **Private identity material is never committed.** The identity register lives outside all repos. Its public counterpart is the `/accounts` page.
 
 ---
@@ -165,7 +165,7 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 ## 4. Open Items
 
 - [ ] Orchestration-framework landscape research: gated input to TP-009, one round.
-- [ ] Vercel Hobby terms: revisit if a "Work with me" page ships (phase-3 site scope, currently out of plan).
+- [ ] Remove the `dustinmatlock` seat from the agency Vercel Pro team at the Phase 2 public flip, before the September 21 invoice-cycle close. Public-repository status relaxes blocked-committer enforcement; a slip costs one approximately $20 seat-month and is accepted.
 - [ ] Reserved-handle recheck on/after 2026-09-23 (brand track).
 - [ ] Framework rename (decided in principle, name open): collision checks (npm/GitHub/trademark) then close at Phase 3 kickoff; rename + sanitization execute as one pass before TP-006.
 - [ ] Private-identifier manifest: populated by the operator outside the repo (see `scripts/check-private.sh` header); CI wiring lands in TP-003.
