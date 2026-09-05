@@ -16,11 +16,15 @@ fi
 patterns=$(mktemp "${TMPDIR:-/tmp}/buildersbook-private.XXXXXX") || exit 2
 trap 'rm -f "$patterns"' EXIT HUP INT TERM
 
-# Empty lines are not identifiers and would otherwise match every line.
-sed '/^$/d' "$BUILDERSBOOK_PRIVATE_MANIFEST" >"$patterns"
+# Blank lines are not identifiers; an all-blank manifest disables the gate.
+if ! LC_ALL=C sed '/^[[:space:]]*$/d' "$BUILDERSBOOK_PRIVATE_MANIFEST" >"$patterns" 2>/dev/null; then
+  echo "check-private: manifest could not be read" >&2
+  exit 2
+fi
 
 if [ ! -s "$patterns" ]; then
-  exit 0
+  echo "check-private: manifest has no nonblank identifiers; refusing to scan" >&2
+  exit 3
 fi
 
 LC_ALL=C grep -RInFi \
