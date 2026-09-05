@@ -17,7 +17,7 @@
 3. **Anti-fortress rule:** one review round per decision; converged decisions are closed; content ships before polish.
 4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Everything beyond this trails content — never the reverse.
 5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. `pre-commit` verification runs before every push. First-commit attribution is permanent.
-6. **Hosting — SUPERSEDED (operator decision 2026-08-28):** the original constraint specified a separate personal Vercel Hobby project. Production now runs from the agency Vercel Pro team through Git auto-deploy. The original separation rationale is retained as hygiene and severability, not technical necessity.
+6. **Hosting:** production on Vercel, Git auto-deploy from main.
 7. **Private identity material is never committed.** The identity register lives outside all repos. Its public counterpart is the `/accounts` page.
 
 ---
@@ -84,11 +84,11 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 **Feature Briefs:** FB-03 — installable-skill distribution
 **⚠ ADVERSARY mandatory:** TP-006 and TP-010.
 
-**Closed 2026-08-26:** the Visibility layer ships in no public artifact — private commercial scope, excluded at sanitization.
+**Closed 2026-08-26:** the operator's commercial framework layer ships in no public artifact — private commercial scope, excluded at sanitization.
 
 **Repo shape (closed):** fresh public repo `buildersbook/lead-v` initialized from a sanitized snapshot; the private framework repo is archived read-only. Commit-level audit trail preserved as a curated `VERSION-HISTORY.md`.
 
-1. **Sanitization pass** (~23 files): labeling passes; genericize or exclude the client design-system example; exclude `archive/`; reset PROJECT_STATE.md and in-flight task packets.
+1. **Sanitization pass** (~23 files): labeling passes; genericize or exclude a client-specific example; exclude `archive/`; reset PROJECT_STATE.md and in-flight task packets.
 2. **Rule Zero fix:** remove/archive `tests/lead_enforce/` (7 orphaned Python test files for the retired hook mechanism) with the retirement note.
 3. **Framework drift fixes (TP-013)** — found during this project's install, all release blockers:
    - The scaffold command declares v4.0 while the framework declares v5.0, and it omits the v5 `/retro` command. A public framework whose installer trails its docs is not shippable.
@@ -165,7 +165,6 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 ## 4. Open Items
 
 - [ ] Orchestration-framework landscape research: gated input to TP-009, one round.
-- [ ] Remove the `dustinmatlock` seat from the agency Vercel Pro team at the Phase 2 public flip, before the September 21 invoice-cycle close. Public-repository status relaxes blocked-committer enforcement; a slip costs one approximately $20 seat-month and is accepted.
 - [ ] Reserved-handle recheck on/after 2026-09-23 (brand track).
 - [ ] Framework rename (decided in principle, name open): collision checks (npm/GitHub/trademark) then close at Phase 3 kickoff; rename + sanitization execute as one pass before TP-006.
 - [ ] Private-identifier manifest: populated by the operator outside the repo (see `scripts/check-private.sh` header); CI wiring lands in TP-003.

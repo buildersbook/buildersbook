@@ -76,9 +76,6 @@ Focus on these categories. If the code you're reviewing doesn't fit any of them,
 
 <!-- CUSTOMIZE: Add project-specific categories below -->
 ### Project-specific categories
-<!-- TODO: project example -->
-<!-- TODO: project example -->
-<!-- TODO: project example -->
 
 ## Known Patterns to Leave Alone
 
@@ -86,11 +83,8 @@ Focus on these categories. If the code you're reviewing doesn't fit any of them,
 
 These patterns look wrong but are intentional. Do not flag them.
 
-<!-- TODO: project example -->
 
-<!-- TODO: project example -->
 
-<!-- TODO: project example -->
 
 ## Output Format
 
@@ -173,7 +167,7 @@ Return the structured findings document and stop. Do not ask "do you want me to 
 | Project | Builder's Book |
 | Framework | Next.js (App Router) + Fumadocs |
 | Sensitive-code scope | LEAD-V sanitization for public release; public repo creation; MCP server proprietary boundary. Any work that could expose client data, proprietary business logic from the operator's other projects, or private identity material. |
-| Known debt items (don't re-flag) | <!-- TODO: project example --> |
+| Known debt items (don't re-flag) |  |
 | Escalation contact | Dustin Matlock |
 
 ---

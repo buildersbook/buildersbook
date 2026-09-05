@@ -31,13 +31,13 @@
 
 ## Open external dependency
 
-- **Designer** (existing collaborator, $100, production-only engagement): delivers exactly 2 SVGs — icon alone, lockup with outlined text, filled paths, #000000. May report optical corrections as original→final measurements; if any arrive, record them in the design reference, they do not reopen decisions.
+- Designer: existing collaborator, production-only engagement. Delivers exactly 2 SVGs — icon alone, lockup with outlined text, filled paths, #000000. May report optical corrections as original→final measurements; if any arrive, record them in the design reference, they do not reopen decisions.
 
 ## Queued work (not started, correctly waiting)
 
-1. **Export pass** — one IMPLEMENT session when designer SVGs arrive: favicon 16/32 PNG+ICO from the pixel-grid coordinate spec (in designer brief + final board), avatar set at 62% rule for all platforms in IDENTITY.md, dark variants. Then avatar rollout across profiles (identity register's placeholder-avatar open item).
+1. **Export pass** — one IMPLEMENT session when designer SVGs arrive: favicon 16/32 PNG+ICO from the pixel-grid coordinate spec (in designer brief + final board), avatar set at 62% rule for all platforms, dark variants. Then avatar rollout across profiles.
 2. **Site mockup zip → token extraction** happens inside TP-002, not before.
-3. Identity register items unchanged: X @buildersbook recheck ~2026-09-23, /accounts page, sameAs JSON-LD (brand track, downstream, never blocks).
+3. Brand track items unchanged: X @buildersbook recheck ~2026-09-23, /accounts page, sameAs JSON-LD (brand track, downstream, never blocks).
 
 ## Prompt log
 
