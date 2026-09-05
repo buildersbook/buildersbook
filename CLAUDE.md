@@ -25,6 +25,7 @@ Read these at session start:
 2. `VERIFY.md` — auditor role primer
 3. `ADVERSARY.md` — cross-model auditor role primer
 4. `PROJECT_STATE.md` — current phase, session log, known bugs
+5. `WORKING-PROTOCOL.md` — operator–SCOUT collaboration conventions: prompt protocol, execution boundaries, public-repo hygiene, state discipline
 
 Read these when the task requires them:
 
@@ -91,7 +92,7 @@ Never commit without explicit human diff approval and commit authorization. Push
 **Hosting:** production on Vercel, Git auto-deploy from main.
 **DNS:** Cloudflare.
 
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `0671e7b`.
 
 **Key commands:**
 

@@ -29,8 +29,9 @@ At the start of a Codex session:
 
 1. Read `AGENTS.md`.
 2. Read `PROJECT_STATE.md`.
-3. Read any referenced `FEATURE-BRIEF.md`, `HANDOFF.md`, or Task Packet.
-4. Verify the current repo state before trusting planning notes.
+3. Read `WORKING-PROTOCOL.md` — operator–SCOUT collaboration conventions: prompt protocol, execution boundaries, public-repo hygiene, state discipline.
+4. Read any referenced `FEATURE-BRIEF.md`, `HANDOFF.md`, or Task Packet.
+5. Verify the current repo state before trusting planning notes.
 
 ## Task Packets
 
@@ -51,7 +52,7 @@ Codex should read the packet, inspect the referenced files, list intended file c
 **Hosting:** production on Vercel, Git auto-deploy from main.
 **DNS:** Cloudflare.
 
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `0671e7b`.
 
 **Common checks:**
 

@@ -15,7 +15,7 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 **Name:** Builder's Book
 **Description:** The Builder's Book — an open curriculum for engineers who build production software by orchestrating AI coding agents. The project combines a public serialized site for essays and book content with open tooling.
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `0671e7b`.
 **Repository:** `buildersbook/buildersbook`
 
 ## Tech Stack
@@ -168,6 +168,7 @@ buildersbook/
 3. Read `DEVELOPMENT-PLAN.md` for the multi-phase roadmap.
 4. If a Task Packet under `docs/task-packets/` is referenced, read it as the implementation contract for one unit of work.
 5. If `HANDOFF.md` is present, read it for continuation context from the previous session. Rule Zero still applies — verify every claim against the codebase.
+6. Read `WORKING-PROTOCOL.md` — operator–SCOUT collaboration conventions: prompt protocol, execution boundaries, public-repo hygiene, state discipline.
 
 ## Task Packets
 
