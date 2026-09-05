@@ -381,13 +381,67 @@ async function validateDiscoverySurfaces(): Promise<void> {
   const sitemapUrls = new Set(sitemapEntries.map((entry) => new URL(entry.url).pathname));
   const llmsIndex = discovery.buildLlmsIndex();
   const llmsIndexUrls = collectDiscoveryPaths(llmsIndex);
+  // Validate the HTTP handlers' bodies, not only the generators they call.
+  const [rssRoute, atomRoute, llmsFullRoute, markdownRoute] = await Promise.all([
+    import('../../app/rss.xml/route'),
+    import('../../app/atom.xml/route'),
+    import('../../app/llms-full.txt/route'),
+    import('../../app/llms.mdx/[collection]/[[...slug]]/route'),
+  ]);
+  const [rss, atom, llmsFull] = await Promise.all([
+    rssRoute.GET().text(),
+    atomRoute.GET().text(),
+    llmsFullRoute.GET().then((response) => response.text()),
+  ]);
   const surfaceUrls = new Map([
     ['sitemap', sitemapUrls],
-    ['RSS', collectDiscoveryPaths(discovery.buildRssFeed())],
-    ['Atom', collectDiscoveryPaths(discovery.buildAtomFeed())],
+    ['RSS', collectDiscoveryPaths(rss)],
+    ['Atom', collectDiscoveryPaths(atom)],
     ['llms.txt', llmsIndexUrls],
-    ['llms-full.txt', collectDiscoveryPaths(await discovery.buildLlmsFull())],
+    ['llms-full.txt', collectDiscoveryPaths(llmsFull)],
   ]);
+
+  // Feeds contain essays only. Populated-output gates are dormant for empty collections.
+  const publishedEssays = source.publishedPages.filter((page) => page.url.startsWith('/essays/'));
+  if (publishedEssays.length > 0) {
+    invariant(rss.trim().length > 0, 'RSS: published essays exist, but the HTTP output is empty.');
+    invariant(atom.trim().length > 0, 'Atom: published essays exist, but the HTTP output is empty.');
+    const rssItems = [...rss.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((match) => match[1]);
+    const atomEntries = [...atom.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map((match) => match[1]);
+    const rssMembers = collectDiscoveryPaths(rssItems.map((item) => item.match(/<link>([^<]+)<\/link>/)?.[1] ?? '').join('\n'));
+    const atomMembers = collectDiscoveryPaths(atomEntries.map((entry) => entry.match(/<id>([^<]+)<\/id>/)?.[1] ?? '').join('\n'));
+    const hasAuthor = (value: string) => /<author>\s*<name>\s*[^<\s][^<]*<\/name>\s*<\/author>/.test(value);
+    const feedHasAuthor = hasAuthor(atom.split('<entry>')[0]);
+    for (const page of publishedEssays) {
+      invariant(rssMembers.has(page.url), `RSS: published essay is missing from feed items: ${page.url}`);
+      invariant(atomMembers.has(page.url), `Atom: published essay is missing from feed entries: ${page.url}`);
+    }
+    invariant(
+      feedHasAuthor || atomEntries.every(hasAuthor),
+      'Atom: an author with a nonempty name is required at feed level or on every entry.',
+    );
+  }
+
+  if (source.publishedPages.length > 0) {
+    invariant(llmsFull.trim().length > 0, 'llms-full.txt: published pages exist, but the HTTP output is empty.');
+  }
+
+  for (const page of source.publishedPages) {
+    const heading = `# ${page.data.title} (${discovery.absoluteUrl(page.url)})\n`;
+    invariant(
+      llmsFull.startsWith(heading) || llmsFull.includes(`\n${heading}`),
+      `llms-full.txt: published page is missing from the HTTP output: ${page.url}`,
+    );
+    const [collection, ...slug] = page.url.split('/').filter(Boolean);
+    const response = await markdownRoute.GET(new Request(discovery.absoluteUrl(`${page.url}.md`)), {
+      params: Promise.resolve({ collection, slug }),
+    });
+    invariant(response.status === 200, `Markdown HTTP export: ${page.url}.md returned ${response.status}.`);
+    const markdown = await response.text();
+    invariant(markdown.trim().length > 0, `Markdown HTTP export: ${page.url}.md is empty.`);
+    invariant(markdown.startsWith(heading), `Markdown HTTP export: published page is missing or incorrect: ${page.url}`);
+    surfaceUrls.set(`Markdown HTTP export ${page.url}.md`, collectDiscoveryPaths(markdown));
+  }
 
   for (const [surface, urls] of surfaceUrls) {
     for (const url of draftUrls) {
@@ -409,4 +463,4 @@ await validateDialect();
 await validateEntries();
 await validateDiscoverySurfaces();
 
-console.log('Content validation passed: strict schemas, constrained URLs, recursive headings, unique IDs, references, HTML, Markdown, internal links, and draft-free discovery.');
+console.log('Content validation passed: strict schemas, constrained URLs, recursive headings, unique IDs, references, HTML, Markdown, internal links, and draft-free discovery with populated HTTP export membership.');

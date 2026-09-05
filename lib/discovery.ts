@@ -110,7 +110,7 @@ export function buildAtomFeed(): string {
     ].filter(Boolean).join('');
   }).join('');
 
-  return `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Builder&apos;s Book Essays</title><id>${SITE_URL}/essays</id><updated>${updated}</updated><link href="${SITE_URL}/atom.xml" rel="self"/><link href="${SITE_URL}/essays"/>${entries}</feed>`;
+  return `<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Builder&apos;s Book Essays</title><author><name>The Builder’s Book</name></author><id>${SITE_URL}/essays</id><updated>${updated}</updated><link href="${SITE_URL}/atom.xml" rel="self"/><link href="${SITE_URL}/essays"/>${entries}</feed>`;
 }
 
 function nativeLlmsSource() {
