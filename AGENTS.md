@@ -15,7 +15,7 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 **Name:** Builder's Book
 **Description:** The Builder's Book — an open curriculum for engineers who build production software by orchestrating AI coding agents. The project combines a public serialized site for essays and book content with open tooling.
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
 **Repository:** `buildersbook/buildersbook`
 
 ## Tech Stack
@@ -165,7 +165,7 @@ buildersbook/
 
 1. Read `PROJECT_STATE.md` for what we're working on right now.
 2. If `FEATURE-BRIEF.md` is present at the repo root, a feature is in-flight — read it for scope and constraints.
-3. If `docs/specs/DEVELOPMENT-PLAN.md` (or project equivalent) is present, read it for the multi-phase roadmap.
+3. Read `DEVELOPMENT-PLAN.md` for the multi-phase roadmap.
 4. If a Task Packet under `docs/task-packets/` is referenced, read it as the implementation contract for one unit of work.
 5. If `HANDOFF.md` is present, read it for continuation context from the previous session. Rule Zero still applies — verify every claim against the codebase.
 
@@ -210,7 +210,8 @@ These commands are defined in `package.json` scripts.
 - **Model selection.** Default Opus for judgment; Sonnet for explicitly mechanical tasks.
 - **Fresh context per IMPLEMENT prompt.** New session for each prompt unless doing sequential micro-edits on the same file.
 - **Task Packet transfer.** For non-trivial work, move SCOUT planning into `docs/task-packets/` instead of relying on chat history.
-- **Commit format.** Use `/commit` for standardized messages with a `Context:` block when AI context files changed.
+- `/retro` — records a durable lesson in the retro log (command: `.claude/commands/retro.md`).
+- **Commit format.** Commit messages carry a `Context:` block when AI context files changed.
 - **Never commit without human review and explicit authorization.** Authorization covers one reviewed diff and one proposed commit message.
 
 ## Execution-Lane Protection
@@ -225,18 +226,6 @@ Three rules, applied every turn. Canonical version lives in `CLAUDE.md`; summary
 - **SCOUT prompt authorization.** The SCOUT-issued prompt itself authorizes the task. No separate "can I proceed?" round — read the prompt, list files, wait for the file-list confirmation, execute.
 - **Commit authorization.** A commit requires explicit human approval of one specific diff and proposed message. No commit authorization → stop after the diff.
 
-## Domain Rules
-
-`.claude/rules/*.md` load just-in-time when you touch matching file paths. Do not read them preemptively — they load on demand.
-
 ## Sub-Agents
 
 If `.claude/agents/` contains agent definitions, they can be invoked for isolated research tasks. See `roles/ROLES.md` → Research Mode.
-
-## Reference Docs
-
-When your task involves a specific area, check these directories:
-
-- `docs/specs/` — Locked feature specifications. Read before implementing any spec'd feature.
-- `docs/guides/` — Living style and workflow guides. Read before writing code in an area with established conventions.
-- `docs/research/` — Archived evaluations and decision logs. Read when you need to understand why a past decision was made.

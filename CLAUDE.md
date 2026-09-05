@@ -30,14 +30,12 @@ Read these when the task requires them:
 
 - `FEATURE-BRIEF.md` — in-flight feature brief, if a feature is mid-flight
 - `docs/task-packets/` — Task Packets for non-trivial SCOUT → IMPLEMENT transfer
-- `.claude/rules/*.md` — domain rules, JIT-loaded per task
-- `docs/specs/` — locked specifications, as relevant to task
 
 ## Roles (summary — see `roles/ROLES.md` for canonical definitions)
 
 - **SCOUT** — Strategic Consultant. Claude.ai with Opus 5 by default and Fable 5 on escalation.
 - **IMPLEMENT** — Senior Engineer. Codex terminal / browser plugin is primary; Claude Code (Opus 5) is secondary.
-- **VERIFY** — Auditor. Either Codex or Claude Code, operating read-only and propose-only. Claude Code can run verification through `/verify`.
+- **VERIFY** — Auditor. Either Codex or Claude Code, operating read-only and propose-only. Claude Code runs verification from a VERIFY prompt (read-only).
 - **ADVERSARY** — Cross-Model Auditor. Mandatory on sensitive scope. Claude Code (Opus 5) reviews Codex work; Codex reviews Claude work. The implementing family never reviews itself on sensitive scope.
 
 VERIFY and ADVERSARY never modify files. All file changes flow through IMPLEMENT.
@@ -56,6 +54,7 @@ Claude Code follows the same process contract as every other IMPLEMENT adapter. 
 - Every `IMPLEMENT PROMPT` header specifies Sonnet or Opus. Default to Opus for judgment, Sonnet for explicitly mechanical tasks.
 - Fresh Claude Code session for each IMPLEMENT prompt (unless doing sequential micro-edits on the same file).
 - For non-trivial SCOUT → IMPLEMENT work, prefer a Task Packet under `docs/task-packets/` over long chat history.
+- `/retro` — records a durable lesson in the retro log (command: `.claude/commands/retro.md`).
 - At the end of every session, VERIFY proposes `PROJECT_STATE.md` updates as text; IMPLEMENT or the human writes them. Do not close a session with stale state.
 
 ## Authorization Model
@@ -79,10 +78,6 @@ When a SCOUT prompt is issued, that prompt itself authorizes the work. IMPLEMENT
 
 Never commit without explicit human diff approval and commit authorization. Pushes remain human-run.
 
-## Domain Rules
-
-`.claude/rules/*.md` files load just-in-time when you touch matching file paths. Do not read them preemptively — they load on demand.
-
 ---
 
 ## Project-Specific Context
@@ -96,7 +91,7 @@ Never commit without explicit human diff approval and commit authorization. Push
 **Hosting:** production on Vercel, Git auto-deploy from main.
 **DNS:** Cloudflare.
 
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
 
 **Key commands:**
 

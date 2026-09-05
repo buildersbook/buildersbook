@@ -51,7 +51,7 @@ Codex should read the packet, inspect the referenced files, list intended file c
 **Hosting:** production on Vercel, Git auto-deploy from main.
 **DNS:** Cloudflare.
 
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `a6831d1`.
 
 **Common checks:**
 
