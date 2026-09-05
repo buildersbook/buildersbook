@@ -10,6 +10,7 @@ import { Citation, Footnote, Footnotes } from '../../components/footnotes';
 import { Marginalia } from '../../components/marginalia';
 import sourceConfig, { book, essays } from '../../source.config';
 import { deduplicateHeadingIds, MDX_COMPONENT_ALLOWLIST } from './constrained-mdx';
+import { collectDiscoveryPaths } from './discovery-paths';
 import { markdownFallbacks } from './markdown-fallbacks';
 import { getProcessedMarkdown } from './processed-markdown';
 import { bookFrontmatterSchema, essayFrontmatterSchema } from './schemas';
@@ -49,14 +50,6 @@ function normalizeInternalLink(href: string, currentUrl: string): string | null 
 
 function normalizeReferenceLabel(label: string): string {
   return label.trim().replace(/\s+/g, ' ').toLowerCase();
-}
-
-function collectDiscoveryPaths(output: string): Set<string> {
-  const candidates = [
-    ...[...output.matchAll(/https:\/\/buildersbook\.dev(?:\/[^\s<>"')\]]*)?/g)].map((match) => match[0]),
-    ...[...output.matchAll(/\]\((\/[^)\s]+)\)/g)].map((match) => match[1]),
-  ];
-  return new Set(candidates.map((candidate) => new URL(candidate, 'https://buildersbook.dev').pathname));
 }
 
 function collectInternalLinks(value: string, currentUrl: string): string[] {
