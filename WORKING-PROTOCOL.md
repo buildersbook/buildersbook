@@ -13,7 +13,7 @@
 | IMPLEMENT (primary) | Codex terminal / browser plugin | Heavy lifting: scaffold, file ops, refactors, sanitization mechanics. |
 | IMPLEMENT (secondary) | Claude Code (Opus 5) | Well-scoped tasks, or when Codex stalls. |
 | VERIFY | Either adapter, read-only | Propose-only per v5. |
-| ADVERSARY | Cross-family, mandatory on sensitive scope | Default: Claude Code reviews Codex work. If Claude implemented, Codex reviews. On sensitive scope the implementing family never reviews itself. |
+| ADVERSARY | Cross-family, mandatory on sensitive scope | Default: Claude Code reviews Codex work. If Claude implemented, Codex reviews. On sensitive scope the implementing family never reviews itself. Review direction (which family implements, which reviews) is an explicit per-batch choice, not a symmetric default; protocol revision on this is a Phase 3 item. |
 
 **SCOUT escalation.** Opus 5 handles routine planning, prompt writing, sequencing, and verification reading. SCOUT names Fable 5 when a decision warrants it — sensitive-scope arbitration, irreversible or expensive-to-reverse architecture decisions, ADVERSARY/IMPLEMENT deadlock, and flagship-artifact structural review. The operator decides whether to spend the usage.
 
@@ -52,6 +52,8 @@ commits. IMPLEMENT is the sole writer.
 
 This repository becomes public at launch. No commit may contain private business names, client names, or private identity material — including inside framework configuration and role definitions. Describe sensitive scope by category, not by name. Every prompt that writes prose to the repo ends with a grep check for known private identifiers, expecting zero hits.
 
+The private-identifier manifest carries category words as well as proper names; the scanner runs at pre-push.
+
 ## Sensitive-scope addendum
 
 - ADVERSARY review is cross-family and blocking — no push until sign-off.
@@ -61,6 +63,8 @@ This repository becomes public at launch. No commit may contain private business
 
 - The agent updates `PROJECT_STATE.md` at the end of each session, in that session, before the operator pushes. Stale state is a Rule Zero violation.
 - Results are reported by prompt number, including agent output verbatim when relevant. SCOUT treats reported results as the new ground truth (Rule Zero: reality outranks the plan).
+
+Public-state rule: state records (PROJECT_STATE.md, DEVELOPMENT-PLAN.md, session logs) carry outcomes and commit hashes only — no money, no local paths, no token or credential names, no business arrangements, no third-party relationships. Vendors a public site necessarily reveals (hosting, DNS) may be named.
 
 ## Style
 
