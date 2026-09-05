@@ -1,0 +1,113 @@
+---
+title: We Built Agent Enforcement Hooks and Then Killed Them
+description: A record of agent enforcement hooks that missed the implementing lane, and a template for testing whether an enforcement claim holds.
+contentId: agent-enforcement-hooks
+locale: en
+translationOf: null
+sourceRevision: "3.1"
+translationStatus: source
+publicationStatus: draft
+category: essay
+relatedBookChapter: null
+---
+
+A control cannot enforce repository writes that bypass its runtime. In our case, every implementing commit did.
+
+"We" in this essay means one operator — me — plus the AI agents I direct under a framework that assigns them roles: one plans, one implements, one verifies read-only, and one, from a different model family, reviews adversarially. Where a decision was mine, I say so.
+
+## What we built
+
+The failure log had the entries. An agent asked to restyle one component "fixed inconsistencies" in five files outside its task and introduced two bugs nobody found for days. A commit-authorization step got compressed into a completion report, and the commit went in unreviewed. The discipline layer that should have stopped both is prose — rules in Markdown that every agent reads at session start — and prose can be read and then ignored.
+
+Over eleven days in June we specified and built a hook system for the Claude Code harness. A PreToolUse hook blocked writes outside the active task packet's declared file scope and refused mutating git commands. A Stop hook ran the packet's verification on a read-only snapshot before an agent could declare itself done. A commit gate bound each commit to a one-time token that I minted against one reviewed diff and one commit message — itself a branch of the PreToolUse hook, reached only when Claude Code issued `git commit` through its own shell tool. No git hook existed anywhere. Eighty-three tests. Two adversarial review waves on the specification alone. A locked v5.0 spec containing a table that declared which adapters were *harness-enforced* and which were *prose-enforced*.
+
+The hooks were registered at 07:39:06 on June 19. Twenty-three days later they were deleted; twenty-seven days after the specification was first committed.
+
+## What the record shows
+
+A read-only agent pulled the git history, the task packets, the retro log, and the deleted runtime, and reported what was there. Memory would have written a different essay.
+
+**The hooks governed the wrong lane.** A harness hook is invoked by the harness: Claude Code calls the PreToolUse script before matching tool calls in its parent interactive session. A different agent running in a different harness never traverses it. The tier table said which was which: the Claude Code adapter was *harness-enforced*; the Codex adapter was *prose-enforced* — "Codex follows the same Task Packet and list-before-edit rules manually until a Codex hook equivalent exists." That was the contemporaneous rationale, and it is the whole of it: one lane first, the other to follow. Every implementing commit from the hook project onward was authored through Codex — including the commit that registered the hooks, whose body records that it was made from outside them. The lane the mechanism protected and the lane doing the work were different lanes for the entire twenty-three days. I wrote the asymmetry into the spec, locked the spec, and shipped.
+
+**Twenty-three minutes after registration, I loosened it.** A one-line commit at 08:02:42 set `strict_mode` to false. The flag governed one case: with no task packet active, strict mode blocked every write, and non-strict mode allowed ordinary writes while still blocking protected paths. So the loosening was narrow — it re-opened unscoped writing when nothing was in progress — and it was the first behavior change the mechanism ever received. The commit message says *owner-directed loosening, outside the maintenance-packet route.* The mechanism built to stop unilateral scope changes was changed unilaterally, by hand, before it had seen a full hour of work.
+
+**There is no retained evidence that it ever fired.** Seventeen seconds before the loosening, runtime state and approval tokens were excluded from version control — sensible hygiene for tokens, and also the reason no record survives of a blocked write, a consumed token, or a verification run. Whether a hook ever acted on real work cannot be shown either way.
+
+**Then twenty-one days of silence, and a deletion.** No commits between June 19 and July 10. On July 12, one commit removed sixteen runtime files and the settings that registered them — 2,304 deletions — and rewrote fifteen governance documents. It left the seven test files behind. Eighty-three tests that cannot import their subject are still in the tree as this essay is published; they leave in the framework's public-release commit, which comes later, with this essay as the retirement note they never got. The retirement commit has a one-line subject and no body. There is no retro-log entry for the decision. The framework's failure-modes reference has never mentioned hooks. We built a mechanism to stop discipline failures and then failed to document its death with the discipline it was meant to enforce.
+
+## What actually caught the defects
+
+The enforcement code had fail-opens — paths where the guard, on meeting something it did not recognize, let the write through. When the core library shipped, two same-family verification passes cleared it. A cross-family adversarial review then found one Critical and three High. The next packet's fix pass found another Critical and another High the same way. The retro entry from that day: *keep different-family adversarial review mandatory for sensitive trunk work, especially hook and enforcement code.*
+
+The record names the families. Codex implemented both packets; the two verification passes that cleared each ran in fresh Codex sessions; the adversarial review that found the fail-opens was Claude — Opus 4.8, at the second catch. The history does not isolate model family from review method, because the successful pass changed both: the passes that missed the fail-opens were same-family and read the code; the pass that found them was different-family and constructed the inputs that should have been blocked. What the record does establish: a reviewer probing the mechanism found what readers of the mechanism did not, and the token-bound commit gate — the mechanical one — has no recorded catch to its name. My manual authorization controlled whether reviewed work landed; it did not find defects, and I will not credit it with any.
+
+So the mechanism's own defects were caught by review, and there is no retained evidence the mechanism caught anything. The boundary claim, stated exactly: a scoped control can be real enforcement — branch protection enforces what reaches `main` without governing every editor — but only if every path capable of violating the stated invariant crosses it. Ours did not, and the spec said so.
+
+## A second instance, without hooks
+
+June could be read as a harness-coverage mistake and nothing more. The next instance had no harness in it.
+
+On August 29, in a different repository, a CI gate measured first-party JavaScript against a hard byte budget. After a hosting migration it failed remotely and passed locally. The first fix rewrote how modules were classified as first-party. The commit message said classification was now by *module location, not host path prefix*. The code replaced the old `startsWith(repoRoot)` test with string-shape tests on the path form and added an `existsSync` fallback. By the time the change reached the session's handoff record — the document the next session would read first — the contract had become *existsSync-verified*. Remote builds went green.
+
+A reviewer asked to probe rather than read ran the classifier against a path that did not exist and watched it return *first-party*. The filesystem check was dead code. It sat on the right-hand side of an `||` whose left side — a string test on the normalized path — was true for existing and missing files alike; and it was reachable only from the absolute-path branch, while the key forms both hosts actually emitted returned earlier without touching it. A reader could see `existsSync` in the file, conclude classification was filesystem-backed, and never notice that no path either host produced could reach it. The build had gone green because a different change in the next commit fixed the actual bug. The invariant the record called verified had never executed anywhere.
+
+The two incidents are not the same failure, and the second does not prove anything about the first. What they share is narrower: in both, an enforcement claim was inferred from the structure of the implementation — a hook is registered, a check is in the code — and never subjected to an end-to-end attempt to falsify it. The June claim was "writes outside scope are blocked"; nobody tried a write from the other harness. The September claim was "non-existent paths are rejected"; nobody tried one.
+
+Two outside sources document other complete-mediation failures of the same family. An evidence-linked catalog of [documented hook limitations](https://dev.to/boucle2026/what-claude-code-hooks-can-and-cannot-enforce-148o) shows that even inside the covered lane, hooks do not fire in pipe mode and do not bind subagent or MCP tool calls. A [study of six agent frameworks](https://arxiv.org/abs/2607.14166) found five leak side effects past their approval gates while the gate waits; its proposed repair is an external admission gate through which every side effect must pass. The authors mechanically verified the gate's admission logic under a complete-mediation contract they do not claim to have proved; the shape of the repair — one boundary outside every framework, not a hook inside each — is the point.
+
+## What we kept
+
+Not the hooks. We kept the packet frontmatter they parsed: machine-readable scope declarations that a future lane-complete mechanism can consume and that the human reviewer reads today. We kept adversarial review, made mandatory on sensitive work. We kept the tier table, unedited, under a supersession banner in the original spec — the moment the asymmetry was written down and shipped anyway.
+
+## The rule
+
+The framework now carries one sentence, inserted verbatim into seventeen files by the retirement commit:
+
+> Enforcement applies to every write-capable execution lane equally, or it does not exist as mechanism. Where no lane-equal mechanism exists, protection is process: the human commit gate, cross-family adversarial review, and Rule Zero.
+
+Rule Zero is the framework's oldest rule: the codebase is the only source of truth, and planning documents describe intent, not reality. The sentence above is Rule Zero applied to enforcement claims, in the specific form June taught it. The general form, which September required: state the invariant and its boundary; enumerate every path that can violate the invariant; show that each path crosses the control; and record the attempts made to falsify that claim. Lane equality is what complete mediation looks like when the paths are agent harnesses.
+
+A claim can survive this. Server-side branch protection on `main` states an invariant — nothing reaches `main` without a reviewed pull request — and every path that can violate it, from any editor, harness, or shell, arrives as a push the server sees. A retained rejection of a direct push is the falsification artifact. The verdict is bounded: the remote branch, not any local one. That is a scoped control that is real enforcement, and it is why the framework's rule is not "everything is process." It is "say which boundary, and prove it."
+
+The corollary late August added:
+
+> A gate's claim must survive explicit probes designed to falsify it. Reading alone is insufficient, and a passing probe supports the claim only for the paths and conditions probed.
+
+Cross-family review stays in the framework by policy, not as the demonstrated cause of the June catches. A [controlled study](https://arxiv.org/html/2607.21656v1) of one vendor's model reviewing another's found the benefit asymmetric — helpful in one direction, harmful in the other — on single-file programming tasks with a reviewer that could not run tests. The reviewer in that design had to emit a final program, and the outcome measured was whether the rewrite passed hidden tests — a narrower setting than adversarial probing of enforcement code, and a different quantity from defects found. The bounded inference is just this: review direction can change the outcome of a review pass, so it is chosen and tested, not assumed.
+
+## The template
+
+For any claim of mechanical enforcement, in your own framework or one you are evaluating, four questions. Paste them into a review prompt.
+
+```
+ENFORCEMENT CLAIM CHECK
+
+1. INVARIANT AND PATHS — State the exact invariant the control claims
+   to enforce ("no repository write outside the active task's declared
+   scope"). Enumerate every path capable of violating it: every agent,
+   every harness, every tool call type, the human's own shell.
+
+2. BINDING — For each path, name the mechanism that binds it and the
+   file or setting that registers the binding. "Same rules, followed
+   manually" is not a binding; write "process" and move on.
+
+3. FALSIFICATION ARTIFACT — For each binding, show a retained artifact
+   from an attempt to violate the invariant through that path: the
+   blocked write, the rejected commit, the failing probe. The artifact
+   must show that the NAMED binding produced it — a rejection message
+   that identifies the control, not a red build that some other change
+   explains — and it must postdate the last change to that binding's
+   configuration. A log line showing the hook fired is not this. The
+   artifact may live outside the repository, but it must be reviewable.
+
+4. VERDICT — State exactly which boundary and which probed conditions
+   the claim is supported for. Everything outside that statement is
+   process; name the process, and remove the word "enforced" from
+   anywhere it no longer applies.
+```
+
+We ran it against our own framework. Every path came back *process*. The claim now says so.
+
+---
+
+*Every fact above was checked against the framework repository's git history by a read-only agent before drafting. The retrieval report and commit hashes ship with the framework's public release. If the record and this essay disagree, the record wins.*
