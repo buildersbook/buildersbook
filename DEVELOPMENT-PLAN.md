@@ -9,7 +9,7 @@
 
 ## 0. Operating Constraints
 
-1. **Bootstrapped.** The operator's primary business is the financial lifeline; this project rides alongside it. Time-box all infrastructure.
+1. **Bootstrapped.** This project is time-boxed alongside the operator's other work. Time-box all infrastructure.
 2. **Cadence guardrails (closed):**
    - Max **two artifacts in progress** at any time, across both tracks.
    - **One public artifact per two private ones.**
@@ -84,11 +84,11 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 **Feature Briefs:** FB-03 — installable-skill distribution
 **⚠ ADVERSARY mandatory:** TP-006 and TP-010.
 
-**Closed 2026-08-26:** the operator's commercial framework layer ships in no public artifact — private commercial scope, excluded at sanitization.
+**Closed 2026-08-26:** a private framework layer ships in no public artifact — out of public scope, excluded at sanitization.
 
 **Repo shape (closed):** fresh public repo `buildersbook/lead-v` initialized from a sanitized snapshot; the private framework repo is archived read-only. Commit-level audit trail preserved as a curated `VERSION-HISTORY.md`.
 
-1. **Sanitization pass** (~23 files): labeling passes; genericize or exclude a client-specific example; exclude `archive/`; reset PROJECT_STATE.md and in-flight task packets.
+1. **Sanitization pass** (~23 files): labeling passes; genericize or exclude a project-specific example; exclude `archive/`; reset PROJECT_STATE.md and in-flight task packets.
 2. **Rule Zero fix:** remove/archive `tests/lead_enforce/` (7 orphaned Python test files for the retired hook mechanism) with the retirement note.
 3. **Framework drift fixes (TP-013)** — found during this project's install, all release blockers:
    - The scaffold command declares v4.0 while the framework declares v5.0, and it omits the v5 `/retro` command. A public framework whose installer trails its docs is not shippable.
@@ -108,7 +108,7 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 **Track:** Content
 **Artifacts:** TP-011 (server) · TP-012 (publish + announce)
 **Feature Brief:** FB-04 — detection-layer scope (schema.org detection, NAP consistency, technical crawlability)
-**⚠ ADVERSARY mandatory:** the proprietary boundary. Detection layer only — no weighted scoring, category architecture, or benchmarking logic from the operator's commercial work.
+**⚠ ADVERSARY mandatory:** the proprietary boundary. Detection layer only — no weighted scoring, category architecture, or benchmarking logic from the operator's private work.
 
 Begins after Phase 3's announce essay ships.
 

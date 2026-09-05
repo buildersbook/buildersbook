@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 40c5cb38cd028daab22a96df59f7d858b8500e91
+Current through: f2201d9cedc7b534739855bb81d50d5bb5d09246
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 40c5cb38cd028daab22a96df59f7d858b8500e91
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-05 (SITE-P17.2.2)
-> Updated by: IMPLEMENT — SITE-P17.2.2 records reconciliation
+> Last updated: 2026-09-05 (SITE-P17.2.3)
+> Updated by: IMPLEMENT — SITE-P17.2.3
 
 ## Phase Status
 
@@ -50,14 +50,16 @@ None.
 
 ## Current Task
 
-Phase 1 is complete. The current task is SITE-P17.2 — canon reconciliation before the public flip.
+Manifest append, then pre-flip essay work: ESSAY-P3 on receipt of the voice-edited essay #1.
 
 ## What Was Done Last Session
 
-- SITE-P16 completed CI/runtime alignment at `e04c555`.
-- SITE-P17 pre-flip audit returned FLIP-READY WITH FIXES: 3 BLOCKING / 7 HIGH / 4 MED / 3 LOW.
-- SITE-P17.1 public-face fixes: `473f321`, `c6bd5c0`, `8c33987`.
-- Completed Phase 1 task packets archived.
+- SITE-P17 fix arc: `473f321`..`92e0800` (11 commits).
+- Licenses and policy files added (`473f321`); CI actions SHA-pinned and Dependabot configured (`c6bd5c0`).
+- Public-face sanitization completed (`8c33987`); history decision and template markers corrected (`a6831d1`).
+- Completed Phase 1 task packets archived (`416402b`).
+- Canon and state reconciled (`d62d4d2`, `fa02157`, `1cccb59`, `0671e7b`, `40c5cb3`, `92e0800`).
+- Three cross-family VERIFY rounds completed: SITE-P17.1-V, SITE-P17.2-V2, SITE-P17.2.2-V — PASS WITH FINDINGS.
 
 ## Active Blockers
 
@@ -72,16 +74,16 @@ None.
 
 ## Resolved This Session
 
-- SITE-P16 completed at `e04c555`: Node 22.23.1 + 24 CI matrix, `@types/node` 24.13.3, `erasableSyntaxOnly`, and `.nvmrc`; SITE-P15.6 F3 is closed.
-
-- Hosting supersession is complete: production hosting on Vercel through Git auto-deploy. The retired project and token were removed; the approximately 7m24s migration gap was accepted.
-- Permanent JS-budget erratum: commit `2b06d6d` claims its classification rework fixed the remote failure, but cross-family VERIFY SITE-P15.0 proved that logic was dead code on every host because its `existsSync` branch never executed. Commit `4149be9`'s chunk-extraction change was the actual fix. The historical message overstates the result and remains immutable; this entry is the correction.
-- SITE-P15.0 verdict: **FAIL**. Commit `de8a7a1` made every first-party accept require a file stat, added reason-coded counters and diagnosable failure paths, and added the script-module floor; `0ddccea` added the seven-test `node:test` suite. Commit `bcaa066` closed SITE-P15.2 F1 by pinning the relative-key accept branch to the filesystem.
-- SITE-P15.2 verdict: **PASS WITH FINDINGS**. Deferred F2–F6 and the case-insensitive-filesystem limitation are recorded under Open Items. The gate contract is now tested through `pnpm test` in CI.
-- The prior state entry describing IndexNow as “wake proven, run failed, plausibly transient DNS” was wrong. Runs `33247693409` and `33252160628` failed identically because `submit-indexnow.ts` imported application code whose module graph reaches `.mdx`; `tsx`/Node had no `.mdx` loader and raised `ERR_UNKNOWN_FILE_EXTENSION`. The failure was deterministic from creation, never DNS.
-- Commit `6161bfa` decoupled IndexNow from the application module graph. The script now uses the deployed sitemap as its URL source, uses built-ins only, fails loudly, provides a `DRY_RUN` guard, and runs under plain Node without pnpm.
-- SITE-P15.6 verdict: **PASS WITH FINDINGS**. Commit `df0b278` closed F1 with a constants drift-guard test and F2 by removing the stale `tsx` script entry. Deferred F3–F5 are recorded under Open Items.
-- IndexNow first succeeded end-to-end in run `33392406514` on 2026-08-31 (20s), triggered by the `df0b278` deploy.
+- SITE-P17 F1–F4, F6, F17: public-face references sanitized (`8c33987`).
+- SITE-P17 F8, F9, F11: CI action pins, dependency updates, and site URL pin closed (`c6bd5c0`).
+- SITE-P17 F10, F12–F15: licenses, contribution and security policies, and README policy links added (`473f321`).
+- SITE-P17 F16: canon reconciled with the repository (`d62d4d2`).
+- SITE-P17 Area 3: closed in the fix arc (`473f321`..`92e0800`).
+- SITE-P17.1-V: history-decision wording, template markers, and canon findings closed (`a6831d1`, `d62d4d2`, `fa02157`).
+- VERIFY canon-reference, prompt-header, state-writer, and history-wording findings closed (`1cccb59`, `0671e7b`).
+- SITE-P17.2-V2: session-start routing, status pins, and state currency reconciled (`40c5cb3`, `92e0800`).
+- SITE-P17.2.2-V F6: permitted named tools and vendor classes clarified (`f2201d9`).
+- SITE-P17.2.2-V F1–F4/F7: planning wording, current task, session summaries, log, starter template, and currency reconciled (this commit).
 
 ## Immediate Next Tasks (In Order)
 
@@ -125,14 +127,16 @@ None.
 | SITE-P15.7 | 2026-08-31 | Close IndexNow drift findings, prove the first successful run, and reconcile records | df0b278, c57424e |
 | SITE-P16 | 2026-08-31 | Node 22.23.1 + 24 CI matrix, @types/node 24.13.3, erasableSyntaxOnly, .nvmrc | e04c555 |
 | SITE-P17 | 2026-09-05 | Pre-flip audit, Grok: FLIP-READY WITH FIXES, 3 BLOCKING / 7 HIGH / 4 MED / 3 LOW | — |
-| SITE-P17.1 | 2026-09-05 | Public-face fix batch | 473f321, c6bd5c0, 8c33987 |
+| SITE-P17.1 | 2026-09-05 | Public-face fix batch | 473f321, c6bd5c0, 8c33987, 416402b |
 | SITE-P17.1.1 | 2026-09-05 | History decision corrected; template markers removed | a6831d1 |
 | SITE-P17.1-V | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
 | SITE-P17.2 | 2026-09-05 | Canon reconciled; public-state rule recorded | d62d4d2, fa02157 |
 | SITE-P17.2-V | 2026-09-05 | VERIFY, Codex (same-family) — FAIL — superseded | — |
 | SITE-P17.2.1 | 2026-09-05 | Canon references corrected; state wording reconciled; protocol deferral recorded | 1cccb59, 0671e7b |
 | SITE-P17.2-V2 | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
-| SITE-P17.2.2 | 2026-09-05 | Protocol routed into session start; status pins and state records reconciled | 40c5cb3, this commit |
+| SITE-P17.2.2 | 2026-09-05 | Protocol routed into session start; status pins and state records reconciled | 40c5cb3, 92e0800 |
+| SITE-P17.2.2-V | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
+| SITE-P17.2.3 | 2026-09-05 | Permitted vendor classes clarified; planning wording, stale state sections, and session log reconciled | f2201d9, this commit |
 
 ## Decisions
 
@@ -162,7 +166,7 @@ Don't start implementation until I confirm.
 Execute [TASK_ID] from [DEVELOPMENT-PLAN.md] — [brief description].
 
 Read the full prompt spec in the dev plan before starting.
-[Any extra context: file locations, API keys, design constraints]
+[Any extra context: file locations, design constraints — never credentials]
 
 Verify: [what success looks like].
 When done, report results and propose or update state according to role rules.
