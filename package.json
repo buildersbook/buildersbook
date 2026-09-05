@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "pnpm validate:content && next build --webpack",
     "postbuild": "pnpm perf:budget",
     "start": "next start",
     "lint": "eslint . && pnpm validate:design:lint",
