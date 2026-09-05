@@ -68,6 +68,7 @@ None.
 - JS-budget SITE-P15.2 deferred findings: case-insensitive filesystems can accept a case-mismatched path (Linux CI is the case-sensitive compensating control, strengthened by SITE-P16); async-verdict label precedence is diagnostics-only (F2); `checkBudget` orchestration is untested (F3); suffix-walk tail collision is specified behavior (F4); the summary prints twice (F5); and bracket-prefixed route groups are mislabeled but fail closed (F6).
 - IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
 - Before the public flip, run a full-history private-data scan: manifest grep across all commits plus a semantic pass. The pre-push hook covers the working tree only.
+- Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
 
 ## Resolved This Session
 
@@ -128,7 +129,7 @@ None.
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05.
-- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no credentials, no private business or client names, no local paths beyond ~/Downloads references; hosting and DNS vendors and an unnamed designer engagement do appear. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
+- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no credentials, no private business, client, or third-party names, no local paths beyond a downloads-folder reference; hosting and DNS vendors appear. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
 - Public-state rule: state records carry outcomes and hashes only. Full rule lands in WORKING-PROTOCOL.md (SITE-P17.2).
 
 ## Session Notes
