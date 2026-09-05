@@ -1,5 +1,4 @@
 <!-- LEAD-V FRAMEWORK v5 -->
-<!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
 # Agent Context — Builder's Book
 
 This file primes any LLM agent (Claude Code, Codex, Cursor, and others) with universal project context. Read it first.
@@ -14,16 +13,12 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 ## Project Overview
 
-<!-- CUSTOMIZE: project identity, tech stack, deployment target -->
-
 **Name:** Builder's Book
 **Description:** The Builder's Book — an open curriculum for engineers who build production software by orchestrating AI coding agents. The project combines a public serialized site for essays and book content with open tooling.
-**Status:** Phase 0 bootstrap complete; Phase 1 site scaffold not yet started
-**Repository:** `buildersbook/buildersbook` (private until launch)
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
+**Repository:** `buildersbook/buildersbook`
 
 ## Tech Stack
-
-<!-- CUSTOMIZE -->
 
 | Layer | Technology |
 |-------|-----------|
@@ -33,9 +28,9 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 | Search | FlexSearch |
 | Database | None — explicitly no database at launch |
 | Auth | None — no user accounts |
-| Styling | TBD at Phase 1 site scaffold |
-| Hosting | Vercel personal account, separate from any agency team |
-| DNS | Cloudflare — `buildersbook.dev` |
+| Styling | Tailwind CSS via PostCSS; Fumadocs styles; semantic tokens in `styles/tokens.css` and site styles in `styles/site.css` |
+| Hosting | production on Vercel, Git auto-deploy from main. |
+| DNS | Cloudflare. |
 | Package Manager | pnpm |
 
 ## Roles
@@ -53,30 +48,117 @@ File changes flow through IMPLEMENT only. VERIFY and ADVERSARY report; IMPLEMENT
 
 ## Folder Structure
 
-~~~
-project-root/
+Tracked paths through depth 2, with workflow, hook, and archive paths expanded; the existing empty `docs/task-packets/` directory is also shown.
+
+FOR REVIEW:
+~~~text
+buildersbook/
 ├── .claude/
-│   ├── commands/        ← Claude Code slash-command adapters
-│   ├── rules/           ← Domain-specific rules (JIT-loaded by file path)
-│   └── agents/          ← Sub-agent definitions
-├── AGENTS.md            ← This file — universal agent context
-├── CLAUDE.md            ← Claude Code entry point
-├── CODEX.md             ← Codex adapter entry point
-├── VERIFY.md            ← Auditor role primer
-├── ADVERSARY.md         ← Cross-model auditor role primer
-├── .cursorrules         ← Cursor IDE rules (if using Cursor)
-├── PROJECT_STATE.md     ← Current session state
-├── skills/              ← Composable skill modules
-├── templates/
-│   ├── FEATURE-BRIEF.md ← Structured input for complex features
-│   └── TASK-PACKET.md   ← Durable SCOUT → IMPLEMENT task contract
+│   └── commands/
+│       └── retro.md
+├── .github/
+│   ├── dependabot.yml
+│   └── workflows/
+│       ├── ci.yml
+│       └── indexnow.yml
+├── .gitignore
+├── .nvmrc
+├── ADVERSARY.md
+├── AGENTS.md
+├── CLAUDE.md
+├── CODEX.md
+├── CONTRIBUTING.md
+├── DEVELOPMENT-PLAN.md
+├── LICENSE
+├── LICENSE-CONTENT
+├── PROJECT_STATE.md
+├── README.md
+├── SECURITY.md
+├── VERIFY.md
+├── WORKING-PROTOCOL.md
+├── app/
+│   ├── about/
+│   ├── api/
+│   ├── atom.xml/
+│   ├── book/
+│   ├── ed028cc6bfe99c09e25c88b51da41e70.txt/
+│   ├── essays/
+│   ├── layout.tsx
+│   ├── llms-full.txt/
+│   ├── llms.mdx/
+│   ├── llms.txt/
+│   ├── not-found.tsx
+│   ├── page.tsx
+│   ├── robots.ts
+│   ├── rss.xml/
+│   └── sitemap.ts
+├── components/
+│   ├── book-index.tsx
+│   ├── code-block.tsx
+│   ├── code-copy-button.tsx
+│   ├── content-shell.tsx
+│   ├── footnotes.tsx
+│   ├── marginalia.tsx
+│   ├── mdx.tsx
+│   ├── mobile-menu.tsx
+│   ├── renderers/
+│   ├── search-dialog.tsx
+│   ├── site-header.tsx
+│   ├── theme-toggle.tsx
+│   └── wordmark.tsx
+├── content/
+│   ├── book/
+│   └── essays/
+├── design/
+│   ├── DESIGN-BUILD-NOTES.md
+│   ├── HANDOFF-BRAND.md
+│   └── reference/
 ├── docs/
-│   ├── specs/           ← Locked specifications (incl. DEVELOPMENT-PLAN.md if used)
-│   ├── guides/          ← Living documentation
-│   ├── task-packets/    ← In-flight Task Packet storage
-│   ├── handoffs/        ← Archived session handoffs
-│   └── research/        ← Archived decision logs
-└── src/                 ← [customize — your application code]
+│   ├── UPGRADE-GATES.md
+│   ├── archive/
+│   │   └── task-packets/
+│   │       ├── TP-002.md
+│   │       ├── TP-003.md
+│   │       └── TP-004.md
+│   └── task-packets/
+├── eslint.config.mjs
+├── lib/
+│   ├── content/
+│   ├── discovery.ts
+│   ├── navigation.ts
+│   └── source.ts
+├── mdx-components.tsx
+├── next-env.d.ts
+├── next.config.mjs
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.mjs
+├── reference/
+│   └── GOTCHAS.md
+├── roles/
+│   └── ROLES.md
+├── scripts/
+│   ├── check-js-budget.mjs
+│   ├── check-js-budget.test.mjs
+│   ├── check-private.sh
+│   ├── hooks/
+│   │   └── pre-push
+│   ├── lighthouserc.cjs
+│   ├── submit-indexnow.test.mjs
+│   ├── submit-indexnow.ts
+│   └── validate-design.ts
+├── source.config.ts
+├── styles/
+│   ├── site.css
+│   └── tokens.css
+├── templates/
+│   ├── FEATURE-BRIEF.md
+│   └── TASK-PACKET.md
+├── tsconfig.json
+└── workflow/
+    ├── ASSISTANCE-LOOP.md
+    ├── DISCIPLINE.md
+    └── verification-checklist.md
 ~~~
 
 ## Current State
@@ -95,31 +177,32 @@ IMPLEMENT consumes the Task Packet plus the actual repo source files. Long chat 
 
 ## Key Conventions
 
-<!-- CUSTOMIZE -->
+- **Component naming:** PascalCase component functions; related exports may share a file, as in `components/footnotes.tsx`.
+- **File naming:** Kebab-case component files; App Router entry files use `page.tsx`, `layout.tsx`, and `route.ts`.
+- **Import ordering:** No import-order rule is configured in `eslint.config.mjs`; generated collection imports are restricted to `lib/source.ts` and `lib/content/validate.ts`.
+- **State management:** React hooks for interactive components; `next-themes` for theme state; Fumadocs `useDocsSearch` for search state.
+- **API patterns:** App Router route handlers; `app/api/search/route.ts` exports a static FlexSearch `GET` handler.
+- **Error handling:** Content routes call `notFound()` for missing or unpublished pages; clipboard failures are caught and surfaced through component state.
+- **Testing:** Content and design validators plus Node's test runner for the JS-budget and IndexNow scripts, composed by `pnpm test`.
 
-- **Component naming:** [e.g., PascalCase, one component per file]
-- **File naming:** [e.g., kebab-case for utilities, PascalCase for components]
-- **Import ordering:** [e.g., external packages first, then internal, then relative]
-- **State management:** [e.g., React context, Zustand, Redux]
-- **API patterns:** [e.g., server actions, API routes, tRPC]
-- **Error handling:** [e.g., try/catch with typed errors, error boundaries for UI]
-- **Testing:** [e.g., Vitest for unit tests, Playwright for e2e — or "no tests yet"]
+## Package Commands
 
-## Claude Code Slash Commands
-
-These commands are Claude Code adapters, not universal commands across all tools. Other agents should perform the same underlying workflow through their own interface.
+These commands are defined in `package.json` scripts.
 
 | Command | Purpose |
 |---------|---------|
-| `/prime` | Session cold-start audit |
-| `/prime-frontend` | Frontend-specific orientation |
-| `/handoff` | Draft structured session handoff document |
-| `/commit` | Standardized atomic commit with AI context tracking |
-| `/verify` | Post-implementation audit |
-| `/simplify` | Code simplification audit on recently changed files |
-| `/scaffold` | Bootstrap LEAD-V in a new project |
-| `/adversary` | Prepare a cross-model ADVERSARY review package |
-| `/retro` | Record a durable LEAD-V lesson |
+| `pnpm dev` | Start the Next.js development server |
+| `pnpm build` | Build Next.js with webpack; the postbuild script runs the JS budget check |
+| `pnpm start` | Start the production server |
+| `pnpm lint` | Run ESLint and design lint |
+| `pnpm typecheck` | Run TypeScript without emitting output |
+| `pnpm validate:content` | Validate content schemas, MDX, links, and discovery output |
+| `pnpm validate:design` | Run design validation |
+| `pnpm test:budget` | Run the JS-budget and IndexNow Node tests |
+| `pnpm test` | Run content validation, design validation, and script tests |
+| `pnpm validate` | Run lint, typecheck, and tests |
+| `pnpm perf:budget` | Check the built reading routes against the JS budget |
+| `pnpm perf:lab` | Run Lighthouse CI using `scripts/lighthouserc.cjs` |
 
 ## Session Conventions
 

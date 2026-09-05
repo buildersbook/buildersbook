@@ -1,7 +1,6 @@
 @AGENTS.md
 
 <!-- LEAD-V FRAMEWORK v5 -->
-<!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
 # Builder's Book — Claude Code Adapter
 
 This file is the Claude Code adapter for Builder's Book. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules; Claude Code reads it through the `@AGENTS.md` include above, then uses this file for Claude-specific execution notes.
@@ -16,7 +15,6 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 ## Project Summary
 
-<!-- CUSTOMIZE: 2 sentences max -->
 Builder's Book is a public serialized site and open-tooling repository built with TypeScript, Next.js (App Router), Fumadocs, local MDX, and FlexSearch. It is an open curriculum for engineers who build production software by orchestrating AI coding agents.
 
 ## Context Files
@@ -52,7 +50,7 @@ Claude Code follows the same process contract as every other IMPLEMENT adapter. 
 
 ## Session Protocol
 
-- Start Claude Code sessions with `/prime` — cold-start audit against current repo state.
+- Start Claude Code sessions with a cold-start audit against current repo state.
 - One prompt per turn. No plan dumps.
 - Every code block carries a label: `IMPLEMENT PROMPT (Opus|Sonnet):`, `VERIFY PROMPT:`, `ADVERSARY PROMPT:`, `RESEARCH PROMPT:`, `MANUAL (terminal):`, or `FOR REVIEW:`.
 - Every `IMPLEMENT PROMPT` header specifies Sonnet or Opus. Default to Opus for judgment, Sonnet for explicitly mechanical tasks.
@@ -81,22 +79,6 @@ When a SCOUT prompt is issued, that prompt itself authorizes the work. IMPLEMENT
 
 Never commit without explicit human diff approval and commit authorization. Pushes remain human-run.
 
-## Claude Code Slash Commands
-
-These are Claude Code adapters for LEAD-V workflow steps. Other tools should follow the same role responsibilities through their own interfaces.
-
-| Command | Purpose |
-|---------|---------|
-| `/prime` | Session cold-start audit |
-| `/prime-frontend` | Frontend-specific orientation |
-| `/handoff` | Draft structured session handoff document |
-| `/commit` | Standardized atomic commit with AI context tracking |
-| `/verify` | Post-implementation audit |
-| `/simplify` | Code simplification audit on recently changed files |
-| `/scaffold` | Bootstrap LEAD-V in a new project |
-| `/adversary` | Prepare a cross-model ADVERSARY review package |
-| `/retro` | Record a durable LEAD-V lesson |
-
 ## Domain Rules
 
 `.claude/rules/*.md` files load just-in-time when you touch matching file paths. Do not read them preemptively — they load on demand.
@@ -105,17 +87,28 @@ These are Claude Code adapters for LEAD-V workflow steps. Other tools should fol
 
 ## Project-Specific Context
 
-**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. Styling is TBD at the Phase 1 site scaffold.
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. Styling uses Tailwind CSS via PostCSS, Fumadocs styles, and `styles/tokens.css` / `styles/site.css`.
 
 **Data model:** No database and no user accounts at launch.
 
-**Repository and deployment:** `buildersbook/buildersbook` (private until launch); Vercel personal account; Cloudflare DNS for `buildersbook.dev`. Environment, services, and deployment are not yet provisioned.
+**Repository:** `buildersbook/buildersbook`
+
+**Hosting:** production on Vercel, Git auto-deploy from main.
+**DNS:** Cloudflare.
+
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
 
 **Key commands:**
-- Dev: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Build: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Test: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Lint: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+
+- `pnpm dev` — development server.
+- `pnpm build` — webpack production build followed by the JS budget check.
+- `pnpm lint` — ESLint and design lint.
+- `pnpm typecheck` — TypeScript check without emitting output.
+- `pnpm test` — content validation, design validation, and script tests.
+- `pnpm validate` — lint, typecheck, and tests.
+- `pnpm validate:content` — content schemas, MDX, links, and discovery validation.
+- `pnpm perf:budget` — built reading-route JS budget check.
+- `pnpm perf:lab` — Lighthouse CI using `scripts/lighthouserc.cjs`.
 
 **Domain rules:**
 - Keep launch architecture free of database and account dependencies.

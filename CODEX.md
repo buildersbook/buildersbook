@@ -1,5 +1,4 @@
 <!-- LEAD-V FRAMEWORK v5 -->
-<!-- CUSTOMIZE: Replace [BRACKETED] tokens with your project's specifics -->
 # Builder's Book — Codex Adapter
 
 This file is the Codex-specific entry point for Builder's Book. `AGENTS.md` is the shared project hub and source of truth for portable LEAD-V rules.
@@ -45,15 +44,26 @@ Codex should read the packet, inspect the referenced files, list intended file c
 
 ## Project Notes
 
-<!-- CUSTOMIZE: Keep under ~20 lines. Add Codex-specific commands, checks, or constraints. -->
+**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. No database or user accounts at launch. Styling uses Tailwind CSS via PostCSS, Fumadocs styles, and `styles/tokens.css` / `styles/site.css`.
 
-**Tech stack:** TypeScript; Next.js (App Router) + Fumadocs; local MDX with typed `book` and `essays` collections; FlexSearch; pnpm. No database or user accounts at launch. Styling is TBD at the Phase 1 site scaffold.
+**Repository:** `buildersbook/buildersbook`
+
+**Hosting:** production on Vercel, Git auto-deploy from main.
+**DNS:** Cloudflare.
+
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed, public flip pending). As of `a6831d1`.
 
 **Common checks:**
-- Dev: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Build: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Test: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
-- Lint: TBD — populate at the Phase 1 site scaffold; no `package.json` exists yet.
+
+- `pnpm dev` — development server.
+- `pnpm build` — webpack production build followed by the JS budget check.
+- `pnpm lint` — ESLint and design lint.
+- `pnpm typecheck` — TypeScript check without emitting output.
+- `pnpm test` — content validation, design validation, and script tests.
+- `pnpm validate` — lint, typecheck, and tests.
+- `pnpm validate:content` — content schemas, MDX, links, and discovery validation.
+- `pnpm perf:budget` — built reading-route JS budget check.
+- `pnpm perf:lab` — Lighthouse CI using `scripts/lighthouserc.cjs`.
 
 **Adapter preference:**
 - SCOUT: Claude.ai — Opus 5 default, Fable 5 on escalation.
