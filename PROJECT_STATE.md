@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 8c3398705807357286a41ac1a60b6a59615d6246
+Current through: 40c5cb38cd028daab22a96df59f7d858b8500e91
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 8c3398705807357286a41ac1a60b6a59615d6246
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-05 (SITE-P17.1)
-> Updated by: IMPLEMENT — SITE-P17.1 records reconciliation
+> Last updated: 2026-09-05 (SITE-P17.2.2)
+> Updated by: IMPLEMENT — SITE-P17.2.2 records reconciliation
 
 ## Phase Status
 
@@ -28,7 +28,7 @@ Current through: 8c3398705807357286a41ac1a60b6a59615d6246
 - Track handoff and closed decisions: `design/HANDOFF-BRAND.md`
 - Build spec corrections: `design/DESIGN-BUILD-NOTES.md` — this file explicitly OVERRIDES the mockup CSS wherever they conflict. Read it before implementing any design token or component.
 - Design token value source: `design/reference/` (extracted mockup HTML/CSS)
-- Designer SVGs are delivered and operator-held; intake has not yet been performed. The operator's AI-adjusted production icon (operator-held SVGs, not in the repository) postdates the designer delivery. The queued logo export pass performs intake first: verify the two-SVG delivery, then record the intake diff and optical corrections in `design/reference/`.
+- Final logo SVGs are operator-held. An AI-adjusted production icon (operator-held) postdates them. The queued logo export pass performs intake first: verify the two final SVGs, then record the intake diff and optical corrections in `design/reference/`.
 
 ## Environment Status
 
@@ -85,9 +85,10 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P17.2 — reconcile canon before the public flip.
-2. Phase 2 — execute TP-005 essay #1 with the pre-publish hardening batch: SITE-P11.4 M-1 free-text discovery gap (**HARD GATE before essay #1 publishes**), L-1 `design/reference` type-floor scope, L-2 F-5 disposition record, and the `EXPECT_NO_PUBLISHED_PAGES` flip in the publish commit.
-3. Run the queued non-blocking logo intake. Verify the designer's two-SVG delivery (operator-held SVGs, not in the repository), compare the AI-adjusted production icon (operator-held SVGs, not in the repository), and record the adjustment diff in `design/reference/`.
+1. Manifest append (six category words), then push e04c555..HEAD.
+2. ESSAY-P3 on receipt of the voice-edited essay.
+3. Phase 2 — execute TP-005 essay #1 with the pre-publish hardening batch: SITE-P11.4 M-1 free-text discovery gap (**HARD GATE before essay #1 publishes**), L-1 `design/reference` type-floor scope, L-2 F-5 disposition record, and the `EXPECT_NO_PUBLISHED_PAGES` flip in the publish commit.
+4. Run the queued non-blocking logo intake. Verify the two final logo SVGs (operator-held SVGs, not in the repository), compare the AI-adjusted production icon (operator-held SVGs, not in the repository), and record the adjustment diff in `design/reference/`.
 
 ## Session Log
 
@@ -98,7 +99,7 @@ None.
 | BOOT-P8 | 2026-08-25 | Governing documents and Phase 1 transition | 9912b1a |
 | BOOT-P9 | 2026-08-25 | Brand track artifacts into repo | b47dab9 |
 | BOOT-P11 | 2026-08-25 | Plan reconciliation per BOOT-P10.1 audit | 4f5b184 |
-| SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and removal of the operator's commercial framework layer | 33250a4 |
+| SITE-P3 | 2026-08-26 | Plan reconciliation for design-review scope and removal of a private framework layer from public scope | 33250a4 |
 | SITE-P5 | 2026-08-26 | TP-002 Fumadocs scaffold, content foundations, reading UI, and application states | 4e2487f, 3704582, 0d0db37, bdf05d5, 0021032, a57293b |
 | SITE-P6 | 2026-08-26 | Independent VERIFY of SITE-P5 — FAIL (H-1, M-1–M-5, L-1–L-12) | — |
 | SITE-P7 | 2026-08-26 | Resolve the complete SITE-P6 findings batch | f736b95, b09761b, 16e92e5, 8379c43, 8d49bd9 |
@@ -125,16 +126,23 @@ None.
 | SITE-P16 | 2026-08-31 | Node 22.23.1 + 24 CI matrix, @types/node 24.13.3, erasableSyntaxOnly, .nvmrc | e04c555 |
 | SITE-P17 | 2026-09-05 | Pre-flip audit, Grok: FLIP-READY WITH FIXES, 3 BLOCKING / 7 HIGH / 4 MED / 3 LOW | — |
 | SITE-P17.1 | 2026-09-05 | Public-face fix batch | 473f321, c6bd5c0, 8c33987 |
+| SITE-P17.1.1 | 2026-09-05 | History decision corrected; template markers removed | a6831d1 |
+| SITE-P17.1-V | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
+| SITE-P17.2 | 2026-09-05 | Canon reconciled; public-state rule recorded | d62d4d2, fa02157 |
+| SITE-P17.2-V | 2026-09-05 | VERIFY, Codex (same-family) — FAIL — superseded | — |
+| SITE-P17.2.1 | 2026-09-05 | Canon references corrected; state wording reconciled; protocol deferral recorded | 1cccb59, 0671e7b |
+| SITE-P17.2-V2 | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
+| SITE-P17.2.2 | 2026-09-05 | Protocol routed into session start; status pins and state records reconciled | 40c5cb3, this commit |
 
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05.
 - History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no credentials, no private business, client, or third-party names, no local paths beyond a downloads-folder reference; hosting and DNS vendors appear. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
-- Public-state rule: state records carry outcomes and hashes only. Full rule lands in WORKING-PROTOCOL.md (SITE-P17.2).
+- Public-state rule: state records carry outcomes and hashes only. Full rule landed in WORKING-PROTOCOL.md at fa02157.
 
 ## Session Notes
 
-Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The JS-budget gate is filesystem-backed and tested. SITE-P16 completed CI/runtime alignment at `e04c555`; SITE-P17.2 is next. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
+Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The JS-budget gate is filesystem-backed and tested. SITE-P16 completed CI/runtime alignment at `e04c555`; SITE-P17 arc complete at 40c5cb3; push pending. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
 
 ---
 
