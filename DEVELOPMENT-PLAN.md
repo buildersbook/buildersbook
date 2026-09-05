@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (private until launch)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-08-31
+**Last updated:** 2026-09-05
 
 ---
 
@@ -16,7 +16,7 @@
    - Nothing expands unless it changes a **decision, capability, or portfolio signal**.
 3. **Anti-fortress rule:** one review round per decision; converged decisions are closed; content ships before polish.
 4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Everything beyond this trails content — never the reverse.
-5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. `pre-commit` verification runs before every push. First-commit attribution is permanent.
+5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. The private scanner runs on `pre-push`, not `pre-commit`, and stays outside CI by design. First-commit attribution is permanent.
 6. **Hosting:** production on Vercel, Git auto-deploy from main.
 7. **Private identity material is never committed.** The identity register lives outside all repos. Its public counterpart is the `/accounts` page.
 
@@ -54,10 +54,10 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 4. **Locale contract now, translations later** — `contentId`, `locale`, `translationOf`, `sourceRevision`, `translationStatus` frontmatter; unprefixed English URLs; no fallback-language publishing.
 5. **Discovery layer** — truthful-lastmod sitemap, RSS/Atom for essays, canonicals, Article/BreadcrumbList JSON-LD, explicit crawler allowances (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot), IndexNow on deploy. llms.txt / llms-full.txt / per-page `.md` via Fumadocs native generation, treated as supplemental alternates (noindex X-Robots-Tag, HTML canonical) — an affordance for agents, not an SEO strategy.
 6. **CI content gates:** fail on broken internal links, orphan pages, missing descriptions, duplicate slugs, bad prerequisite refs.
-7. **CI performance budget:** <100KB compressed first-party JS on reading pages; LCP ≤2.5s / INP ≤200ms / CLS ≤0.1.
+7. **CI performance budget:** <100 KiB compressed first-party JS on reading pages is a hard build gate. Lighthouse reports LCP ≤2.5s and CLS ≤0.1, with TBT ≤200ms as a lab interaction proxy; these timing thresholds are report-only. Lighthouse does not measure field INP (F-5 disposition).
 8. Landing + about pages (typography-only wordmark from Brand track).
 9. Measurement: Google Search Console + Bing Webmaster Tools (AI Performance dashboard) verified.
-10. Offline: versioned Markdown ZIP in GitHub Releases. Deferred: sharded search, EPUB, PWA.
+10. Offline: the Phase 1 versioned Markdown ZIP in GitHub Releases is explicitly deferred until after the public flip. Also deferred: sharded search, EPUB, PWA.
 
 **Exit condition:** all CI gates pass on main; landing and about live in production at https://buildersbook.dev (Cloudflare DNS, HTTPS resolving); sitemap and llms.txt resolve; a sample page in each collection renders from validated frontmatter; JS budget passes. Site goes live quietly at this point — deployed but unannounced.
 
@@ -167,4 +167,4 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 - [ ] Orchestration-framework landscape research: gated input to TP-009, one round.
 - [ ] Reserved-handle recheck on/after 2026-09-23 (brand track).
 - [ ] Framework rename (decided in principle, name open): collision checks (npm/GitHub/trademark) then close at Phase 3 kickoff; rename + sanitization execute as one pass before TP-006.
-- [ ] Private-identifier manifest: populated by the operator outside the repo (see `scripts/check-private.sh` header); CI wiring lands in TP-003.
+- [x] Private-identifier manifest: 31 nonblank entries confirmed during ESSAY-P3. The scanner runs locally on pre-push and remains outside CI by design; an empty or whitespace-only manifest fails closed (`59d439d`).

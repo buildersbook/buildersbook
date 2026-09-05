@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: f2201d9cedc7b534739855bb81d50d5bb5d09246
+Current through: 7c70ad352d8d95edcd770c17b22a70f43b52fd27
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: f2201d9cedc7b534739855bb81d50d5bb5d09246
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-05 (SITE-P17.2.3)
-> Updated by: IMPLEMENT — SITE-P17.2.3
+> Last updated: 2026-09-05 (ESSAY-P3)
+> Updated by: IMPLEMENT — ESSAY-P3
 
 ## Phase Status
 
@@ -21,6 +21,7 @@ Current through: f2201d9cedc7b534739855bb81d50d5bb5d09246
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; drafts 404 publicly by design — first public rendering lands with essay #1. |
+| 2 | Essay #1 and public launch | In progress | Essay #1 is an unpublished English MDX source; ESSAY-P3 hardening and acceptance probes pass. The publication embargo remains enabled; publication and the public flip remain ahead. |
 
 ## Brand Track
 
@@ -32,13 +33,11 @@ Current through: f2201d9cedc7b534739855bb81d50d5bb5d09246
 
 ## Environment Status
 
-- `.env.local`: does not exist; no local application secrets are required for the completed scaffold
-- `.env.production`: does not exist locally; production requires no application secrets
+- Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
 - Hosting: production hosting on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch; auto-deploy on push is proven
-- Retired hosting path: personal deploy token (revoked); its environment export was removed
-- DNS: Cloudflare serves `buildersbook.dev`; the apex and `www` CNAMEs both target the per-project Vercel hostname and remain DNS-only. The two `_vercel` TXT verification records for the apex and `www` claims are retained by decision; Vercel permits removal after verification, but that risk was not taken
+- DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
 - Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow is proven end-to-end
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
@@ -50,16 +49,18 @@ None.
 
 ## Current Task
 
-Manifest append, then pre-flip essay work: ESSAY-P3 on receipt of the voice-edited essay #1.
+ESSAY-P3 is complete through implementation commit `7c70ad3`. Cross-family VERIFY of the batch precedes the Phase 2 publication commit.
 
 ## What Was Done Last Session
 
-- SITE-P17 fix arc: `473f321`..`92e0800` (11 commits).
+- SITE-P17 fix arc: `473f321`..`526cce8` (13 commits, including both endpoints).
 - Licenses and policy files added (`473f321`); CI actions SHA-pinned and Dependabot configured (`c6bd5c0`).
 - Public-face sanitization completed (`8c33987`); history decision and template markers corrected (`a6831d1`).
 - Completed Phase 1 task packets archived (`416402b`).
-- Canon and state reconciled (`d62d4d2`, `fa02157`, `1cccb59`, `0671e7b`, `40c5cb3`, `92e0800`).
-- Three cross-family VERIFY rounds completed: SITE-P17.1-V, SITE-P17.2-V2, SITE-P17.2.2-V — PASS WITH FINDINGS.
+- Canon and state reconciled (`d62d4d2`, `fa02157`, `1cccb59`, `0671e7b`, `40c5cb3`, `92e0800`, `f2201d9`, `526cce8`).
+- SITE-P17.2.3-V — PASS WITH FINDINGS (F1–F4); the follow-up outcomes are folded into ESSAY-P3.
+- SITE-P17.1-M expanded the manifest from 25 to 31 entries; ESSAY-P3 confirmed 31 nonblank entries.
+- PROJ-A1 — PASS WITH FINDINGS (1H/8M/4L); dispositions are recorded below and in the session log.
 
 ## Active Blockers
 
@@ -71,26 +72,30 @@ None.
 - IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
 - Before the public flip, run a full-history private-data scan: manifest grep across all commits plus a semantic pass. The pre-push hook covers the working tree only.
 - Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
+- PROJ-A1 deferred: A2 logo intake; F1/G2/G3 in Phase 3; F2 in Phase 4.
+- ESSAY-P3 editorial finding: two September references in the closed essay conflict with its August 29 incident date and the matching commit dates. Reported for operator disposition; essay body text is unchanged.
+- Phase 1 Markdown ZIP remains deferred until after the public flip.
 
 ## Resolved This Session
 
-- SITE-P17 F1–F4, F6, F17: public-face references sanitized (`8c33987`).
-- SITE-P17 F8, F9, F11: CI action pins, dependency updates, and site URL pin closed (`c6bd5c0`).
-- SITE-P17 F10, F12–F15: licenses, contribution and security policies, and README policy links added (`473f321`).
-- SITE-P17 F16: canon reconciled with the repository (`d62d4d2`).
-- SITE-P17 Area 3: closed in the fix arc (`473f321`..`92e0800`).
-- SITE-P17.1-V: history-decision wording, template markers, and canon findings closed (`a6831d1`, `d62d4d2`, `fa02157`).
-- VERIFY canon-reference, prompt-header, state-writer, and history-wording findings closed (`1cccb59`, `0671e7b`).
-- SITE-P17.2-V2: session-start routing, status pins, and state currency reconciled (`40c5cb3`, `92e0800`).
-- SITE-P17.2.2-V F6: permitted named tools and vendor classes clarified (`f2201d9`).
-- SITE-P17.2.2-V F1–F4/F7: planning wording, current task, session summaries, log, starter template, and currency reconciled (this commit).
+- D1: content validation is a hard prerequisite of the package build command (`e06a9df`).
+- M-1: absolute-URL punctuation and bare root-relative discovery paths are covered by node:test; X1 is the collector's extraction into a dependency-free module (`7df25de`).
+- D2/G1: Atom carries a feed-level author; populated RSS, Atom, llms-full, and Markdown HTTP responses require nonempty output and published-page membership (`9dec7d6`).
+- D3: empty and whitespace-only manifests fail closed with distinct exit 3; configuration/read failures retain exit 2 (`59d439d`).
+- Essay intake: the title and closed v3.1 body are preserved, the draft banner is removed, the closing italic paragraph remains, and no publication date is assigned (`074dc34`). All three external links returned HTTP 200 and matching destination titles.
+- E1: all three six-month reference paragraphs now reflect the twenty-three-day lifetime (`8dfd437`).
+- L-1/L-2: TP-003 records the CSS-only type floor, continued design-reference exclusion, and explicit F-5 performance disposition (`672df76`).
+- A1: README provides the live site, Node 22.23.1, and install/development/validation commands in four lines (`7c70ad3`).
+- C1/C2 and SITE-P17.2.3-V F1–F4: scanner scheduling, Lighthouse metrics, Markdown ZIP deferral, prior-arc range, and session records reconciled (this commit).
+- Acceptance at `7c70ad3`: validation and build pass; 18 Node tests pass; both draft reading-route budgets pass at 36.29 KiB. The private scanner is silent with exit 0 after every implementation commit.
+- Disposable-copy probes at `7c70ad3`: the publication embargo stops the build; the published essay validates and builds; blanking each export fails validation; empty and whitespace-only manifests return exit 3; HTML and Markdown return 404 as draft and 200 when published; populated Atom parses with an author. The copy was deleted.
 
 ## Immediate Next Tasks (In Order)
 
-1. Manifest append (six category words), then push e04c555..HEAD.
-2. ESSAY-P3 on receipt of the voice-edited essay.
-3. Phase 2 — execute TP-005 essay #1 with the pre-publish hardening batch: SITE-P11.4 M-1 free-text discovery gap (**HARD GATE before essay #1 publishes**), L-1 `design/reference` type-floor scope, L-2 F-5 disposition record, and the `EXPECT_NO_PUBLISHED_PAGES` flip in the publish commit.
-4. Run the queued non-blocking logo intake. Verify the two final logo SVGs (operator-held SVGs, not in the repository), compare the AI-adjusted production icon (operator-held SVGs, not in the repository), and record the adjustment diff in `design/reference/`.
+1. Cross-family VERIFY of ESSAY-P3; operator disposition of the reported editorial finding.
+2. Phase 2 publication commit: set essay #1 to published, assign its publication date, and flip `EXPECT_NO_PUBLISHED_PAGES` to false. The implementation hardening gates are complete.
+3. Complete the full-history mechanical and semantic review before the repository's public flip, then proceed with launch announcements.
+4. Run the deferred A2 logo intake and post-flip Markdown ZIP work; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
 ## Session Log
 
@@ -136,17 +141,29 @@ None.
 | SITE-P17.2-V2 | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
 | SITE-P17.2.2 | 2026-09-05 | Protocol routed into session start; status pins and state records reconciled | 40c5cb3, 92e0800 |
 | SITE-P17.2.2-V | 2026-09-05 | Cross-family VERIFY, Claude Code — PASS WITH FINDINGS | — |
-| SITE-P17.2.3 | 2026-09-05 | Permitted vendor classes clarified; planning wording, stale state sections, and session log reconciled | f2201d9, this commit |
+| SITE-P17.2.3 | 2026-09-05 | Permitted vendor classes clarified; planning wording, stale state sections, and session log reconciled | f2201d9, 526cce8 |
+| SITE-P17.2.3-V | 2026-09-05 | PASS WITH FINDINGS (F1–F4); folded into ESSAY-P3 | — |
+| SITE-P17.1-M | 2026-09-05 | Manifest expanded 25→31; 31 nonblank entries confirmed during ESSAY-P3 | — |
+| PROJ-A1 | 2026-09-05 | PASS WITH FINDINGS (1H/8M/4L); folded: D1 D2 D3 E1 G1 A1 C1 C2 L-1; deferred: A2 logo intake, F1/G2/G3 Phase 3, F2 Phase 4 | — |
+| ESSAY-P3.1 | 2026-09-05 | D1: content validation gates the package build | e06a9df |
+| ESSAY-P3.2 | 2026-09-05 | M-1 and X1: free-text discovery paths, module extraction, regression tests | 7df25de |
+| ESSAY-P3.3 | 2026-09-05 | D2/G1: Atom author and populated HTTP export assertions | 9dec7d6 |
+| ESSAY-P3.4 | 2026-09-05 | D3: fail-closed empty manifests and scanner regression tests | 59d439d |
+| ESSAY-P3.5 | 2026-09-05 | Closed essay #1 imported as an unpublished English MDX source | 074dc34 |
+| ESSAY-P3.6 | 2026-09-05 | E1: three reference paragraphs corrected to twenty-three days | 8dfd437 |
+| ESSAY-P3.7 | 2026-09-05 | L-1/L-2: CSS-only type-floor scope and F-5 disposition recorded | 672df76 |
+| ESSAY-P3.8 | 2026-09-05 | A1: four-line README starting path | 7c70ad3 |
+| ESSAY-P3 records | 2026-09-05 | C1/C2 and prior review outcomes reconciled; acceptance results recorded; currency pins implementation commit 8 | this commit |
 
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05.
-- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no credentials, no private business, client, or third-party names, no local paths beyond a downloads-folder reference; hosting and DNS vendors appear. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
+- History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); full-history review remains required before the public flip.
 - Public-state rule: state records carry outcomes and hashes only. Full rule landed in WORKING-PROTOCOL.md at fa02157.
 
 ## Session Notes
 
-Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The JS-budget gate is filesystem-backed and tested. SITE-P16 completed CI/runtime alignment at `e04c555`; SITE-P17 arc complete at 40c5cb3; push pending. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
+Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. SITE-P16 completed CI/runtime alignment at `e04c555`; the SITE-P17 arc runs through `526cce8`. ESSAY-P3 implementation is complete through `7c70ad3`, with all declared acceptance probes passing. Essay #1 remains unpublished and the embargo is enabled. The private scanner runs on pre-push and stays outside CI by design. No hosted build-command override is tracked in the repository; external Vercel build settings were not inspected in this batch.
 
 ---
 
