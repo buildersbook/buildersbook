@@ -64,7 +64,7 @@ The private-identifier manifest carries category words as well as proper names; 
 - IMPLEMENT updates `PROJECT_STATE.md` at the end of each session, in that session, before the operator pushes. Stale state is a Rule Zero violation.
 - Results are reported by prompt number, including agent output verbatim when relevant. SCOUT treats reported results as the new ground truth (Rule Zero: reality outranks the plan).
 
-Public-state rule: state records (PROJECT_STATE.md, DEVELOPMENT-PLAN.md, session logs) carry outcomes and commit hashes only — no money, no local paths, no token or credential names, no business arrangements, no third-party relationships. Vendors a public site necessarily reveals (hosting, DNS) may be named.
+Public-state rule: state records (PROJECT_STATE.md, DEVELOPMENT-PLAN.md, session logs) carry outcomes and commit hashes only — no money, no local paths, no token or credential names, no business arrangements, no third-party relationships. Named tools and vendors are permitted — hosting, DNS, search and indexing services, AI model adapters; what is excluded is the arrangement with them, not the tool.
 
 ## Style
 
