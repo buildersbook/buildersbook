@@ -1,6 +1,8 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
+Current through: 8c3398705807357286a41ac1a60b6a59615d6246
+
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
 > At session start: review current state, verify against codebase.
@@ -8,8 +10,8 @@
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-08-31 (SITE-P15.7)
-> Updated by: IMPLEMENT — SITE-P15.7 records reconciliation
+> Last updated: 2026-09-05 (SITE-P17.1)
+> Updated by: IMPLEMENT — SITE-P17.1 records reconciliation
 
 ## Phase Status
 
@@ -48,13 +50,14 @@ None.
 
 ## Current Task
 
-Phase 1 is complete. The current task is SITE-P16 — CI/runtime coherence before Phase 2.
+Phase 1 is complete. The current task is SITE-P17.2 — canon reconciliation before the public flip.
 
 ## What Was Done Last Session
 
-- Production hosting on Vercel is Git-connected and auto-deploy on push is proven. The serving gap was approximately 7m24s with zero audience and was accepted.
-- Closed the JS-budget remote-deploy failure through the SITE-P14–SITE-P15.3 fix and verification arc, including filesystem-backed classification and a seven-test `node:test` suite that now runs through `pnpm test` in CI.
-- Corrected the IndexNow diagnosis, decoupled submission from the application module graph, added a constants drift guard, and proved the workflow end-to-end with successful run `33392406514` on 2026-08-31 (20s), triggered by the `df0b278` deploy.
+- SITE-P16 completed CI/runtime alignment at `e04c555`.
+- SITE-P17 pre-flip audit returned FLIP-READY WITH FIXES: 3 BLOCKING / 7 HIGH / 4 MED / 3 LOW.
+- SITE-P17.1 public-face fixes: `473f321`, `c6bd5c0`, `8c33987`.
+- Completed Phase 1 task packets archived.
 
 ## Active Blockers
 
@@ -63,10 +66,12 @@ None.
 ## Open Items
 
 - JS-budget SITE-P15.2 deferred findings: case-insensitive filesystems can accept a case-mismatched path (Linux CI is the case-sensitive compensating control, strengthened by SITE-P16); async-verdict label precedence is diagnostics-only (F2); `checkBudget` orchestration is untested (F3); suffix-walk tail collision is specified behavior (F4); the summary prints twice (F5); and bracket-prefixed route groups are mislabeled but fail closed (F6).
-- IndexNow SITE-P15.6 deferred findings: `erasableSyntaxOnly` is absent (F3, queued for SITE-P16); CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
+- IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
 - Before the public flip, run a full-history private-data scan: manifest grep across all commits plus a semantic pass. The pre-push hook covers the working tree only.
 
 ## Resolved This Session
+
+- SITE-P16 completed at `e04c555`: Node 22.23.1 + 24 CI matrix, `@types/node` 24.13.3, `erasableSyntaxOnly`, and `.nvmrc`; SITE-P15.6 F3 is closed.
 
 - Hosting supersession is complete: production hosting on Vercel through Git auto-deploy. The retired project and token were removed; the approximately 7m24s migration gap was accepted.
 - Permanent JS-budget erratum: commit `2b06d6d` claims its classification rework fixed the remote failure, but cross-family VERIFY SITE-P15.0 proved that logic was dead code on every host because its `existsSync` branch never executed. Commit `4149be9`'s chunk-extraction change was the actual fix. The historical message overstates the result and remains immutable; this entry is the correction.
@@ -79,7 +84,7 @@ None.
 
 ## Immediate Next Tasks (In Order)
 
-1. SITE-P16 — add Node 24 to the CI matrix; reconcile `@types/node` with the `engines` ceiling; decide `.nvmrc`; enable `erasableSyntaxOnly`.
+1. SITE-P17.2 — reconcile canon before the public flip.
 2. Phase 2 — execute TP-005 essay #1 with the pre-publish hardening batch: SITE-P11.4 M-1 free-text discovery gap (**HARD GATE before essay #1 publishes**), L-1 `design/reference` type-floor scope, L-2 F-5 disposition record, and the `EXPECT_NO_PUBLISHED_PAGES` flip in the publish commit.
 3. Run the queued non-blocking logo intake. Verify the designer's two-SVG delivery (operator-held SVGs, not in the repository), compare the AI-adjusted production icon (operator-held SVGs, not in the repository), and record the adjustment diff in `design/reference/`.
 
@@ -115,11 +120,20 @@ None.
 | SITE-P15.4 | 2026-08-30 | Recheck IndexNow failures and correct the diagnosis from transient DNS to deterministic `.mdx` loader failure | — |
 | SITE-P15.5 | 2026-08-30 | Decouple IndexNow submission from the application module graph | 6161bfa |
 | SITE-P15.6 | 2026-08-30 | Cross-family VERIFY of SITE-P15.5 — PASS WITH FINDINGS (F1–F5) | — |
-| SITE-P15.7 | 2026-08-31 | Close IndexNow drift findings, prove the first successful run, and reconcile records | df0b278, this commit |
+| SITE-P15.7 | 2026-08-31 | Close IndexNow drift findings, prove the first successful run, and reconcile records | df0b278, c57424e |
+| SITE-P16 | 2026-08-31 | Node 22.23.1 + 24 CI matrix, @types/node 24.13.3, erasableSyntaxOnly, .nvmrc | e04c555 |
+| SITE-P17 | 2026-09-05 | Pre-flip audit, Grok: FLIP-READY WITH FIXES, 3 BLOCKING / 7 HIGH / 4 MED / 3 LOW | — |
+| SITE-P17.1 | 2026-09-05 | Public-face fix batch | 473f321, c6bd5c0, 8c33987 |
+
+## Decisions
+
+- Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05.
+- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no proper names, no third parties. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
+- Public-state rule: state records carry outcomes and hashes only. Full rule lands in WORKING-PROTOCOL.md (SITE-P17.2).
 
 ## Session Notes
 
-Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The JS-budget gate is filesystem-backed and tested. SITE-P16 aligns CI and runtime constraints before Phase 2. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
+Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The JS-budget gate is filesystem-backed and tested. SITE-P16 completed CI/runtime alignment at `e04c555`; SITE-P17.2 is next. The private manifest remains operator-local by design: every clone must run `git config core.hooksPath scripts/hooks`, and CI does not invoke the private scanner.
 
 ---
 
