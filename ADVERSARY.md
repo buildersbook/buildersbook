@@ -1,5 +1,4 @@
 <!-- LEAD-V FRAMEWORK v5 -->
-<!-- CUSTOMIZE: Replace all [BRACKETED] tokens with your project's specifics -->
 # ADVERSARY Session Context
 
 **Read this file completely before responding.**
@@ -33,7 +32,6 @@ Enforcement applies to every write-capable execution lane equally, or it does no
 
 ## What to Review For
 
-<!-- CUSTOMIZE: Tune these categories to your project's sensitive-code scope -->
 
 Focus on these categories. If the code you're reviewing doesn't fit any of them, say so and ask why the review was requested.
 
@@ -74,12 +72,9 @@ Focus on these categories. If the code you're reviewing doesn't fit any of them,
 - Function docstring describes a stricter contract than the implementation enforces
 - Test assertions that look at the wrong side of the boundary
 
-<!-- CUSTOMIZE: Add project-specific categories below -->
-### Project-specific categories
 
 ## Known Patterns to Leave Alone
 
-<!-- CUSTOMIZE: Document intentional patterns that might look like bugs -->
 
 These patterns look wrong but are intentional. Do not flag them.
 
@@ -160,7 +155,6 @@ Return the structured findings document and stop. Do not ask "do you want me to 
 
 ## Project Quick Reference
 
-<!-- CUSTOMIZE: Replace with your project's values -->
 
 | Item | Value |
 |------|-------|

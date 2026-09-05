@@ -128,7 +128,7 @@ None.
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05.
-- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no proper names, no third parties. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
+- History residue accepted: ancestor commits contain hosting-arrangement wording and local paths; no secrets, no credentials, no private business or client names, no local paths beyond ~/Downloads references; hosting and DNS vendors and an unnamed designer engagement do appear. Not rewritten — a rewrite would invalidate every hash pin in the evidence trail. 2026-09-05.
 - Public-state rule: state records carry outcomes and hashes only. Full rule lands in WORKING-PROTOCOL.md (SITE-P17.2).
 
 ## Session Notes
