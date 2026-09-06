@@ -1,7 +1,7 @@
 # HANDOFF-BRAND.md — Brand Production Handoff
 
 **From:** SCOUT session, brand workstream (BRAND-P1 → BRAND-P8), 2026-08-24/25
-**Status:** Design decisions closed. BRAND-P9 delivered the canonical icon, site icon set, and avatar exports (`f650fa4`, `6bce7af`). The lockup gap remains an open correction item; no lockup is retained in the repository.
+**Status:** Design decisions closed. BRAND-P9 delivered the canonical icon, site icon set, and avatar exports (`f650fa4`, `6bce7af`). The lockup is closed as unnecessary: the header composes the canonical icon + live text. No lockup is retained in the repository.
 **Rule Zero note:** Companion artifacts are the truth; this file is the pointer. Where this summary and an artifact disagree, the artifact wins — except the mockup CSS, which DESIGN-BUILD-NOTES.md explicitly corrects.
 
 ---
@@ -13,7 +13,7 @@
 3. **Site design:** editorial ink-on-warm-paper system; two type families only (Source Serif 4 = human, JetBrains Mono = machine); single red accent (#C9503C / #E06A50) = "the editor's red"; 620px/19px ≈ 66ch measure with 168px marginalia column; rationed cursor-block motif. Adversarial verdict: BUILD WITH FIXES — zero design blockers; all 19 fixes triaged into DESIGN-BUILD-NOTES.md.
 4. **Accent usage rule (post-review amendment):** light-mode accent is non-text only (fails AA 4.10:1 for text; passes 3:1 non-text). Text is always ink/ink-muted. "Hover turns accent" is deleted.
 5. **Token architecture:** semantic CSS custom properties as the single source (Tailwind v4 `@theme`), Fumadocs `--fd-*` variables assigned FROM them, no token build pipeline, no CSS-in-JS. Enforced by CI gates (below).
-6. **Site usage:** the header wordmark remains live text. The mark is used for favicons, device icons, and avatars. A future corrected lockup may be archived for social-card work; it is not wired into the site.
+6. **Site usage:** The lockup is closed as unnecessary: the header composes the canonical icon + live text. The mark is also used for favicons, device icons, and avatars.
 
 ## Artifact locations
 
@@ -34,22 +34,22 @@
 - **TP-003:** four new CI gates — no-raw-values lint, token contrast test (review's failing pairs = regression fixture), 11px functional-text floor, heading-hierarchy check.
 - **TP-004:** draft/planned chapters excluded from sitemap + noindex.
 
-## Open correction
+## Closed note — lockup
 
-- The lockup gap measures 7.2 units (0.857 cursor widths), below the required 25.2 units (3.0 cursor widths). The lockup is omitted pending a corrected delivery. Measurements and disposition are recorded in `design/brand/NOTES.md`; the icon set is complete independently.
+- The lockup gap measures 7.2 units (0.857 cursor widths), below the required 25.2 units (3.0 cursor widths). The lockup is closed as unnecessary: the header composes the canonical icon + live text. Measurements and disposition are recorded in `design/brand/NOTES.md`; the icon set is complete independently.
 
 ## Export status and follow-up
 
 1. **Export pass complete** — `pnpm brand:export` reproduces the site assets from the canonical icon, archived favicon grids, and semantic tokens. The 16/32px frames use integer pixels; the 48px frame uses the canonical vector. Avatars use the exact 62% visible-glyph rule. Profile rollout remains ahead.
 2. **Token extraction complete** — TP-002 provisioned `styles/tokens.css`; export colors are read directly from that file.
-3. **Social-card image** — recommended follow-up, not built in BRAND-P9. A corrected lockup remains an input for future consideration.
+3. **Social-card image** — recommended follow-up, not built in BRAND-P9.
 4. Brand track items unchanged: X @buildersbook recheck ~2026-09-23, /accounts page, sameAs JSON-LD (brand track, downstream, never blocks).
 
 ## Prompt log
 
 BRAND-P1 ChatGPT concept verdict · P2 Claude Design cold concepts · P3 refinement board · P4 ChatGPT adversarial (PASS WITH NOTES) · P5 final board · P6 brief clarity review (14 edits applied; 0.016em transcription error corrected to board's 0.015em) · P7 site design · P8 site adversarial (BUILD WITH FIXES). Cadence: one review round per decision, held throughout.
 
-BRAND-P9 production intake and license boundary (`f650fa4`); site icons and avatar exports (`6bce7af`). Delivered icon geometry preserved; lockup omitted pending correction. Reading-route JavaScript budgets remain 36.29 KiB with unchanged chunk hashes.
+BRAND-P9 production intake and license boundary (`f650fa4`); site icons and avatar exports (`6bce7af`). Delivered icon geometry preserved; lockup omitted at intake. Reading-route JavaScript budgets remain 36.29 KiB with unchanged chunk hashes.
 
 ## Candidate retro-log entries (for the essay pipeline, not action items)
 

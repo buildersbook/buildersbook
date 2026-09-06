@@ -32,9 +32,9 @@ All measurements are in the shared icon coordinate system. “Original” means 
 
 Vertical coordinates are unchanged: covers span y=10.4–49.0, inner terminal edges are y=17.6 and 41.8, and terminal thickness is 7.2. The cursor remains x=26.2–34.6, y=16.5–43.0, width 8.4 and height 26.5. The final visible glyph bounds are x=11.1–49.7 and y=10.4–49.0: 38.6 × 38.6.
 
-## Open designer item — lockup gap
+## Closed note — lockup
 
-The delivered lockup was rejected and `lockup.svg` is omitted. At the delivered scale, the icon’s right edge is x=49.7 and the outlined text starts at x=56.9. The gap is **7.2 units / 8.4 = 0.857 cursor widths**, versus the required **3.0 cursor widths = 25.2 units**. No lockup geometry was altered. A corrected delivery remains open for future archive and social-card use; the site uses the icon only and its header remains live text.
+The delivered lockup was rejected and `lockup.svg` is omitted. At the delivered scale, the icon’s right edge is x=49.7 and the outlined text starts at x=56.9. The gap is **7.2 units / 8.4 = 0.857 cursor widths**, versus the required **3.0 cursor widths = 25.2 units**. No lockup geometry was altered. The lockup is closed as unnecessary: the header composes the canonical icon + live text.
 
 ## Export specification
 
