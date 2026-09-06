@@ -123,10 +123,20 @@ samp,
   gap: 1.75rem;
 }
 
+.header-mark {
+  display: inline-block;
+  width: auto;
+  height: 1em;
+  /* Subtract the artboard's right inset: (60.5 - 49.7) / 57.7. */
+  margin-inline-end: calc(0.437em - 0.187175em);
+  /* Center the glyph on the caps using its center's distance from the artboard bottom. */
+  vertical-align: calc(0.5cap - 0.485269em);
+}
+
 .desktop-navigation a {
   color: var(--ink);
   font-family: var(--font-jetbrains-mono);
-  font-size: 0.6875rem;
+  font-size: var(--header-label-size);
   font-weight: 500;
   letter-spacing: 0.08em;
   text-decoration-color: transparent;
@@ -146,6 +156,11 @@ samp,
 .site-header .functional-label,
 .mobile-menu-dialog .functional-label {
   color: var(--ink);
+}
+
+.site-header .search-trigger,
+.site-header .theme-toggle {
+  font-size: var(--header-label-size);
 }
 
 .search-trigger,

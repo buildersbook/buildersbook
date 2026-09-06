@@ -20,6 +20,8 @@
 :root {
   color-scheme: light;
 
+  --header-label-size: 0.8125rem;
+
   --paper: #F7F5EF;
   --surface: #E3E1D9;
   --ink: #191713;
