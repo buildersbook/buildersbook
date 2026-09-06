@@ -6,7 +6,8 @@ locale: en
 translationOf: null
 sourceRevision: "3.1"
 translationStatus: source
-publicationStatus: draft
+publicationStatus: published
+publishedAt: "2026-09-06"
 category: essay
 relatedBookChapter: null
 ---
@@ -51,7 +52,7 @@ On August 29, in a different repository, a CI gate measured first-party JavaScri
 
 A reviewer asked to probe rather than read ran the classifier against a path that did not exist and watched it return *first-party*. The filesystem check was dead code. It sat on the right-hand side of an `||` whose left side — a string test on the normalized path — was true for existing and missing files alike; and it was reachable only from the absolute-path branch, while the key forms both hosts actually emitted returned earlier without touching it. A reader could see `existsSync` in the file, conclude classification was filesystem-backed, and never notice that no path either host produced could reach it. The build had gone green because a different change in the next commit fixed the actual bug. The invariant the record called verified had never executed anywhere.
 
-The two incidents are not the same failure, and the second does not prove anything about the first. What they share is narrower: in both, an enforcement claim was inferred from the structure of the implementation — a hook is registered, a check is in the code — and never subjected to an end-to-end attempt to falsify it. The June claim was "writes outside scope are blocked"; nobody tried a write from the other harness. The September claim was "non-existent paths are rejected"; nobody tried one.
+The two incidents are not the same failure, and the second does not prove anything about the first. What they share is narrower: in both, an enforcement claim was inferred from the structure of the implementation — a hook is registered, a check is in the code — and never subjected to an end-to-end attempt to falsify it. The June claim was "writes outside scope are blocked"; nobody tried a write from the other harness. The August claim was "non-existent paths are rejected"; nobody tried one.
 
 Two outside sources document other complete-mediation failures of the same family. An evidence-linked catalog of [documented hook limitations](https://dev.to/boucle2026/what-claude-code-hooks-can-and-cannot-enforce-148o) shows that even inside the covered lane, hooks do not fire in pipe mode and do not bind subagent or MCP tool calls. A [study of six agent frameworks](https://arxiv.org/abs/2607.14166) found five leak side effects past their approval gates while the gate waits; its proposed repair is an external admission gate through which every side effect must pass. The authors mechanically verified the gate's admission logic under a complete-mediation contract they do not claim to have proved; the shape of the repair — one boundary outside every framework, not a hook inside each — is the point.
 
@@ -65,7 +66,7 @@ The framework now carries one sentence, inserted verbatim into seventeen files b
 
 > Enforcement applies to every write-capable execution lane equally, or it does not exist as mechanism. Where no lane-equal mechanism exists, protection is process: the human commit gate, cross-family adversarial review, and Rule Zero.
 
-Rule Zero is the framework's oldest rule: the codebase is the only source of truth, and planning documents describe intent, not reality. The sentence above is Rule Zero applied to enforcement claims, in the specific form June taught it. The general form, which September required: state the invariant and its boundary; enumerate every path that can violate the invariant; show that each path crosses the control; and record the attempts made to falsify that claim. Lane equality is what complete mediation looks like when the paths are agent harnesses.
+Rule Zero is the framework's oldest rule: the codebase is the only source of truth, and planning documents describe intent, not reality. The sentence above is Rule Zero applied to enforcement claims, in the specific form June taught it. The general form, which August required: state the invariant and its boundary; enumerate every path that can violate the invariant; show that each path crosses the control; and record the attempts made to falsify that claim. Lane equality is what complete mediation looks like when the paths are agent harnesses.
 
 A claim can survive this. Server-side branch protection on `main` states an invariant — nothing reaches `main` without a reviewed pull request — and every path that can violate it, from any editor, harness, or shell, arrives as a push the server sees. A retained rejection of a direct push is the falsification artifact. The verdict is bounded: the remote branch, not any local one. That is a scoped control that is real enforcement, and it is why the framework's rule is not "everything is process." It is "say which boundary, and prove it."
 

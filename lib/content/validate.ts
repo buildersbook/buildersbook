@@ -275,7 +275,7 @@ async function validateEntries(): Promise<void> {
     .filter(([, status]) => status === 'draft')
     .map(([url]) => url);
   // Flip to false in the Phase 2 publish commit — this flag makes gate dormancy a declared state.
-  const EXPECT_NO_PUBLISHED_PAGES = true;
+  const EXPECT_NO_PUBLISHED_PAGES = false;
   invariant(draftUrls.length > 0, 'The search exclusion test requires at least one draft fixture.');
   invariant(
     !EXPECT_NO_PUBLISHED_PAGES || source.publishedPages.length === 0,
