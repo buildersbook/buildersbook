@@ -17,6 +17,8 @@ The development plan lives at [DEVELOPMENT-PLAN.md](DEVELOPMENT-PLAN.md).
 
 Code and scripts are licensed under [MIT](LICENSE). Essays and book chapters in `content/`, and files in `design/reference/`, are licensed under [CC BY-SA 4.0](LICENSE-CONTENT).
 
+The Builder’s Book mark and wordmark, including the production assets in `design/brand/` and derived site icons and avatars, are excluded from both licenses and are not licensed for reuse; see [the brand license boundary](design/brand/README.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
