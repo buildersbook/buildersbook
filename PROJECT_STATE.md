@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 7c70ad352d8d95edcd770c17b22a70f43b52fd27
+Current through: 778c95b9263761c0e508ff629def93828a357ce2
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 7c70ad352d8d95edcd770c17b22a70f43b52fd27
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-05 (ESSAY-P3)
-> Updated by: IMPLEMENT — ESSAY-P3
+> Last updated: 2026-09-06 (ESSAY-P4)
+> Updated by: IMPLEMENT — ESSAY-P4
 
 ## Phase Status
 
@@ -20,8 +20,8 @@ Current through: 7c70ad352d8d95edcd770c17b22a70f43b52fd27
 | Phase | Name | Status | Notes |
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
-| 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; drafts 404 publicly by design — first public rendering lands with essay #1. |
-| 2 | Essay #1 and public launch | In progress | Essay #1 is an unpublished English MDX source; ESSAY-P3 hardening and acceptance probes pass. The publication embargo remains enabled; publication and the public flip remain ahead. |
+| 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page in the local production build. |
+| 2 | Essay #1 and public launch | In progress | Essay #1 is published in the repository with publication date 2026-09-06; populated publication assertions are enabled (`778c95b`). The public flip and launch announcements remain ahead. |
 
 ## Brand Track
 
@@ -49,18 +49,15 @@ None.
 
 ## Current Task
 
-ESSAY-P3 is complete through implementation commit `7c70ad3`. Cross-family VERIFY of the batch precedes the Phase 2 publication commit.
+Public flip. Essay #1 publication is committed locally at `778c95b`. Full-history mechanical and semantic review remains required before the repository becomes public; the publication push and launch announcements are pending.
 
 ## What Was Done Last Session
 
-- SITE-P17 fix arc: `473f321`..`526cce8` (13 commits, including both endpoints).
-- Licenses and policy files added (`473f321`); CI actions SHA-pinned and Dependabot configured (`c6bd5c0`).
-- Public-face sanitization completed (`8c33987`); history decision and template markers corrected (`a6831d1`).
-- Completed Phase 1 task packets archived (`416402b`).
-- Canon and state reconciled (`d62d4d2`, `fa02157`, `1cccb59`, `0671e7b`, `40c5cb3`, `92e0800`, `f2201d9`, `526cce8`).
-- SITE-P17.2.3-V — PASS WITH FINDINGS (F1–F4); the follow-up outcomes are folded into ESSAY-P3.
-- SITE-P17.1-M expanded the manifest from 25 to 31 entries; ESSAY-P3 confirmed 31 nonblank entries.
-- PROJ-A1 — PASS WITH FINDINGS (1H/8M/4L); dispositions are recorded below and in the session log.
+- ESSAY-P3-V — PASS WITH FINDINGS (F-1–F-4); dispositions: F-1 confirmed, F-2 applied, F-3 queued post-flip, F-4 no action.
+- ESSAY-P4 published essay #1 with publication date 2026-09-06 and enabled the populated publication assertions (`778c95b`).
+- The two September references were corrected to August; the rest of the essay body is unchanged (`778c95b`).
+- Both sample pages remain draft. Pre-commit validation, all 18 Node tests, the production build, HTTP acceptance probes, and the silent private scan passed for the publication diff.
+- ESSAY-P3 records are pinned to `8f4cd7a`; current state pins the publication commit.
 
 ## Active Blockers
 
@@ -73,29 +70,22 @@ None.
 - Before the public flip, run a full-history private-data scan: manifest grep across all commits plus a semantic pass. The pre-push hook covers the working tree only.
 - Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
 - PROJ-A1 deferred: A2 logo intake; F1/G2/G3 in Phase 3; F2 in Phase 4.
-- ESSAY-P3 editorial finding: two September references in the closed essay conflict with its August 29 incident date and the matching commit dates. Reported for operator disposition; essay body text is unchanged.
+- ESSAY-P3-V F-3 is queued for post-flip follow-up.
 - Phase 1 Markdown ZIP remains deferred until after the public flip.
 
 ## Resolved This Session
 
-- D1: content validation is a hard prerequisite of the package build command (`e06a9df`).
-- M-1: absolute-URL punctuation and bare root-relative discovery paths are covered by node:test; X1 is the collector's extraction into a dependency-free module (`7df25de`).
-- D2/G1: Atom carries a feed-level author; populated RSS, Atom, llms-full, and Markdown HTTP responses require nonempty output and published-page membership (`9dec7d6`).
-- D3: empty and whitespace-only manifests fail closed with distinct exit 3; configuration/read failures retain exit 2 (`59d439d`).
-- Essay intake: the title and closed v3.1 body are preserved, the draft banner is removed, the closing italic paragraph remains, and no publication date is assigned (`074dc34`). All three external links returned HTTP 200 and matching destination titles.
-- E1: all three six-month reference paragraphs now reflect the twenty-three-day lifetime (`8dfd437`).
-- L-1/L-2: TP-003 records the CSS-only type floor, continued design-reference exclusion, and explicit F-5 performance disposition (`672df76`).
-- A1: README provides the live site, Node 22.23.1, and install/development/validation commands in four lines (`7c70ad3`).
-- C1/C2 and SITE-P17.2.3-V F1–F4: scanner scheduling, Lighthouse metrics, Markdown ZIP deferral, prior-arc range, and session records reconciled (this commit).
-- Acceptance at `7c70ad3`: validation and build pass; 18 Node tests pass; both draft reading-route budgets pass at 36.29 KiB. The private scanner is silent with exit 0 after every implementation commit.
-- Disposable-copy probes at `7c70ad3`: the publication embargo stops the build; the published essay validates and builds; blanking each export fails validation; empty and whitespace-only manifests return exit 3; HTML and Markdown return 404 as draft and 200 when published; populated Atom parses with an author. The copy was deleted.
+- ESSAY-P3-V dispositions recorded: F-1 confirmed; F-2 applied; F-3 queued post-flip; F-4 no action.
+- Essay #1 is the only published content page, dated 2026-09-06; the publication embargo is disabled and populated discovery assertions are active (`778c95b`).
+- The two operator-approved September → August corrections are the only essay body changes (`778c95b`).
+- Pre-commit acceptance for the publication diff: validation and build passed; 18 Node tests passed; both reading-route JS budgets passed at 36.29 KiB; the private scanner was silent with exit 0.
+- Pre-commit HTTP probes: essay HTML and Markdown returned 200; canonical metadata and Markdown alternate headers passed; sitemap, llms.txt, llms-full.txt, RSS, Atom, and search contained only the essay as published content. Atom parsed with an author; Article and BreadcrumbList JSON-LD parsed; both sample pages and their Markdown exports returned 404.
 
 ## Immediate Next Tasks (In Order)
 
-1. Cross-family VERIFY of ESSAY-P3; operator disposition of the reported editorial finding.
-2. Phase 2 publication commit: set essay #1 to published, assign its publication date, and flip `EXPECT_NO_PUBLISHED_PAGES` to false. The implementation hardening gates are complete.
-3. Complete the full-history mechanical and semantic review before the repository's public flip, then proceed with launch announcements.
-4. Run the deferred A2 logo intake and post-flip Markdown ZIP work; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
+1. Complete the full-history mechanical and semantic review before the repository's public flip.
+2. Proceed with the publication push, public flip, and launch announcements after the required review.
+3. Run ESSAY-P3-V F-3, the deferred A2 logo intake, and post-flip Markdown ZIP work; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
 ## Session Log
 
@@ -153,7 +143,9 @@ None.
 | ESSAY-P3.6 | 2026-09-05 | E1: three reference paragraphs corrected to twenty-three days | 8dfd437 |
 | ESSAY-P3.7 | 2026-09-05 | L-1/L-2: CSS-only type-floor scope and F-5 disposition recorded | 672df76 |
 | ESSAY-P3.8 | 2026-09-05 | A1: four-line README starting path | 7c70ad3 |
-| ESSAY-P3 records | 2026-09-05 | C1/C2 and prior review outcomes reconciled; acceptance results recorded; currency pins implementation commit 8 | this commit |
+| ESSAY-P3 records | 2026-09-05 | C1/C2 and prior review outcomes reconciled; acceptance results recorded; currency pins implementation commit 8 | 8f4cd7a |
+| ESSAY-P3-V | 2026-09-06 | PASS WITH FINDINGS (F-1–F-4); dispositions: F-1 confirmed, F-2 applied, F-3 queued post-flip, F-4 no action | — |
+| ESSAY-P4 | 2026-09-06 | Essay #1 published with date 2026-09-06; two September → August corrections; populated publication assertions enabled; sample pages remain draft | 778c95b9263761c0e508ff629def93828a357ce2 |
 
 ## Decisions
 
@@ -163,7 +155,7 @@ None.
 
 ## Session Notes
 
-Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. SITE-P16 completed CI/runtime alignment at `e04c555`; the SITE-P17 arc runs through `526cce8`. ESSAY-P3 implementation is complete through `7c70ad3`, with all declared acceptance probes passing. Essay #1 remains unpublished and the embargo is enabled. The private scanner runs on pre-push and stays outside CI by design. No hosted build-command override is tracked in the repository; external Vercel build settings were not inspected in this batch.
+Production hosting on Vercel uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. SITE-P16 completed CI/runtime alignment at `e04c555`; the SITE-P17 arc runs through `526cce8`. ESSAY-P3 records are complete at `8f4cd7a`; ESSAY-P3-V is PASS WITH FINDINGS with dispositions recorded above. ESSAY-P4 publication is committed locally at `778c95b`: essay #1 is published with date 2026-09-06 and the embargo is disabled. The public flip remains the current task. The private scanner runs on pre-push and stays outside CI by design. No hosted build-command override is tracked in the repository; external Vercel build settings were not inspected in this batch.
 
 ---
 
