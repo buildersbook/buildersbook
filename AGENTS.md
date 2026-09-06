@@ -15,7 +15,7 @@ When the codebase and a document disagree, **the codebase wins.** Update the doc
 
 **Name:** Builder's Book
 **Description:** The Builder's Book — an open curriculum for engineers who build production software by orchestrating AI coding agents. The project combines a public serialized site for essays and book content with open tooling.
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `0671e7b`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 published and live; public flip pending). As of `fe46a57`.
 **Repository:** `buildersbook/buildersbook`
 
 ## Tech Stack

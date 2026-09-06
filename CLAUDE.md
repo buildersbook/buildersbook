@@ -92,7 +92,7 @@ Never commit without explicit human diff approval and commit authorization. Push
 **Hosting:** production on Vercel, Git auto-deploy from main.
 **DNS:** Cloudflare.
 
-**Status:** Phase 1 complete; Phase 2 in progress (essay #1 review-closed; draft operator-held, not yet in the tree; public flip pending). As of `0671e7b`.
+**Status:** Phase 1 complete; Phase 2 in progress (essay #1 published and live; public flip pending). As of `fe46a57`.
 
 **Key commands:**
 
