@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: b63b16bb268caf6f101e62491501ffaa5f4a5790
+Current through: 5d472c0ffe82314bb9a4f3082f95257352fd94b2
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: b63b16bb268caf6f101e62491501ffaa5f4a5790
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-06 (HOST-P2)
-> Updated by: IMPLEMENT — HOST-P2
+> Last updated: 2026-09-07 (POST-P1)
+> Updated by: IMPLEMENT — POST-P1
 
 ## Phase Status
 
@@ -21,7 +21,7 @@ Current through: b63b16bb268caf6f101e62491501ffaa5f4a5790
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | In progress | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The public flip and launch announcements remain ahead. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `722ac96`. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
@@ -39,8 +39,9 @@ Current through: b63b16bb268caf6f101e62491501ffaa5f4a5790
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production hosting on Vercel in the personal scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch; auto-deploy on push is proven; the former-team seat is closed (HOST-P1, `eb0489b`)
-- GitHub deployment records: HOST-P2 removed all 25 records containing former-scope status URLs, including the mixed-scope Production record, with operator authorization. Re-listing returned zero deployments; the next push recreates a personal-scope deployment. Environment names remain `Preview` and `Production`.
+- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). Auto-deploy on push is proven. FLIP-P1 deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
+- Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
+- GitHub deployment records: HOST-P2 removed all 25 previous records. The unauthenticated API now returns HTTP 200 with a successful Production deployment for `722ac96` (deployment `6310415010`). Environment names remain `Preview` and `Production`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
 - Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow is proven end-to-end
 - Database: none — explicitly no database at launch
@@ -53,16 +54,16 @@ None.
 
 ## Current Task
 
-Public flip. Essay #1 is live, and HOST-P1 completed the hosting move to the Vercel personal scope at `eb0489b`, closing ESSAY-P4-V F-3. HOST-P2 cleaned the GitHub deployment records and implemented the header mark and 13px navigation labels (`b63b16b`). This batch remains local and has not been pushed. Full-history mechanical and semantic review, the public flip, and launch announcements remain ahead.
+POST-P1 closeout. The repo is public, unannounced, and production serves `722ac96` on the personal Vercel scope. HOST-V is PASS on adjudication; FLIP-P1 is complete. Homepage copy, the design archive notice, repository-backed ADVERSARY examples, and these records close the follow-up batch. POST-P1 remains local for cross-family review and the operator-run push. Announcement waits for the operator's launch-readiness gate.
 
 ## What Was Done Last Session
 
-- BRAND-P9-V returned PASS on repo checks; HOST-P1 confirmed the live check at `eb0489b`.
-- HOST-P1 completed the move to the Vercel personal scope and closed the former-team seat (`eb0489b`).
-- HOST-P2 deactivated and deleted all 25 slug-bearing GitHub deployments with operator authorization. The mixed-scope Production record was included; the re-list is empty.
-- The header now renders the canonical mark on the server immediately before live text, with a cap-centered 1em SVG and a 0.437em visible gap. A dedicated header label token raises only the requested labels from 11px to 13px (`b63b16b`).
-- Validation, all 18 Node tests, the production build, both-theme headless renders, HTTP checks, search/theme/mobile interactions, and the silent private scan passed. Both reading-route budgets decreased from 36.29 to 36.22 KiB (`b63b16b`).
-- The 11px type-floor gate resolves the header token and still rejects a 10px value, a missing token, and an extra override (`b63b16b`).
+- HOST-V's initial FAIL was superseded by PASS on adjudication, with F2–F4 LOW dispositions recorded below.
+- FLIP-P1 made the repository public on 2026-09-07 and deployed `722ac96` through manual Create Deployment. IndexNow succeeded on `deployment_status` (run `34131409014`).
+- POST-P1 replaced the homepage status with reader-facing planned-chapter wording (`634c338`).
+- The design reference README identifies the archived prose as placeholder copy and points to the build notes as the correction layer (`836156b`). Content collection globs exclude this folder; design validation explicitly excludes `design/reference`.
+- ADVERSARY now contains four category-based examples with verified historical hashes (`5d472c0`). The constants example describes a drift risk, not an observed mismatch; the disclosure example uses organization, billing, and account-access categories compatible with the current scan.
+- The published essay remains an immutable record. The rendered public HTML vocabulary check excludes essay routes and returns zero matches. Validation, all 18 Node tests, the production build, and the private scan pass; both reading-route budgets remain 36.22 KiB.
 
 ## Active Blockers
 
@@ -72,26 +73,23 @@ None.
 
 - JS-budget SITE-P15.2 deferred findings: case-insensitive filesystems can accept a case-mismatched path (Linux CI is the case-sensitive compensating control, strengthened by SITE-P16); async-verdict label precedence is diagnostics-only (F2); `checkBudget` orchestration is untested (F3); suffix-walk tail collision is specified behavior (F4); the summary prints twice (F5); and bracket-prefixed route groups are mislabeled but fail closed (F6).
 - IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
-- Before the public flip, run a full-history private-data scan: manifest grep across all commits plus a semantic pass. The pre-push hook covers the working tree only.
 - Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
 - PROJ-A1 F1/G2/G3 remain in Phase 3; F2 remains in Phase 4. A2 logo intake is complete (`f650fa4`, `6bce7af`, `b63b16b`).
 - Brand follow-up: profile avatar rollout and an OG/social-card image. No social-card image was built in BRAND-P9.
 - ESSAY-P3-V F-3 is queued for post-flip follow-up.
-- Phase 1 Markdown ZIP remains deferred until after the public flip.
+- Phase 1 Markdown ZIP is queued for post-flip follow-up.
 
 ## Resolved This Session
 
-- ESSAY-P4-V F-3 is closed: production hosting is on the Vercel personal scope, and the former-team seat is closed (HOST-P1, `eb0489b`).
-- BRAND-P9-V repo checks passed; HOST-P1 confirmed the live check (`eb0489b`).
-- HOST-P2 X-1: the only personal-scope Production deployment also contained a former-scope status. The operator authorized removal of all 25 records; no deployment records remain until the next push.
-- HOST-P2 X-2: the type-floor validator now resolves the dedicated header label token without weakening the 11px floor. The 13px value passes; a 10px negative fixture fails (`b63b16b`).
-- HOST-P2 X-3: moving static header content to the server reduced both reading-route budgets to 36.22 KiB rather than the expected unchanged 36.29 KiB. The canonical icon paths are absent from client JavaScript (`b63b16b`).
-- The lockup is closed as unnecessary: the header composes the canonical icon + live text. The header renders the canonical paths without raw colors or new client behavior (`b63b16b`).
+- Hosting is consolidated on the personal Vercel scope (HOST-P1, `eb0489b`); production serves `722ac96` after FLIP-P1.
+- HOST-V: PASS on adjudication, with the accepted historical residue and F2–F4 LOW dispositions recorded in the session row. The full-history check is complete for the stated manifest range.
+- FLIP-P1: the anonymous deployments-page 404 is resolved by an unauthenticated API check returning HTTP 200 and the successful Production deployment for `722ac96`.
+- POST-P1: homepage wording (`634c338`), the archive notice (`836156b`), and repository-backed review examples (`5d472c0`) are complete. Hosting-only state wording and the quiet-launch definition are reconciled in this records commit.
 
 ## Immediate Next Tasks (In Order)
 
-1. Obtain the required cross-family review of HOST-P2 before its operator-run push; that push recreates a personal-scope GitHub deployment record.
-2. Complete full-history mechanical and semantic review, then proceed with the public flip and launch announcements. Essay #1 is already live and the hosting decision is closed.
+1. Obtain cross-family VERIFY of POST-P1 before the operator-run push.
+2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
 3. Follow up on profile avatars and the OG/social-card image. Run ESSAY-P3-V F-3 and Markdown ZIP work after the flip; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
 ## Session Log
@@ -160,18 +158,22 @@ None.
 | BRAND-P9.3 | 2026-09-06 | Production handoff reconciled; lockup correction and social-card follow-up retained | fe46a57 |
 | BRAND-P9 records | 2026-09-06 | Production intake and publication state reconciled | eb0489b |
 | BRAND-P9-V | 2026-09-06 | PASS on repo checks; live check confirmed by HOST-P1 | eb0489b |
-| HOST-P1 | 2026-09-06 | Production moved to the Vercel personal scope; former-team seat closed; live brand check confirmed | eb0489b |
-| HOST-P2 | 2026-09-06 | All 25 slug-bearing GitHub deployments removed; header composes canonical icon + live text; header labels 13px; lockup closed as unnecessary; X-1–X-3 recorded | b63b16b |
+| HOST-P1 | 2026-09-06 | Hosting consolidated on the personal Vercel scope; live brand check confirmed | eb0489b |
+| HOST-P2 | 2026-09-06 | All 25 slug-bearing GitHub deployments removed; header composes canonical icon + live text; header labels 13px; lockup closed as unnecessary; X-1–X-3 recorded | b63b16b, 722ac96 |
+| HOST-V | 2026-09-07 | PASS on adjudication (initial FAIL superseded); F2–F4 LOW, addressed in POST-P1; full-history scan clean on manifest lines 1–8 and 10–25; line 9 residue accepted — a public product name in two 2026-08-24 framework-template commits (added in `b980528`, removed in `75ea816`), absent from every tree since | 722ac96 |
+| FLIP-P1 | 2026-09-07 | Public, unannounced; `main-protection` blocks force-pushes and restricts deletions only; production `722ac96` via manual Create Deployment (no auto-deploy on visibility change); IndexNow succeeded on `deployment_status` (run `34131409014`); anonymous deployments-page 404 resolved via unauthenticated API: HTTP 200, successful Production deployment `6310415010` for `722ac96` | 722ac96 |
+| POST-P1 | 2026-09-07 | Reader-facing homepage status; archived design prose notice; four repository-backed ADVERSARY examples; hosting-only state wording; quiet public flip and review dispositions recorded | 634c338, 836156b, 5d472c0, this commit |
 
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05. Production brand assets and derivatives are excluded from both and are not licensed for reuse (`f650fa4`).
-- History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); full-history review remains required before the public flip.
+- History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); HOST-V adjudication accepted the historical residue recorded above.
+- Minimum Viable Launch: flip quiet; announce at the operator's launch-readiness gate. Phase 2 is public, unannounced — announcement deferred to the gate.
 - Public-state rule: state records carry outcomes and hashes only. Full rule landed in WORKING-PROTOCOL.md at fa02157.
 
 ## Session Notes
 
-Production hosting on Vercel in the personal scope uses Git auto-deploy with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. HOST-P1 confirmed the live site and brand assets at `eb0489b` and closed the former-team seat. HOST-P2 removed all 25 slug-bearing GitHub deployment records with operator authorization; the next push recreates a personal-scope record. The header implementation is committed at `b63b16b`; this batch has not been pushed. The lockup is closed as unnecessary: the header composes the canonical icon + live text. Reading-route JavaScript is 36.22 KiB, down from 36.29 KiB. The public flip remains the current task. The private scanner runs on pre-push and stays outside CI by design. No hosted build-command override is tracked in the repository; external Vercel build settings were not inspected in HOST-P2.
+Hosting is consolidated on the personal Vercel scope, with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The repository became public on 2026-09-07 and remains unannounced. Production serves `722ac96` following manual Create Deployment; visibility change alone did not trigger a deployment. The unauthenticated GitHub API confirms the successful Production deployment, and IndexNow succeeded on its deployment-status event. POST-P1 contains four local commits, with canon isolated and records last; nothing in this batch has been pushed. Reading-route JavaScript remains 36.22 KiB. The published essay is immutable and exempt from the site-copy vocabulary check. The private scanner runs on pre-push and stays outside CI by design.
 
 ---
 

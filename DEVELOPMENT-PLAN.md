@@ -1,6 +1,6 @@
 # The Builder's Book — Development Plan
 
-**Repo:** `buildersbook/buildersbook` (private until launch)
+**Repo:** `buildersbook/buildersbook` (public)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
 **Last updated:** 2026-09-05
@@ -15,7 +15,7 @@
    - **One public artifact per two private ones.**
    - Nothing expands unless it changes a **decision, capability, or portfolio signal**.
 3. **Anti-fortress rule:** one review round per decision; converged decisions are closed; content ships before polish.
-4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Everything beyond this trails content — never the reverse.
+4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Flip quiet; announce at the operator's launch-readiness gate. Everything beyond this trails content — never the reverse.
 5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. The private scanner runs on `pre-push`, not `pre-commit`, and stays outside CI by design. First-commit attribution is permanent.
 6. **Hosting:** production on Vercel, Git auto-deploy from main.
 7. **Private identity material is never committed.** The identity register lives outside all repos. Its public counterpart is the `/accounts` page.
@@ -73,7 +73,7 @@ Repo created under the org with repo-local identity pin; LEAD-V v5 selectively i
 - One review round max, then publish.
 - Announce on X, Bluesky, Dev.to, Reddit (brand handles) and Hacker News (personal handle).
 
-**Exit condition:** essay #1 publicly readable, present in RSS and sitemap, announced on at least three surfaces. **Minimum Viable Launch complete.**
+**Exit condition (met):** essay #1 publicly readable, present in RSS and sitemap; repo public, unannounced — announcement deferred to the gate. **Minimum Viable Launch complete.**
 
 ---
 
