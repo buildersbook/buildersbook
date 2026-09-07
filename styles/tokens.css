@@ -20,7 +20,8 @@
 :root {
   color-scheme: light;
 
-  --header-label-size: 0.8125rem;
+  --label-size: 0.8125rem;
+  --marginalia-prose-size: 0.875rem;
 
   --paper: #F7F5EF;
   --surface: #E3E1D9;

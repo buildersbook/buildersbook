@@ -58,7 +58,7 @@ samp,
 .functional-label {
   color: var(--ink-muted);
   font-family: var(--font-jetbrains-mono);
-  font-size: 0.6875rem;
+  font-size: var(--label-size);
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 1.5;
@@ -136,7 +136,7 @@ samp,
 .desktop-navigation a {
   color: var(--ink);
   font-family: var(--font-jetbrains-mono);
-  font-size: var(--header-label-size);
+  font-size: var(--label-size);
   font-weight: 500;
   letter-spacing: 0.08em;
   text-decoration-color: transparent;
@@ -160,7 +160,7 @@ samp,
 
 .site-header .search-trigger,
 .site-header .theme-toggle {
-  font-size: var(--header-label-size);
+  font-size: var(--label-size);
 }
 
 .search-trigger,
@@ -504,7 +504,7 @@ samp,
   margin-inline-start: 0.5rem;
   color: var(--ink-muted);
   font-family: var(--font-jetbrains-mono);
-  font-size: max(0.6875rem, 0.55em);
+  font-size: max(var(--label-size), 0.55em);
   font-weight: 500;
   opacity: 0;
   text-decoration: none;
@@ -532,7 +532,7 @@ samp,
 }
 
 .marginalia-prose {
-  font-size: 0.8125rem;
+  font-size: var(--marginalia-prose-size);
   line-height: 1.7;
 }
 
@@ -766,7 +766,7 @@ pre {
 .footnote-ref {
   scroll-margin-top: 4rem;
   font-family: var(--font-jetbrains-mono);
-  font-size: 0.7em;
+  font-size: max(var(--label-size), 0.7em);
   line-height: 0;
 }
 

@@ -3,6 +3,7 @@ import { join, relative, resolve, sep } from 'node:path';
 
 const repoRoot = resolve(import.meta.dirname, '..');
 const lintOnly = process.argv.includes('--lint-only');
+const functionalTextFloor = 12;
 const violations: string[] = [];
 const excludedDirectories = new Set([
   // Installed dependencies are third-party code outside the design contract.
@@ -152,24 +153,34 @@ function validateFunctionalTextFloor(): void {
   const stylesheets = walk(repoRoot)
     .filter((path) => path.endsWith('.css'))
     .map((path) => ({ label: repoRelative(path), source: readFileSync(path, 'utf8') }));
-  // Resolve only the header token; reject overrides instead of guessing at the cascade.
-  const headerLabelDeclarations = stylesheets.flatMap(({ label, source }) =>
-    [...source.matchAll(/([^{}]+)\{([^{}]*)\}/g)].flatMap((rule) =>
-      [...rule[2].matchAll(/--header-label-size\s*:\s*([^;}{]+)/g)].map((match) => ({
-        label,
-        selector: rule[1].trim(),
-        value: match[1].trim(),
-      })),
-    ),
-  );
-  invariant(
-    headerLabelDeclarations.length === 1
-      && headerLabelDeclarations[0].label === 'styles/tokens.css'
-      && headerLabelDeclarations[0].selector === ':root',
-    '--header-label-size must have exactly one declaration in styles/tokens.css :root',
-  );
+  // Resolve the declared size tokens; reject overrides instead of guessing at the cascade.
+  const sizeTokenValues = new Map<string, string>();
+  for (const [token, minimum] of [['--label-size', 13], ['--marginalia-prose-size', 14]] as const) {
+    const declarations = stylesheets.flatMap(({ label, source }) =>
+      [...source.matchAll(/([^{}]+)\{([^{}]*)\}/g)].flatMap((rule) =>
+        [...rule[2].matchAll(new RegExp(`${token}\\s*:\\s*([^;}{]+)`, 'g'))].map((match) => ({
+          label,
+          selector: rule[1].trim(),
+          value: match[1].trim(),
+        })),
+      ),
+    );
+    invariant(
+      declarations.length === 1
+        && declarations[0].label === 'styles/tokens.css'
+        && declarations[0].selector === ':root',
+      `${token} must have exactly one declaration in styles/tokens.css :root`,
+    );
+    const value = declarations[0]?.value ?? '';
+    sizeTokenValues.set(token, value);
+    try {
+      invariant(fontSizeToPixels(value) >= minimum, `${token} must be at least ${minimum}px`);
+    } catch (error) {
+      invariant(false, `${token}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
   function resolveFontSize(value: string): string {
-    return value === 'var(--header-label-size)' ? headerLabelDeclarations[0]?.value ?? '' : value;
+    return value.replace(/var\((--[a-z-]+)\)/g, (reference, token: string) => sizeTokenValues.get(token) ?? reference);
   }
 
   const parentFixtures = [
@@ -206,8 +217,8 @@ function validateFunctionalTextFloor(): void {
 
           try {
             invariant(
-              fontSizeToPixels(resolveFontSize(value), parentPixelsBySelector.get(selector)) >= 11,
-              `${label}: ${selector}: font-size ${value} computes below the 11px floor`,
+              fontSizeToPixels(resolveFontSize(value), parentPixelsBySelector.get(selector)) >= functionalTextFloor,
+              `${label}: ${selector}: font-size ${value} computes below the ${functionalTextFloor}px floor`,
             );
           } catch (error) {
             invariant(false, `${label}: ${selector}: ${error instanceof Error ? error.message : String(error)}`);
@@ -233,8 +244,8 @@ function validateFunctionalTextFloor(): void {
     invariant(Boolean(match), `${selector}: functional text must declare a font size`);
     if (match) {
       invariant(
-        fontSizeToPixels(resolveFontSize(match.value), parentPixels) >= 11,
-        `${match.label}: ${selector}: computed functional text is below 11px`,
+        fontSizeToPixels(resolveFontSize(match.value), parentPixels) >= functionalTextFloor,
+        `${match.label}: ${selector}: computed functional text is below ${functionalTextFloor}px`,
       );
     }
   }
