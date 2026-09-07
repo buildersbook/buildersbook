@@ -29,7 +29,7 @@ export default function HomePage() {
         </article>
       </section>
       <section className="landing-draft surface-strip">
-        <span className="functional-label">Pipeline fixture · Not published</span>
+        <span className="functional-label">Chapter planned · Not yet published</span>
         <a href={`${repositoryUrl}/blob/main/content/book/sample-chapter.mdx`}>View the sample chapter draft in the repository</a>
       </section>
     </main>
