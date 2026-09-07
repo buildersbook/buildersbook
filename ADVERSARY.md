@@ -42,6 +42,8 @@ Focus on these categories. If the code you're reviewing doesn't fit any of them,
 - SSRF — URL inputs that could reach internal network addresses, including via DNS rebinding
 - Secrets handling — keys, tokens, PII in logs, error messages, client-side code, or unencrypted at rest
 
+**Project example — semantic disclosure:** A literal-string scan missed category words for organization type, billing, and account access that still disclosed business arrangements. A model caught the meaning leak; `8c33987` removed the category references, and `fa02157` recorded the requirement to include categories in the manifest. A clean name scan was not a semantic pass.
+
 ### Database migrations
 - Rollback safety — is there a backward-compatible path if this fails in production?
 - Lock impact — could this hold a table lock long enough to cause downtime?
@@ -66,11 +68,17 @@ Focus on these categories. If the code you're reviewing doesn't fit any of them,
 - Network failures mid-operation — what state are we left in?
 - Clock skew — anything that relies on monotonic time or synchronized clocks?
 
+**Project example — constants drift:** Decoupling the IndexNow script from the app in `6161bfa` duplicated the site URL and key constants without a check that they stayed aligned. Review caught the drift risk; `df0b278` added a text-only guard comparing the script with app code and checking the key-serving route. The constants agreed at review time; the missing protection was against future divergence.
+
 ### Reasoning gaps
 - Comment says one thing, code does another — which is wrong?
 - Variable name promises something the value doesn't deliver
 - Function docstring describes a stricter contract than the implementation enforces
 - Test assertions that look at the wrong side of the boundary
+
+**Project example — dead fallback:** The `existsSync` fallback in `2b06d6d` was dead code on every build host, while its commit message overstated the fix. `4149be9` fixed chunk extraction; `de8a7a1` subsequently required filesystem evidence for every first-party accept. Read the branch conditions, not the commit's claim.
+
+**Project example — incomplete publication boundary:** The publish-embargo flag governed validation but never the build. Publishing a synthetic page in a disposable copy exposed the bypass; reading the flag alone had missed it. `e06a9df` made content validation a prerequisite of `pnpm build`; `8f4cd7a` records the disposable-copy acceptance probes after the fix.
 
 
 ## Known Patterns to Leave Alone
