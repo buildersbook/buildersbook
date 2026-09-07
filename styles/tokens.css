@@ -66,15 +66,15 @@
 .dark {
   color-scheme: dark;
 
-  --paper: #171511;
-  --surface: #29251C;
-  --ink: #EDE8DC;
-  --ink-muted: #9A9485;
-  --ink-secondary: #B8B1A3;
-  --rule: #35322A;
-  --rule-strong: #423E35;
+  --paper: #1C1B19;
+  --surface: #272623;
+  --ink: #D9D5CB;
+  --ink-muted: #A09B90;
+  --ink-secondary: #BAB5AA;
+  --rule: #34312F;
+  --rule-strong: #3E3D3A;
   --accent: #E06A50;
-  --code-bg: #100F0C;
+  --code-bg: #151412;
   --code-ink: #DDD8CB;
-  --code-muted: #9A9485;
+  --code-muted: #A09B90;
 }

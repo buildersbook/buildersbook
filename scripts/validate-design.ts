@@ -102,10 +102,19 @@ function validateContrast(): void {
     ['code-ink', 'code-bg', 4.5, 'code text'],
     ['code-muted', 'code-bg', 4.5, 'code metadata'],
     ['accent', 'paper', 3, 'focus indicators'],
+    ['accent', 'surface', 3, 'surface focus indicators'],
+    ['accent', 'code-bg', 3, 'code focus indicators'],
+  ] as const;
+  const darkRoles = [
+    ['ink-secondary', 'surface', 4.5, 'secondary text on surface'],
+    ['ink-muted', 'surface', 4.5, 'muted text on surface'],
+    ['accent', 'paper', 4.5, 'accent text'],
+    ['ink-muted', 'paper', 3, 'code-block border against paper'],
+    ['ink-muted', 'code-bg', 3, 'code-block border against code background'],
   ] as const;
 
   for (const [mode, tokens] of Object.entries(modes)) {
-    for (const [foreground, background, minimum, role] of roles) {
+    for (const [foreground, background, minimum, role] of mode === 'dark' ? [...roles, ...darkRoles] : roles) {
       invariant(Boolean(tokens[foreground] && tokens[background]), `${mode}: missing tokens for ${role}`);
       if (tokens[foreground] && tokens[background]) {
         invariant(
@@ -116,12 +125,45 @@ function validateContrast(): void {
     }
   }
 
+  const darkBodyRatio = contrast(modes.dark.ink, modes.dark.paper);
+  invariant(darkBodyRatio >= 11 && darkBodyRatio <= 12.5, 'dark: body contrast must stay in the 11:1–12.5:1 reading range');
+
+  const darkPairs = [
+    ['ink', 'paper', 11.7444],
+    ['ink-secondary', 'paper', 8.4232],
+    ['ink-muted', 'paper', 6.2171],
+    ['ink', 'surface', 10.3261],
+    ['ink-secondary', 'surface', 7.4059],
+    ['ink-muted', 'surface', 5.4663],
+    ['ink-muted', 'code-bg', 6.6504],
+    ['code-ink', 'code-bg', 12.9389],
+    ['code-muted', 'code-bg', 6.6504],
+    ['accent', 'paper', 5.2016],
+    ['accent', 'surface', 4.5734],
+    ['accent', 'code-bg', 5.5641],
+  ] as const;
+  for (const [foreground, background, expected] of darkPairs) {
+    const ratio = contrast(modes.dark[foreground], modes.dark[background]);
+    invariant(Math.abs(ratio - expected) < 0.12, `dark: fixture ${foreground} on ${background} drifted from ${expected}:1`);
+  }
+
+  // Rules are decorative, never the sole indicator (build notes §13).
+  // Match the light palette's rule contrast instead of imposing a non-text minimum.
+  for (const token of ['rule', 'rule-strong'] as const) {
+    const lightRatio = contrast(modes.light[token], modes.light.paper);
+    const darkRatio = contrast(modes.dark[token], modes.dark.paper);
+    invariant(
+      Math.abs(darkRatio - lightRatio) <= 0.02,
+      `dark: decorative ${token} contrast must match light within 0.02:1`,
+    );
+  }
+
   const regressions = [
     ['light', 'accent', 'paper', 4.5, 4.1],
     ['light', 'ink-muted', 'code-bg', 4.5, 2.89],
     ['light', 'ink-muted', 'surface', 4.5, 4.31],
-    ['dark', 'rule-strong', 'code-bg', 3, 1.8],
-    ['dark', 'code-bg', 'paper', 3, 1.05],
+    // The code background alone cannot identify the block; its border must pass above.
+    ['dark', 'code-bg', 'paper', 3, 1.07],
   ] as const;
   for (const [mode, foreground, background, minimum, expected] of regressions) {
     const ratio = contrast(modes[mode][foreground], modes[mode][background]);
