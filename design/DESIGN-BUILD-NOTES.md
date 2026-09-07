@@ -1,8 +1,8 @@
 # Design Build Notes — Adversarial Review Triage
 
 **Source:** Cross-model adversarial review of the site design (BRAND-P8, 2026-08-25). Verdict: BUILD WITH FIXES. Zero design blockers; all findings are execution scope.
-**Status of the design:** CLOSED. The mockup archive in `design/reference/` is the value source; this file is the correction layer on top of it. Where the two disagree, this file wins.
-**How to read this:** Every finding is assigned to the task packet that owns it. Nothing here reopens a design decision.
+**Status of the design:** DESIGN-P1 reopened the functional-text floor and dark palette on production evidence, 2026-09-07. The operator reviews the result on production while the site remains unannounced. All other design decisions remain closed. The mockup archive in `design/reference/` is the value source; this file is the correction layer on top of it. Where the two disagree, this file wins.
+**How to read this:** Every original finding is assigned to the task packet that owns it. The DESIGN-P1 corrections below supersede the original type-floor and dark-palette values only.
 
 ---
 
@@ -10,14 +10,16 @@
 
 The token file is seeded from the mockup CSS, then corrected as follows:
 
-1. **Accent usage rule (design-level, closed):** in light mode, `--accent` (#C9503C) is **non-text only** — underlines, cursor blocks, rules, position markers, focus indicators. It fails AA for normal text (4.10:1) but passes non-text contrast (3:1). Accent-colored *words* are permitted in dark mode only (#E06A50 passes at 5.51:1), but for consistency the default is: text is always `--ink` or `--ink-muted` in both modes. **Delete the "hover text turns accent" behavior** — hover state is underline weight/offset change instead.
+1. **Accent usage rule (design-level, closed):** in light mode, `--accent` (#C9503C) is **non-text only** — underlines, cursor blocks, rules, position markers, focus indicators. It fails AA for normal text (4.10:1) but passes non-text contrast (3:1). Accent-colored *words* are permitted in dark mode only (#E06A50 passes at 5.2016:1 on the DESIGN-P1 paper), but for consistency the default is: text is always `--ink` or `--ink-muted` in both modes. **Delete the "hover text turns accent" behavior** — hover state is underline weight/offset change instead.
 2. **New tokens** for rendered values the mockup used without declaring:
-   - `--code-muted: #9A9485` (both modes) — code-block metadata. Never substitute `--ink-muted` here (2.89:1 on code-bg, fails).
+   - `--code-muted: #9A9485` (light), `#A09B90` (dark, DESIGN-P1) — code-block metadata. Never substitute light `--ink-muted` here (2.89:1 on light code-bg, fails). Dark metadata passes at 6.6504:1 on dark code-bg.
    - `--ink-secondary: #444136` (light) — secondary human text (subtitles, standfirst).
    - `--rule-strong: #C9C5B8` (light) — stronger borders where `--rule` is too faint.
    - Reconcile `--surface`: either use it for the chrome strips the mockup painted #E3E1D9, or redefine it to #E3E1D9. One value, one name.
-3. **Dark code-block boundary:** dark `--code-bg` is nearly invisible against dark `--paper` (1.05:1). Border uses dark `--ink-muted` (6.03:1). Keep the approved background.
-4. **Metadata floor:** 11px / weight 500 is the *minimum* for functional labels. The mockup rendered 9–10.5px in places — those normalize up to the token. Marginalia *prose* uses a larger mono size (13px+); 11px is for labels only.
+   - DESIGN-P1 dark paper is warm charcoal `#1C1B19` (HSL 40° / 5.66% / 10.39%), replacing `#171511` (40° / 15% / 7.84%). Dark `--ink: #D9D5CB` gives body contrast 11.7444:1, within the 11:1–12.5:1 reading range. Dark `--ink-muted: #A09B90` and `--ink-secondary: #BAB5AA` pass normal-text contrast on paper (6.2171:1 and 8.4232:1) and `--surface: #272623` (5.4663:1 and 7.4059:1); ink on surface is 10.3261:1. Light colors are unchanged.
+   - DESIGN-P1 decorative dark rules match their light equivalents against paper: `--rule: #34312F` is 1.3329:1 (light 1.3328:1); `--rule-strong: #3E3D3A` is 1.5845:1 (light 1.5838:1). These rules have no 3:1 minimum: §13 makes them decorative, never the sole indicator. The contrast fixture allows a 0.02:1 difference from the corresponding light rule.
+3. **Dark code-block boundary (DESIGN-P1):** `--code-bg: #151412` has only 1.0697:1 contrast against dark paper. The existing border uses dark `--ink-muted: #A09B90`, passing the 3:1 boundary requirement on both sides: 6.2171:1 against paper and 6.6504:1 against code-bg. Unchanged `--code-ink: #DDD8CB` passes at 12.9389:1 on code-bg. Accent focus indicators pass on paper, surface, and code-bg; decorative rules are not boundary substitutes.
+4. **Metadata floor (DESIGN-P1):** the functional-text gate is 12px. Kickers, dates, metadata, marginalia labels, and code-block metadata use `--label-size: 0.8125rem` (13px) at weight 500; this generalizes the existing 13px header label token. Marginalia *prose* uses `--marginalia-prose-size: 0.875rem` (14px). Heading anchors and footnote references keep their relative scaling with a 13px minimum. Body (19px desktop), headings, header navigation (13px), layout, and font families are unchanged.
 5. **Muted-on-surface check:** `--ink-muted` on the #E3E1D9 surface is 4.31:1 — borderline. Don't put muted functional text on surface strips; use `--ink` there.
 
 ## Layout & component rules (TP-002)
@@ -36,7 +38,7 @@ The token file is seeded from the mockup CSS, then corrected as follows:
 
 15. **No-raw-values lint:** build fails on hex colors, arbitrary Tailwind values (`text-[#...]`), or `font-family` outside the token file.
 16. **Token contrast test:** automated check of the declared token pairs against their usage roles (normal text 4.5:1, large text 3:1, non-text 3:1) in both modes. The review's failing pairs are the regression fixture.
-17. **Minimum-size check:** no functional text below 11px.
+17. **Minimum-size check (DESIGN-P1):** no functional text below 12px. The shared label and marginalia-prose tokens have minima of 13px and 14px respectively. An 11px functional-label probe must fail the gate; 12px passes the general floor.
 18. **Heading-hierarchy gate:** no skipped heading levels in content.
 
 ## Discovery layer (TP-004)
