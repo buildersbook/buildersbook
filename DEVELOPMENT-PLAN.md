@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (public)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-09-05
+**Last updated:** 2026-09-07
 
 ---
 
@@ -146,7 +146,7 @@ Each essay is a Task Packet and counts against the two-artifact WIP cap.
 |---|---|---|---|
 | TP-001 | Repo bootstrap | 0 ✅ | — |
 | TP-002 | Fumadocs scaffold + collections — includes design-token file seeded from `design/reference/` per `DESIGN-BUILD-NOTES.md` §1–5, and layout/component/state requirements per §6–14. Build notes override mockup values on conflict. Note: mockup CSS is inline `style=""` attributes plus a rendered token table, not a `<style>` block. | 1 | — |
-| TP-003 | CI content gates + perf budget — plus the four design-review CI gates per `DESIGN-BUILD-NOTES.md` §15–18 (no-raw-values lint, token contrast test with review failures as regression fixtures, 11px functional floor, heading hierarchy). | 1 | — |
+| TP-003 | CI content gates + perf budget — plus the four design-review CI gates per `DESIGN-BUILD-NOTES.md` §15–18 (no-raw-values lint, token contrast test with review failures as regression fixtures, 12px functional floor per DESIGN-P1, heading hierarchy). | 1 | — |
 | TP-004 | Discovery layer — plus draft/planned-chapter noindex + sitemap exclusion per `DESIGN-BUILD-NOTES.md` §19. | 1 | — |
 | TP-005 | Essay #1 | 2 | — |
 | TP-006 | LEAD-V sanitization | 3 | **Yes** |

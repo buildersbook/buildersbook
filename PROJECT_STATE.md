@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 5d472c0ffe82314bb9a4f3082f95257352fd94b2
+Current through: fa2669e4b95664c5b7d00e88f0327306aa4f9c96
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 5d472c0ffe82314bb9a4f3082f95257352fd94b2
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-07 (POST-P1)
-> Updated by: IMPLEMENT — POST-P1
+> Last updated: 2026-09-07 (DESIGN-P1)
+> Updated by: IMPLEMENT — DESIGN-P1
 
 ## Phase Status
 
@@ -21,11 +21,11 @@ Current through: 5d472c0ffe82314bb9a4f3082f95257352fd94b2
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `722ac96`. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `5b1d55d` after the POST-P1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
-- Status: design decisions closed (BRAND-P1 through BRAND-P8); BRAND-P9 canonical icon, site icon set, and avatar exports complete (`f650fa4`, `6bce7af`, handoff `fe46a57`). The lockup is closed as unnecessary: the header composes the canonical icon + live text.
+- Status: BRAND-P1 through BRAND-P8 design decisions were closed; DESIGN-P1 reopened the functional-text floor and dark palette on live evidence from 2026-09-07. BRAND-P9 canonical icon, site icon set, and avatar exports are complete (`f650fa4`, `6bce7af`, handoff `fe46a57`). The lockup is closed as unnecessary: the header composes the canonical icon + live text.
 - Track handoff and closed decisions: `design/HANDOFF-BRAND.md`
 - Build spec corrections: `design/DESIGN-BUILD-NOTES.md` — this file explicitly OVERRIDES the mockup CSS wherever they conflict. Read it before implementing any design token or component.
 - Design token value source: `design/reference/` (extracted mockup HTML/CSS)
@@ -39,11 +39,11 @@ Current through: 5d472c0ffe82314bb9a4f3082f95257352fd94b2
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). Auto-deploy on push is proven. FLIP-P1 deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
+- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). POST-P1 was pushed through `5b1d55d` and auto-deployed successfully. FLIP-P1 previously deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
-- GitHub deployment records: HOST-P2 removed all 25 previous records. The unauthenticated API now returns HTTP 200 with a successful Production deployment for `722ac96` (deployment `6310415010`). Environment names remain `Preview` and `Production`.
+- GitHub deployment records: HOST-P2 removed all 25 previous records. The API confirms successful Production deployment `6311595545` for POST-P1 at `5b1d55d`. Environment names remain `Preview` and `Production`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
-- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow is proven end-to-end
+- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for POST-P1 on `deployment_status` (run `34137739418`, `5b1d55d`)
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
 - Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`
@@ -54,16 +54,16 @@ None.
 
 ## Current Task
 
-POST-P1 closeout. The repo is public, unannounced, and production serves `722ac96` on the personal Vercel scope. HOST-V is PASS on adjudication; FLIP-P1 is complete. Homepage copy, the design archive notice, repository-backed ADVERSARY examples, and these records close the follow-up batch. POST-P1 remains local for cross-family review and the operator-run push. Announcement waits for the operator's launch-readiness gate.
+DESIGN-P1 is complete locally: larger functional labels and marginalia, the reopened type floor, and a softer dark palette. Cross-family VERIFY and the operator-run push are next; the operator reviews the result on production while the site remains unannounced. Production currently serves POST-P1 at `5b1d55d`. POST-P1-V is PASS WITH FINDINGS (3 LOW), run post-push by operator direction. Announcement waits for the operator's launch-readiness gate.
 
 ## What Was Done Last Session
 
-- HOST-V's initial FAIL was superseded by PASS on adjudication, with F2–F4 LOW dispositions recorded below.
-- FLIP-P1 made the repository public on 2026-09-07 and deployed `722ac96` through manual Create Deployment. IndexNow succeeded on `deployment_status` (run `34131409014`).
-- POST-P1 replaced the homepage status with reader-facing planned-chapter wording (`634c338`).
-- The design reference README identifies the archived prose as placeholder copy and points to the build notes as the correction layer (`836156b`). Content collection globs exclude this folder; design validation explicitly excludes `design/reference`.
-- ADVERSARY now contains four category-based examples with verified historical hashes (`5d472c0`). The constants example describes a drift risk, not an observed mismatch; the disclosure example uses organization, billing, and account-access categories compatible with the current scan.
-- The published essay remains an immutable record. The rendered public HTML vocabulary check excludes essay routes and returns zero matches. Validation, all 18 Node tests, the production build, and the private scan pass; both reading-route budgets remain 36.22 KiB.
+- POST-P1 was pushed through `5b1d55d`, auto-deployed successfully (deployment `6311595545`), and followed by a successful IndexNow run (`34137739418`).
+- POST-P1-V returned PASS WITH FINDINGS (3 LOW); the operator directed that review to run post-push.
+- DESIGN-P1 raised functional labels and code metadata to 13px, marginalia prose to 14px, and the enforced floor to 12px. The 11px probe fails and the 12px control passes (`f036aa8`). Body, headings, header navigation, layout, components, and font families are unchanged.
+- The dark palette now uses warm charcoal and softer body contrast. Decorative rules match light-mode contrast; code-block borders and focus indicators retain their contrast requirements. Light-mode colors are unchanged (`b04e4b4`).
+- Design build notes record the scoped reopening and revised typography and palette contract in a separate commit (`fa2669e`).
+- Validation, all 18 Node tests, contrast fixtures, the production build, and the private scan pass; both reading-route budgets remain 36.22 KiB. DESIGN-P1 remains local and has not been pushed.
 
 ## Active Blockers
 
@@ -81,14 +81,14 @@ None.
 
 ## Resolved This Session
 
-- Hosting is consolidated on the personal Vercel scope (HOST-P1, `eb0489b`); production serves `722ac96` after FLIP-P1.
-- HOST-V: PASS on adjudication, with the accepted historical residue and F2–F4 LOW dispositions recorded in the session row. The full-history check is complete for the stated manifest range.
-- FLIP-P1: the anonymous deployments-page 404 is resolved by an unauthenticated API check returning HTTP 200 and the successful Production deployment for `722ac96`.
-- POST-P1: homepage wording (`634c338`), the archive notice (`836156b`), and repository-backed review examples (`5d472c0`) are complete. Hosting-only state wording and the quiet-launch definition are reconciled in this records commit.
+- POST-P1 delivery is recorded through `5b1d55d`, with successful Production deployment and IndexNow results.
+- POST-P1-V is recorded as PASS WITH FINDINGS (3 LOW), run post-push by operator direction; the stale pre-push review task is removed.
+- DESIGN-P1 typography and the reopened floor are implemented and validated (`f036aa8`).
+- DESIGN-P1 dark palette and contrast fixtures are implemented (`b04e4b4`); the separate design-notes commit reconciles the approved contract (`fa2669e`).
 
 ## Immediate Next Tasks (In Order)
 
-1. Obtain cross-family VERIFY of POST-P1 before the operator-run push.
+1. Obtain cross-family VERIFY of DESIGN-P1, then complete the operator-run push and production review while the site remains unannounced.
 2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
 3. Follow up on profile avatars and the OG/social-card image. Run ESSAY-P3-V F-3 and Markdown ZIP work after the flip; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
@@ -162,7 +162,9 @@ None.
 | HOST-P2 | 2026-09-06 | All 25 slug-bearing GitHub deployments removed; header composes canonical icon + live text; header labels 13px; lockup closed as unnecessary; X-1–X-3 recorded | b63b16b, 722ac96 |
 | HOST-V | 2026-09-07 | PASS on adjudication (initial FAIL superseded); F2–F4 LOW, addressed in POST-P1; full-history scan clean on manifest lines 1–8 and 10–25; line 9 residue accepted — a public product name in two 2026-08-24 framework-template commits (added in `b980528`, removed in `75ea816`), absent from every tree since | 722ac96 |
 | FLIP-P1 | 2026-09-07 | Public, unannounced; `main-protection` blocks force-pushes and restricts deletions only; production `722ac96` via manual Create Deployment (no auto-deploy on visibility change); IndexNow succeeded on `deployment_status` (run `34131409014`); anonymous deployments-page 404 resolved via unauthenticated API: HTTP 200, successful Production deployment `6310415010` for `722ac96` | 722ac96 |
-| POST-P1 | 2026-09-07 | Reader-facing homepage status; archived design prose notice; four repository-backed ADVERSARY examples; hosting-only state wording; quiet public flip and review dispositions recorded | 634c338, 836156b, 5d472c0, this commit |
+| POST-P1 | 2026-09-07 | Reader-facing homepage status; archived design prose notice; four repository-backed ADVERSARY examples; hosting-only state wording; quiet public flip and review dispositions recorded; pushed through `5b1d55d` and auto-deployed successfully (deployment `6311595545`); IndexNow succeeded (run `34137739418`) | 634c338, 836156b, 5d472c0, 5b1d55d |
+| POST-P1-V | 2026-09-07 | PASS WITH FINDINGS (3 LOW); run post-push by operator direction | 5b1d55d |
+| DESIGN-P1 | 2026-09-07 | Reopened the functional-text floor and dark palette on live evidence; larger labels and marginalia, softer dark body contrast, decorative rules matched to light; validation, build, budgets, contrast, floor probes, and private scan pass; operator reviews on production while unannounced after the operator-run push; local batch, not pushed | f036aa8, b04e4b4, fa2669e, this commit |
 
 ## Decisions
 
@@ -173,7 +175,7 @@ None.
 
 ## Session Notes
 
-Hosting is consolidated on the personal Vercel scope, with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The repository became public on 2026-09-07 and remains unannounced. Production serves `722ac96` following manual Create Deployment; visibility change alone did not trigger a deployment. The unauthenticated GitHub API confirms the successful Production deployment, and IndexNow succeeded on its deployment-status event. POST-P1 contains four local commits, with canon isolated and records last; nothing in this batch has been pushed. Reading-route JavaScript remains 36.22 KiB. The published essay is immutable and exempt from the site-copy vocabulary check. The private scanner runs on pre-push and stays outside CI by design.
+Hosting is consolidated on the personal Vercel scope, with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The repository became public on 2026-09-07 and remains unannounced. POST-P1 was pushed through `5b1d55d` and auto-deployed; the GitHub API confirms successful Production deployment `6311595545`, and IndexNow run `34137739418` succeeded on its deployment-status event. POST-P1-V ran post-push by operator direction and returned PASS WITH FINDINGS (3 LOW). DESIGN-P1 contains four local commits, with design notes isolated and records last; this batch has not been pushed. The operator reviews the design changes on production while the site remains unannounced. Reading-route JavaScript remains 36.22 KiB. The published essay is immutable and exempt from the site-copy vocabulary check. The private scanner runs on pre-push and stays outside CI by design.
 
 ---
 
