@@ -129,18 +129,20 @@ function validateContrast(): void {
   invariant(darkBodyRatio >= 11 && darkBodyRatio <= 12.5, 'dark: body contrast must stay in the 11:1–12.5:1 reading range');
 
   const darkPairs = [
-    ['ink', 'paper', 11.7444],
-    ['ink-secondary', 'paper', 8.4232],
-    ['ink-muted', 'paper', 6.2171],
-    ['ink', 'surface', 10.3261],
-    ['ink-secondary', 'surface', 7.4059],
-    ['ink-muted', 'surface', 5.4663],
-    ['ink-muted', 'code-bg', 6.6504],
-    ['code-ink', 'code-bg', 12.9389],
-    ['code-muted', 'code-bg', 6.6504],
-    ['accent', 'paper', 5.2016],
-    ['accent', 'surface', 4.5734],
-    ['accent', 'code-bg', 5.5641],
+    ['ink', 'paper', 12.4248],
+    ['ink-secondary', 'paper', 8.4390],
+    ['ink-muted', 'paper', 6.1953],
+    ['code-ink', 'paper', 12.0884],
+    ['code-muted', 'paper', 6.1953],
+    ['ink', 'surface', 11.3171],
+    ['ink-secondary', 'surface', 7.6867],
+    ['ink-muted', 'surface', 5.6430],
+    ['ink-muted', 'code-bg', 6.5624],
+    ['code-ink', 'code-bg', 12.8048],
+    ['code-muted', 'code-bg', 6.5624],
+    ['accent', 'paper', 5.4693],
+    ['accent', 'surface', 4.9817],
+    ['accent', 'code-bg', 5.7934],
   ] as const;
   for (const [foreground, background, expected] of darkPairs) {
     const ratio = contrast(modes.dark[foreground], modes.dark[background]);
@@ -163,7 +165,7 @@ function validateContrast(): void {
     ['light', 'ink-muted', 'code-bg', 4.5, 2.89],
     ['light', 'ink-muted', 'surface', 4.5, 4.31],
     // The code background alone cannot identify the block; its border must pass above.
-    ['dark', 'code-bg', 'paper', 3, 1.07],
+    ['dark', 'code-bg', 'paper', 3, 1.0593],
   ] as const;
   for (const [mode, foreground, background, minimum, expected] of regressions) {
     const ratio = contrast(modes[mode][foreground], modes[mode][background]);
