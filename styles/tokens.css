@@ -22,6 +22,8 @@
 
   --label-size: 0.8125rem;
   --marginalia-prose-size: 0.875rem;
+  --header-height: 4.0625rem;
+  --header-mark-mobile-size: 1.5rem;
 
   --paper: #F7F5EF;
   --surface: #E3E1D9;

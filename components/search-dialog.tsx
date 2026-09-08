@@ -15,7 +15,7 @@ import {
 
 const searchClient = flexsearchStaticClient();
 
-export function SiteSearchDialog(props: SharedProps) {
+export function SiteSearchDialog({ onReturnFocus, ...props }: SharedProps & { onReturnFocus: () => void }) {
   const { search, setSearch, query } = useDocsSearch({ client: searchClient });
   const items = query.data === 'empty' ? [] : query.data;
 
@@ -27,7 +27,13 @@ export function SiteSearchDialog(props: SharedProps) {
       isLoading={query.isLoading}
     >
       <SearchDialogOverlay />
-      <SearchDialogContent aria-label="Search Builder's Book">
+      <SearchDialogContent
+        aria-label="Search Builder's Book"
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          onReturnFocus();
+        }}
+      >
         <SearchDialogHeader>
           <SearchDialogInput aria-label="Search query" placeholder="Search the book and essays" />
           <SearchDialogClose>Close</SearchDialogClose>

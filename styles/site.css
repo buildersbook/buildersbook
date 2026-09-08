@@ -5,6 +5,12 @@
 html {
   background: var(--paper);
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+/* Leave room for the sticky header and the focus outline on anchor targets. */
+:where(main [id], main a, main button, main [tabindex], main h1, main h2, main h3, main h4) {
+  scroll-margin-top: 0.5rem;
 }
 
 body {
@@ -31,7 +37,8 @@ a {
   text-underline-offset: 0.1875rem;
 }
 
-a:hover {
+a:hover,
+a:focus-visible {
   color: var(--ink);
   text-decoration-thickness: 0.125rem;
   text-underline-offset: 0.25rem;
@@ -103,7 +110,7 @@ samp,
   gap: 2rem;
   align-items: center;
   width: min(100% - 2.5rem, 75rem);
-  min-height: 4rem;
+  min-height: calc(var(--header-height) - 0.0625rem);
   margin: 0 auto;
 }
 
@@ -121,6 +128,32 @@ samp,
   display: flex;
   justify-content: end;
   gap: 1.75rem;
+}
+
+.site-header a,
+.site-header button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+.site-header .wordmark {
+  align-content: center;
+}
+
+.desktop-navigation a,
+.site-header-actions > button,
+.mobile-menu-trigger,
+.mobile-menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-control-icon {
+  display: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
 }
 
 .header-mark {
@@ -176,7 +209,8 @@ samp,
 .search-trigger:hover,
 .theme-toggle:hover,
 .mobile-menu-trigger:hover,
-.mobile-menu-close:hover {
+.mobile-menu-close:hover,
+.mobile-menu-trigger[aria-expanded='true'] {
   text-decoration: underline;
   text-decoration-thickness: 0.125rem;
   text-decoration-color: var(--accent);
@@ -215,6 +249,12 @@ samp,
   padding: 1.25rem;
 }
 
+/* Programmatic entry focus is on the panel; keyboard controls keep their rings. */
+.mobile-menu-panel:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .mobile-menu-heading {
   display: flex;
   justify-content: space-between;
@@ -228,7 +268,8 @@ samp,
   margin-top: 0.5rem;
 }
 
-.mobile-menu-dialog nav a {
+.mobile-menu-dialog nav a,
+.mobile-menu-search {
   padding: 1rem 0;
   border-bottom: 0.0625rem solid var(--rule);
   color: var(--ink);
@@ -237,7 +278,18 @@ samp,
   text-decoration-color: transparent;
 }
 
-.mobile-menu-dialog nav a:hover {
+.mobile-menu-search {
+  border: 0;
+  border-bottom: 0.0625rem solid var(--rule);
+  background: transparent;
+  text-align: start;
+  cursor: pointer;
+}
+
+.mobile-menu-dialog nav a:hover,
+.mobile-menu-search:hover,
+.mobile-menu-search:focus-visible {
+  text-decoration: underline;
   text-decoration-color: var(--accent);
 }
 
@@ -455,6 +507,12 @@ samp,
   overflow-wrap: anywhere;
 }
 
+.content-body a:not(.heading-anchor) {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+}
+
 .content-body > :first-child {
   margin-top: 0;
 }
@@ -472,7 +530,6 @@ samp,
 .content-body h3,
 .content-body h4 {
   position: relative;
-  scroll-margin-top: 4rem;
   overflow-wrap: anywhere;
   font-weight: 600;
   line-height: 1.15;
@@ -545,6 +602,35 @@ samp,
 }
 
 @media (max-width: 57rem) {
+  .site-header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    width: calc(100% - 1.5rem);
+  }
+
+  .site-header-actions {
+    gap: 0.25rem;
+  }
+
+  .site-header .wordmark {
+    min-width: 0;
+  }
+
+  .header-mark {
+    height: var(--header-mark-mobile-size);
+  }
+
+  .desktop-navigation,
+  .header-control-label,
+  .theme-toggle[aria-pressed='true']::before {
+    display: none;
+  }
+
+  .header-control-icon,
+  .mobile-menu {
+    display: block;
+  }
+
   .content-shell {
     width: 100%;
     padding: 3.5rem 0 5rem;
@@ -610,20 +696,6 @@ samp,
 }
 
 @media (max-width: 48rem) {
-  .site-header-inner {
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-  }
-
-  .desktop-navigation,
-  .search-trigger {
-    display: none;
-  }
-
-  .mobile-menu {
-    display: block;
-  }
-
   .landing-paths {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -720,6 +792,12 @@ pre {
   line-height: 1.7;
 }
 
+/* Shiki's light syntax colors assume a light background; both code surfaces are dark. */
+.code-block pre.shiki code span,
+.dark .code-block pre.shiki code span {
+  color: var(--code-ink);
+}
+
 .dark .code-block {
   border: 0.0625rem solid var(--ink-muted);
 }
@@ -764,7 +842,6 @@ pre {
 }
 
 .footnote-ref {
-  scroll-margin-top: 4rem;
   font-family: var(--font-jetbrains-mono);
   font-size: max(var(--label-size), 0.7em);
   line-height: 0;
@@ -791,7 +868,6 @@ pre {
 }
 
 .citation {
-  scroll-margin-top: 4rem;
   overflow-wrap: anywhere;
 }
 

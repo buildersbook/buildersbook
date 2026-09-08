@@ -19,7 +19,7 @@ export default function HomePage() {
       <section className="landing-paths" aria-label="Start reading">
         <article>
           <p className="functional-label">The Book · Read in order</p>
-          <h2><Link href="/book">Explore the curriculum →</Link></h2>
+          <h2><Link href="/book">Explore the curriculum&nbsp;→</Link></h2>
           <p>A serialized curriculum about specifications, review, failure, and working in public.</p>
         </article>
         <article>

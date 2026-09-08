@@ -5,6 +5,8 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   agentRules: false,
+  // Opt in to one LAN host for device testing; enforced only by the dev server.
+  allowedDevOrigins: process.env.BUILDERSBOOK_DEV_ORIGIN ? [process.env.BUILDERSBOOK_DEV_ORIGIN] : [],
   reactStrictMode: true,
   async rewrites() {
     return [
