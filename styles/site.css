@@ -841,6 +841,15 @@ pre {
   text-align: end;
 }
 
+.essay-index .book-index-row {
+  grid-template-columns: minmax(0, 1fr) 7.5rem 7rem;
+}
+
+.essay-index .book-index-number {
+  white-space: nowrap;
+  text-align: end;
+}
+
 .footnote-ref {
   font-family: var(--font-jetbrains-mono);
   font-size: max(var(--label-size), 0.7em);
@@ -897,6 +906,17 @@ pre {
 
   .book-index-state {
     grid-column: 2;
+    text-align: start;
+  }
+
+  .essay-index .book-index-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .essay-index .book-index-number,
+  .essay-index .book-index-state {
+    grid-column: 1;
     text-align: start;
   }
 }

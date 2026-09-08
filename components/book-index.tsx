@@ -22,6 +22,7 @@ export type BookIndexEntry = IndexEntryBase & ({
 type BookIndexProps = {
   ariaLabel?: string;
   entries: BookIndexEntry[];
+  variant?: 'book' | 'essays';
 };
 
 function ChapterTitle({ entry }: { entry: BookIndexEntry }) {
@@ -30,13 +31,14 @@ function ChapterTitle({ entry }: { entry: BookIndexEntry }) {
   return <span>{entry.title}</span>;
 }
 
-export function BookIndex({ ariaLabel = 'Book chapters', entries }: BookIndexProps) {
+export function BookIndex({ ariaLabel = 'Book chapters', entries, variant = 'book' }: BookIndexProps) {
   return (
-    <ol className="book-index" aria-label={ariaLabel}>
+    <ol className={variant === 'essays' ? 'book-index essay-index' : 'book-index'} aria-label={ariaLabel}>
       {entries.map((entry) => (
         <li className="book-index-row" key={`${entry.number}-${entry.title}`}>
-          <span className="book-index-number mono">{entry.number}</span>
+          {variant === 'book' ? <span className="book-index-number mono">{entry.number}</span> : null}
           <span className="book-index-title"><ChapterTitle entry={entry} /></span>
+          {variant === 'essays' ? <time className="book-index-number mono" dateTime={entry.number}>{entry.number}</time> : null}
           <span className="book-index-state functional-label">
             {entry.state === 'draft' ? 'Draft · in the repository' : entry.state}
           </span>

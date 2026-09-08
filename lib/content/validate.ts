@@ -269,6 +269,17 @@ async function validateEntries(): Promise<void> {
   }
 
   const source = await import('../source');
+  const { default: EssaysIndexPage } = await import('../../app/essays/page');
+  const essaysIndexHtml = renderToStaticMarkup(createElement(EssaysIndexPage));
+  for (const page of source.allPagesIncludingUnpublished.filter((page) => page.url.startsWith('/essays/'))) {
+    // Compare escaped text against the actual page render, not only the source filter.
+    const escapedTitle = renderToStaticMarkup(createElement('span', null, page.data.title)).slice(6, -7);
+    if (page.data.publicationStatus === 'published') {
+      invariant(essaysIndexHtml.includes(escapedTitle), `/essays: published title missing: ${page.data.title}`);
+    } else {
+      invariant(!essaysIndexHtml.includes(escapedTitle), `/essays: unpublished title leaked: ${page.data.title}`);
+    }
+  }
   const allSourceUrls = new Set(source.allPagesIncludingUnpublished.map((page) => page.url));
   const indexedUrls = new Set(source.publishedPages.map((page) => page.url));
   const draftUrls = [...publicationByUrl]
