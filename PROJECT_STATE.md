@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 53137f241a60dcb82076574a9a8b2bd1836102c7
+Current through: f033a2d0c37cfe5744255e8676601f243c9ec514
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 53137f241a60dcb82076574a9a8b2bd1836102c7
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-07 (DESIGN-P1.1)
-> Updated by: IMPLEMENT — DESIGN-P1.1
+> Last updated: 2026-09-08 (UX-P1)
+> Updated by: IMPLEMENT — UX-P1
 
 ## Phase Status
 
@@ -21,13 +21,13 @@ Current through: 53137f241a60dcb82076574a9a8b2bd1836102c7
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `5b1d55d` after the POST-P1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `b3be837` after the DESIGN-P1.1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
 - Status: BRAND-P1 through BRAND-P8 design decisions were closed; DESIGN-P1 reopened the functional-text floor and dark palette on live evidence from 2026-09-07. DESIGN-P1.1 further lowers dark backgrounds and neutralizes the palette after operator review. BRAND-P9 canonical icon, site icon set, and avatar exports are complete (`f650fa4`, `6bce7af`, handoff `fe46a57`). The lockup is closed as unnecessary: the header composes the canonical icon + live text.
 - Track handoff and closed decisions: `design/HANDOFF-BRAND.md`
-- Build spec corrections: `design/DESIGN-BUILD-NOTES.md` — this file explicitly OVERRIDES the mockup CSS wherever they conflict. DESIGN-P1.1 supersedes its dark-palette values; the current values and contrast fixtures are in `styles/tokens.css` and `scripts/validate-design.ts`.
+- Build spec corrections: `design/DESIGN-BUILD-NOTES.md` — this file explicitly OVERRIDES the mockup CSS wherever they conflict. UX-P1 reconciles its palette values and ratios with DESIGN-P1.1; the current values and contrast fixtures are in `styles/tokens.css` and `scripts/validate-design.ts`.
 - Current design token values: `styles/tokens.css`; original mockup values remain archived in `design/reference/`.
 - The delivered icon is canonical; normalized geometry matches `design/brand/icon.svg` exactly. The designer’s optical correction from the earlier master and export specifications are recorded in `design/brand/NOTES.md` (`f650fa4`).
 - The lockup is omitted: its gap is 7.2 units (0.857 cursor widths), below the required 25.2 units (3.0 cursor widths) (`f650fa4`). The lockup is closed as unnecessary: the header composes the canonical icon + live text.
@@ -39,11 +39,11 @@ Current through: 53137f241a60dcb82076574a9a8b2bd1836102c7
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). POST-P1 was pushed through `5b1d55d` and auto-deployed successfully. FLIP-P1 previously deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
+- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). DESIGN-P1 and DESIGN-P1.1 were pushed and auto-deployed successfully, most recently through `b3be837`. FLIP-P1 previously deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
-- GitHub deployment records: HOST-P2 removed all 25 previous records. The API confirms successful Production deployment `6311595545` for POST-P1 at `5b1d55d`. Environment names remain `Preview` and `Production`.
+- GitHub deployment records: HOST-P2 removed all 25 previous records. The API confirms successful Production deployments `6313336300` for DESIGN-P1 at `0e8b079` and `6313680007` for DESIGN-P1.1 at `b3be837`. Environment names remain `Preview` and `Production`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
-- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for POST-P1 on `deployment_status` (run `34137739418`, `5b1d55d`)
+- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for DESIGN-P1.1 on `deployment_status` (run `34148787578`, `b3be837`); CI also passed (run `34148737160`)
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
 - Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`
@@ -54,16 +54,19 @@ None.
 
 ## Current Task
 
-DESIGN-P1.1 is complete locally and approved after operator browser review: darker neutral backgrounds and re-derived neutral grays preserve the preceding palette's contrast against paper to the nearest 8-bit value. Tokens and fixtures are committed at `53137f2`, with records last in this commit. Cross-family VERIFY and the operator-run push follow; the site remains unannounced. The last recorded production check served POST-P1 at `5b1d55d`. Announcement waits for the operator's launch-readiness gate.
+UX-P1 is implemented and committed locally with explicit operator authorization: reader controls and the environment-gated LAN fix at `5d29339`, essay publication filtering and metadata at `f033a2d`, and records last in this commit. Acceptance passes; no push was performed. Production remains DESIGN-P1.1 at `b3be837`, public and unannounced.
 
 ## What Was Done Last Session
 
-- DESIGN-P1.1 applies the operator's revised darker backgrounds and ink. Ink on paper is 12.4248:1, within the revised maximum of 12.5:1.
-- Secondary ink, muted ink, code ink, and decorative rules use the nearest 8-bit neutral grays preserving their DESIGN-P1 contrast against paper. Muted ink and code metadata share one value.
-- Muted text passes on paper (6.1953:1) and surface (5.6430:1). The unchanged code-block border uses muted ink and passes against code background (6.5624:1). Accent is unchanged and passes on paper (5.4693:1), surface (4.9817:1), and code background (5.7934:1).
-- Light-mode tokens are byte-for-byte unchanged. Validator edits are limited to contrast fixture data; accessibility thresholds, decorative-rule checks, and the functional-text floor are unchanged.
-- Validation and all 18 Node tests pass; the production build passes with both reading-route budgets at 36.22 KiB. The 11px functional-label probe fails and its 12px control passes; temporary probes were removed. The private scan exits 0.
-- The operator approved the palette after local browser review and authorized both exact commit messages. Tokens and fixtures are committed at `53137f2`; records are isolated in this commit and pin that tokens commit. No push was performed.
+- Reproduced the light-mode template failure: Shiki's light syntax text overrode the code ink on the dark code background. The corrected span selector uses code ink in both themes; light code text is 12.8442:1 and metadata is 5.4025:1. Contrast fixture data covers the code and copied-feedback roles.
+- Added mobile-only Search and theme icons, a Search menu item, explicit search opener restoration, panel entry focus, and a keyboard focus wrap. Every header control has a 44×44px minimum target; the mobile mark is 24px and the header remains 65px.
+- Added sticky-header scroll clearance, persistent accent underlines for prose links, responsive essay metadata columns, and a non-breaking space before the curriculum arrow.
+- Hid unpublished essays from the public index and added an assertion against the rendered page. An injected unpublished title fails that assertion. Book planned/draft rows and discovery exclusions remain unchanged.
+- Validation and all 18 Node tests pass. The production build passes with both reading-route budgets at 36.63 KiB, up 0.41 KiB from 36.22 KiB. The 11px floor probe fails and its 12px control passes; all probes were removed. The private scan exits 0.
+- Browser checks cover light/dark code colors, desktop and 320px/390px layouts, header target sizes, search dismissal and opener restoration, menu entry focus and keyboard wrapping, and reverse keyboard navigation below the sticky header. Real iPhone review remains with the operator.
+- UX-P1 device revision: Safari reproduced an inert menu because Next.js rejected LAN-origin development chunks with HTTP 403 before header hydration. A single opt-in development origin fixes the asset requests and HMR. Safari's iPhone viewport now opens the menu with panel focus and no entry ring; no menu or hit-area change was needed. Validation and build pass with budgets unchanged. This Mac's responsive preset does not emulate touch events; real iPhone retesting remains pending.
+- Reconciled design notes to current token values and fixture ratios. Verified DESIGN-P1 and DESIGN-P1.1 production deployment records, DESIGN-P1.1 CI, and IndexNow success; recorded DESIGN-P1-V and UX-R1 outcomes.
+- The operator authorized all three proposed commits. The development-origin setting is environment-only; tracked files contain no IP addresses or assignment of the development-origin value. The development server is stopped, and the generated Next.js declaration matches its committed version. Records pin the second implementation commit; no push was performed.
 
 ## Active Blockers
 
@@ -81,13 +84,13 @@ None.
 
 ## Resolved This Session
 
-- DESIGN-P1.1's darker neutral palette and revised contrast fixtures are implemented and validated.
-- The revised ink meets the 12.5:1 contrast ceiling; muted text, accent indicators, and code-block borders retain their required minimum contrast.
-- Light-mode colors, typography, components, and the 12px functional-text floor are preserved.
+- UX-P1 F1–F11 and the LAN development-origin revision are committed locally with explicit operator authorization; acceptance passes and push is pending.
+- The design notes now reflect the DESIGN-P1.1 palette and UX-P1 layout, link, hit-area, and focus rules.
+- Production, CI, and IndexNow records now pin `b3be837` rather than POST-P1.
 
 ## Immediate Next Tasks (In Order)
 
-1. Obtain cross-family VERIFY of DESIGN-P1 and DESIGN-P1.1, then complete the operator-run push and production review while the site remains unannounced.
+1. Complete UX-P1 cross-family verification and any remaining real-device review before the operator-run push. All three local commits are authorized; records pin the second implementation commit. UX-P1 is pending push.
 2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
 3. Follow up on profile avatars and the OG/social-card image. Run ESSAY-P3-V F-3 and Markdown ZIP work after the flip; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
@@ -163,8 +166,11 @@ None.
 | FLIP-P1 | 2026-09-07 | Public, unannounced; `main-protection` blocks force-pushes and restricts deletions only; production `722ac96` via manual Create Deployment (no auto-deploy on visibility change); IndexNow succeeded on `deployment_status` (run `34131409014`); anonymous deployments-page 404 resolved via unauthenticated API: HTTP 200, successful Production deployment `6310415010` for `722ac96` | 722ac96 |
 | POST-P1 | 2026-09-07 | Reader-facing homepage status; archived design prose notice; four repository-backed ADVERSARY examples; hosting-only state wording; quiet public flip and review dispositions recorded; pushed through `5b1d55d` and auto-deployed successfully (deployment `6311595545`); IndexNow succeeded (run `34137739418`) | 634c338, 836156b, 5d472c0, 5b1d55d |
 | POST-P1-V | 2026-09-07 | PASS WITH FINDINGS (3 LOW); run post-push by operator direction | 5b1d55d |
-| DESIGN-P1 | 2026-09-07 | Reopened the functional-text floor and dark palette on live evidence; larger labels and marginalia, softer dark body contrast, decorative rules matched to light; validation, build, budgets, contrast, floor probes, and private scan pass; operator reviews on production while unannounced after the operator-run push; local batch, not pushed | f036aa8, b04e4b4, fa2669e, 0e8b079 |
-| DESIGN-P1.1 | 2026-09-07 | dark mode moved to fully neutral after operator review of a four-paper comparison found all warm variants still read as brown; ink neutralized as the dominant source of perceived warmth. Revised darker backgrounds; other grays preserve prior paper contrast to the nearest 8-bit value; validation, build, budgets, floor probes, and private scan pass; local browser review approved; light mode unchanged; not pushed | 53137f2, this commit |
+| DESIGN-P1 | 2026-09-07 | Reopened the functional-text floor and dark palette on live evidence; larger labels and marginalia, softer dark body contrast, decorative rules matched to light; validation, build, budgets, contrast, floor probes, and private scan pass; pushed through `0e8b079`; successful Production deployment `6313336300` | f036aa8, b04e4b4, fa2669e, 0e8b079 |
+| DESIGN-P1.1 | 2026-09-07 | dark mode moved to fully neutral after operator review of a four-paper comparison found all warm variants still read as brown; ink neutralized as the dominant source of perceived warmth. Revised darker backgrounds; other grays preserve prior paper contrast to the nearest 8-bit value; validation, build, budgets, floor probes, and private scan pass; local browser review approved; light mode unchanged; pushed through `b3be837`; successful Production deployment `6313680007`, CI `34148737160`, and IndexNow `34148787578` | 53137f2, b3be837 |
+| DESIGN-P1-V | 2026-09-08 | PASS WITH FINDINGS (1 LOW, 2 INFO); palette-note and production-state reconciliation applied in UX-P1 | b3be837 |
+| UX-R1 | 2026-09-08 | First-time-reader review: 8 findings, 3 HIGH; plus 2 operator findings from a real iPhone; implementation scoped by UX-P1 | — |
+| UX-P1 | 2026-09-08 | F1–F11 and the environment-gated LAN development-origin revision implemented; validation, build, contrast and floor probes pass; 36.63 KiB reading-route budgets; three commits explicitly authorized; development server stopped; pending push | 5d29339, f033a2d, this commit |
 
 ## Decisions
 
@@ -175,7 +181,7 @@ None.
 
 ## Session Notes
 
-Hosting is consolidated on the personal Vercel scope, with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. The repository became public on 2026-09-07 and remains unannounced. The last recorded production and IndexNow checks confirmed POST-P1 at `5b1d55d`; POST-P1-V returned PASS WITH FINDINGS (3 LOW). DESIGN-P1.1 lowers the dark backgrounds and neutralizes the palette after operator review, with all acceptance checks passing and reading-route JavaScript still 36.22 KiB. The operator approved the local browser review and both commit messages. Tokens and fixtures are committed at `53137f2`, with records isolated in this commit and pinned to the tokens commit; no push was performed. The operator reviews the design changes on production while the site remains unannounced. The published essay is immutable and exempt from the site-copy vocabulary check. The private scanner runs on pre-push and stays outside CI by design.
+Hosting remains on Vercel with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. Production serves DESIGN-P1.1 at `b3be837`; its deployment, CI, and IndexNow records are successful. DESIGN-P1-V returned PASS WITH FINDINGS (1 LOW, 2 INFO). UX-P1 addresses the reader and real-device findings in three explicitly authorized local commits; browser and automated checks pass, with reading-route JavaScript at 36.63 KiB. Real iPhone retesting remains operator-owned. Records are committed last and pin `f033a2d`, the second implementation commit. The development server is stopped; no push was performed. The repository remains public, unannounced. The published essay is immutable and unchanged. The private scanner runs on pre-push and stays outside CI by design.
 
 ---
 
