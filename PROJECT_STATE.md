@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: f033a2d0c37cfe5744255e8676601f243c9ec514
+Current through: d97a99ff473989b1d99552fa69d287e0d0be953b
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: f033a2d0c37cfe5744255e8676601f243c9ec514
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-08 (UX-P1)
-> Updated by: IMPLEMENT — UX-P1
+> Last updated: 2026-09-10 (REPO-P1)
+> Updated by: IMPLEMENT — REPO-P1
 
 ## Phase Status
 
@@ -21,7 +21,7 @@ Current through: f033a2d0c37cfe5744255e8676601f243c9ec514
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `b3be837` after the DESIGN-P1.1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `929e9ec` after the UX-P1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
@@ -39,11 +39,13 @@ Current through: f033a2d0c37cfe5744255e8676601f243c9ec514
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production hosting consolidated on the personal Vercel scope at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch (HOST-P1, `eb0489b`). DESIGN-P1 and DESIGN-P1.1 were pushed and auto-deployed successfully, most recently through `b3be837`. FLIP-P1 previously deployed `722ac96` through manual Create Deployment; changing repository visibility did not trigger auto-deploy.
+- Hosting: production on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch. UX-P1 was pushed through `929e9ec` and auto-deployed successfully. REPO-P1 remains local pending operator-run push.
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
-- GitHub deployment records: HOST-P2 removed all 25 previous records. The API confirms successful Production deployments `6313336300` for DESIGN-P1 at `0e8b079` and `6313680007` for DESIGN-P1.1 at `b3be837`. Environment names remain `Preview` and `Production`.
+- Repository settings: homepage `https://buildersbook.dev`; description matches the README's open-curriculum sentence; topics `ai-agents`, `claude-code`, `codex`, `developer-workflow`, `engineering-practices`, `nextjs`, `fumadocs`, `mdx`, `technical-writing`, and `open-curriculum`; wiki and Projects disabled (REPO-P1).
+- Dependabot: all seven open PRs (#1–#7) closed without merging, each with the superseded-by-grouping comment; zero open Dependabot PRs remain. Local configuration schedules both ecosystems weekly on Monday, groups npm minor/patch updates as `npm-minor-patch`, leaves npm majors separate, caps npm PRs at two, and groups GitHub Actions updates as `actions` (`20529b6`). Grouping takes effect after the operator pushes.
+- GitHub deployment records: the API confirms successful Production deployment `6327182276` for UX-P1 at `929e9ec`. Earlier successful deployments include `6313336300` for DESIGN-P1 at `0e8b079` and `6313680007` for DESIGN-P1.1 at `b3be837`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
-- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for DESIGN-P1.1 on `deployment_status` (run `34148787578`, `b3be837`); CI also passed (run `34148737160`)
+- Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for UX-P1 on `deployment_status` (run `34224207902`, `929e9ec`); CI also passed (run `34224106222`, both Node `22.23.1` and Node `24` lanes)
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
 - Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`
@@ -54,19 +56,19 @@ None.
 
 ## Current Task
 
-UX-P1 is implemented and committed locally with explicit operator authorization: reader controls and the environment-gated LAN fix at `5d29339`, essay publication filtering and metadata at `f033a2d`, and records last in this commit. Acceptance passes; no push was performed. Production remains DESIGN-P1.1 at `b3be837`, public and unannounced.
+REPO-P1 is implemented with explicit operator authorization: Dependabot grouping at `20529b6`, the search return-focus callback reset at `17db2a1`, the reviewed README and CONTRIBUTING at `d97a99f`, and records last in this commit. GitHub settings and the seven Dependabot PR closures are complete. Acceptance passes; no push was performed. Production serves UX-P1 at `929e9ec`, public and unannounced.
 
 ## What Was Done Last Session
 
-- Reproduced the light-mode template failure: Shiki's light syntax text overrode the code ink on the dark code background. The corrected span selector uses code ink in both themes; light code text is 12.8442:1 and metadata is 5.4025:1. Contrast fixture data covers the code and copied-feedback roles.
-- Added mobile-only Search and theme icons, a Search menu item, explicit search opener restoration, panel entry focus, and a keyboard focus wrap. Every header control has a 44×44px minimum target; the mobile mark is 24px and the header remains 65px.
-- Added sticky-header scroll clearance, persistent accent underlines for prose links, responsive essay metadata columns, and a non-breaking space before the curriculum arrow.
-- Hid unpublished essays from the public index and added an assertion against the rendered page. An injected unpublished title fails that assertion. Book planned/draft rows and discovery exclusions remain unchanged.
-- Validation and all 18 Node tests pass. The production build passes with both reading-route budgets at 36.63 KiB, up 0.41 KiB from 36.22 KiB. The 11px floor probe fails and its 12px control passes; all probes were removed. The private scan exits 0.
-- Browser checks cover light/dark code colors, desktop and 320px/390px layouts, header target sizes, search dismissal and opener restoration, menu entry focus and keyboard wrapping, and reverse keyboard navigation below the sticky header. Real iPhone review remains with the operator.
-- UX-P1 device revision: Safari reproduced an inert menu because Next.js rejected LAN-origin development chunks with HTTP 403 before header hydration. A single opt-in development origin fixes the asset requests and HMR. Safari's iPhone viewport now opens the menu with panel focus and no entry ring; no menu or hit-area change was needed. Validation and build pass with budgets unchanged. This Mac's responsive preset does not emulate touch events; real iPhone retesting remains pending.
-- Reconciled design notes to current token values and fixture ratios. Verified DESIGN-P1 and DESIGN-P1.1 production deployment records, DESIGN-P1.1 CI, and IndexNow success; recorded DESIGN-P1-V and UX-R1 outcomes.
-- The operator authorized all three proposed commits. The development-origin setting is environment-only; tracked files contain no IP addresses or assignment of the development-origin value. The development server is stopped, and the generated Next.js declaration matches its committed version. Records pin the second implementation commit; no push was performed.
+- Verified UX-P1 pushed through `929e9ec`: Production deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902` all succeeded.
+- Recorded the operator-reported review outcomes: UX-P1-V (Codex, same-family live measurements) PASS, with F10 operator-verified on device; UX-P1-V2 (Claude, cross-family code read) PASS WITH FINDINGS, 2 LOW.
+- Set the repository homepage, 97-character curriculum description, and ten topics; disabled wiki and Projects. Closed Dependabot PRs #1–#7 with the requested grouping comment; none were merged.
+- Added weekly Monday Dependabot groups while keeping npm major updates separate and limiting open npm PRs to two (`20529b6`).
+- Reset the saved search return-focus callback to a no-op immediately after invoking it, addressing UX-P1-V2 Finding 1 (`17db2a1`).
+- Rewrote README and aligned CONTRIBUTING for public readers. Applied the operator's title, badge, heading, wording, and shell-block revisions before the explicitly approved documentation commit (`d97a99f`).
+- Confirmed that the `lib/content/validate.ts` assertion renders the essays index route with `renderToStaticMarkup` and checks published/unpublished titles. It does not read a built page.
+- Validation and all 18 Node tests pass. The production build passes with both reading-route budgets unchanged at 36.63 KiB. The private scan exits 0; README and CONTRIBUTING private-identifier checks return zero hits.
+- The operator authorized all four proposed commits. Records are last and pin `d97a99f`, the preceding README/CONTRIBUTING commit. No push was performed; canon and published content are unchanged.
 
 ## Active Blockers
 
@@ -84,13 +86,13 @@ None.
 
 ## Resolved This Session
 
-- UX-P1 F1–F11 and the LAN development-origin revision are committed locally with explicit operator authorization; acceptance passes and push is pending.
-- The design notes now reflect the DESIGN-P1.1 palette and UX-P1 layout, link, hit-area, and focus rules.
-- Production, CI, and IndexNow records now pin `b3be837` rather than POST-P1.
+- UX-P1 deployment, both CI lanes, IndexNow, the two review outcomes, and operator device verification are recorded against `929e9ec`.
+- UX-P1-V2 Finding 1 is corrected in `17db2a1`; the validator assertion is described as rendering the essays index route.
+- REPO-P1 repository settings and seven Dependabot PR closures are complete; grouped updates and the reviewed public documentation are committed locally with operator authorization.
 
 ## Immediate Next Tasks (In Order)
 
-1. Complete UX-P1 cross-family verification and any remaining real-device review before the operator-run push. All three local commits are authorized; records pin the second implementation commit. UX-P1 is pending push.
+1. Complete cross-family verification of REPO-P1 before the operator-run push. All four local commits are authorized; records pin `d97a99f`. GitHub settings are already applied; local files remain pending push.
 2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
 3. Follow up on profile avatars and the OG/social-card image. Run ESSAY-P3-V F-3 and Markdown ZIP work after the flip; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
@@ -170,7 +172,10 @@ None.
 | DESIGN-P1.1 | 2026-09-07 | dark mode moved to fully neutral after operator review of a four-paper comparison found all warm variants still read as brown; ink neutralized as the dominant source of perceived warmth. Revised darker backgrounds; other grays preserve prior paper contrast to the nearest 8-bit value; validation, build, budgets, floor probes, and private scan pass; local browser review approved; light mode unchanged; pushed through `b3be837`; successful Production deployment `6313680007`, CI `34148737160`, and IndexNow `34148787578` | 53137f2, b3be837 |
 | DESIGN-P1-V | 2026-09-08 | PASS WITH FINDINGS (1 LOW, 2 INFO); palette-note and production-state reconciliation applied in UX-P1 | b3be837 |
 | UX-R1 | 2026-09-08 | First-time-reader review: 8 findings, 3 HIGH; plus 2 operator findings from a real iPhone; implementation scoped by UX-P1 | — |
-| UX-P1 | 2026-09-08 | F1–F11 and the environment-gated LAN development-origin revision implemented; validation, build, contrast and floor probes pass; 36.63 KiB reading-route budgets; three commits explicitly authorized; development server stopped; pending push | 5d29339, f033a2d, this commit |
+| UX-P1 | 2026-09-08 | F1–F11 and the environment-gated LAN development-origin revision implemented; validation, build, contrast and floor probes pass; 36.63 KiB reading-route budgets; pushed through `929e9ec`; successful Production deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902` | 5d29339, f033a2d, 929e9ec |
+| UX-P1-V | 2026-09-10 (recorded) | Operator-reported result: Codex, same-family live measurements — PASS; F10 operator-verified on device | 929e9ec |
+| UX-P1-V2 | 2026-09-10 (recorded) | Operator-reported result: Claude, cross-family code read — PASS WITH FINDINGS (2 LOW); Finding 1 addressed by the ref reset in REPO-P1; validator wording clarified to renders the essays index route | 929e9ec |
+| REPO-P1 | 2026-09-10 | Homepage and curriculum description set; ten topics added; wiki and Projects disabled; seven Dependabot PRs closed without merging; Monday grouping added; search return-focus ref reset; public README and CONTRIBUTING reviewed and approved; validation, build, budgets, and private checks pass; records last; no push | 20529b6, 17db2a1, d97a99f, this commit |
 
 ## Decisions
 
@@ -181,7 +186,7 @@ None.
 
 ## Session Notes
 
-Hosting remains on Vercel with Cloudflare DNS and verified Google, Bing, and IndexNow discovery. Production serves DESIGN-P1.1 at `b3be837`; its deployment, CI, and IndexNow records are successful. DESIGN-P1-V returned PASS WITH FINDINGS (1 LOW, 2 INFO). UX-P1 addresses the reader and real-device findings in three explicitly authorized local commits; browser and automated checks pass, with reading-route JavaScript at 36.63 KiB. Real iPhone retesting remains operator-owned. Records are committed last and pin `f033a2d`, the second implementation commit. The development server is stopped; no push was performed. The repository remains public, unannounced. The published essay is immutable and unchanged. The private scanner runs on pre-push and stays outside CI by design.
+Production on Vercel serves UX-P1 at `929e9ec`, with successful deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902`. The operator reports UX-P1-V PASS for Codex same-family live measurements with F10 verified on device, and UX-P1-V2 PASS WITH FINDINGS (2 LOW) for Claude cross-family code review. REPO-P1 applies the return-focus ref reset, Dependabot grouping, and approved public documentation; GitHub settings and all seven PR closures are complete. Validation and build pass with reading-route JavaScript at 36.63 KiB. Records are last and pin `d97a99f`; no push was performed. The repository remains public, unannounced, and the published essay is unchanged.
 
 ---
 
