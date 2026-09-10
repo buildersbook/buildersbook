@@ -42,7 +42,7 @@ export function SiteHeaderActions() {
         <MobileMenu onSearch={openSearch} />
       </div>
       {searchOpen ? (
-        <SiteSearchDialog open onOpenChange={setSearchOpen} onReturnFocus={() => returnFocusRef.current()} />
+        <SiteSearchDialog open onOpenChange={setSearchOpen} onReturnFocus={() => { returnFocusRef.current(); returnFocusRef.current = () => undefined; }} />
       ) : null}
     </>
   );
