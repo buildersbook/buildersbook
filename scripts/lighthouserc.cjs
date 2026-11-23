@@ -9,6 +9,7 @@ module.exports = {
         'http://localhost:3000/about',
         'http://localhost:3000/book',
         'http://localhost:3000/essays',
+        'http://localhost:3000/essays/agent-enforcement-hooks',
       ],
       settings: {
         onlyCategories: ['performance'],
