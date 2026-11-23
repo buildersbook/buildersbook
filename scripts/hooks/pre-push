@@ -10,4 +10,4 @@ if [ -z "${BUILDERSBOOK_PRIVATE_MANIFEST:-}" ]; then
   exit 2
 fi
 
-"$repo_root/scripts/check-private.sh"
+exec "$repo_root/scripts/check-private.sh" --pre-push "${1:-}"
