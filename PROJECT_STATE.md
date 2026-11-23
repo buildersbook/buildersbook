@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: d97a99ff473989b1d99552fa69d287e0d0be953b
+Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: d97a99ff473989b1d99552fa69d287e0d0be953b
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-09-10 (REPO-P1)
-> Updated by: IMPLEMENT — REPO-P1
+> Last updated: 2026-11-23 (SITE-P18.2)
+> Updated by: IMPLEMENT — SITE-P18.2
 
 ## Phase Status
 
@@ -21,7 +21,7 @@ Current through: d97a99ff473989b1d99552fa69d287e0d0be953b
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07; production serves `929e9ec` after the UX-P1 auto-deploy. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07 and REPO-P1 shipped on 2026-09-18. Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
@@ -39,16 +39,16 @@ Current through: d97a99ff473989b1d99552fa69d287e0d0be953b
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch. UX-P1 was pushed through `929e9ec` and auto-deployed successfully. REPO-P1 remains local pending operator-run push.
+- Hosting: production on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch. REPO-P1 was pushed on 2026-09-18 through `be81ae1` and auto-deployed successfully (deployment `6525316643`). `vercel.json` runs `pnpm validate && pnpm build` on hosting builds (`e37430a`); `package.json` `engines.node` is `>=22 <27` (`c3bc725`).
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
 - Repository settings: homepage `https://buildersbook.dev`; description matches the README's open-curriculum sentence; topics `ai-agents`, `claude-code`, `codex`, `developer-workflow`, `engineering-practices`, `nextjs`, `fumadocs`, `mdx`, `technical-writing`, and `open-curriculum`; wiki and Projects disabled (REPO-P1).
-- Dependabot: all seven open PRs (#1–#7) closed without merging, each with the superseded-by-grouping comment; zero open Dependabot PRs remain. Local configuration schedules both ecosystems weekly on Monday, groups npm minor/patch updates as `npm-minor-patch`, leaves npm majors separate, caps npm PRs at two, and groups GitHub Actions updates as `actions` (`20529b6`). Grouping takes effect after the operator pushes.
-- GitHub deployment records: the API confirms successful Production deployment `6327182276` for UX-P1 at `929e9ec`. Earlier successful deployments include `6313336300` for DESIGN-P1 at `0e8b079` and `6313680007` for DESIGN-P1.1 at `b3be837`.
+- Dependabot: weekly Monday grouping schedules `npm-minor-patch` (cap 2 open npm PRs, majors separate) and `actions` (`20529b6`), and ignores semver-major updates for `@types/node` (`c3bc725`). Three Dependabot PRs were open as of 2026-11-23 (#11, #12, #15); SITE-P18 applies the contents of #12 (`c3bc725`) and #15 (`312a441`) and adds the ignore rule covering #11 (`c3bc725`).
+- GitHub deployment records: Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. Earlier successful Production deployments include `6327182276` for UX-P1 at `929e9ec`, `6313336300` for DESIGN-P1 at `0e8b079`, and `6313680007` for DESIGN-P1.1 at `b3be837`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
 - Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for UX-P1 on `deployment_status` (run `34224207902`, `929e9ec`); CI also passed (run `34224106222`, both Node `22.23.1` and Node `24` lanes)
 - Database: none — explicitly no database at launch
 - Auth: none — no user accounts
-- Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`
+- Commands: `pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm validate`
 
 ## Known Bugs
 
@@ -56,19 +56,18 @@ None.
 
 ## Current Task
 
-REPO-P1 is implemented with explicit operator authorization: Dependabot grouping at `20529b6`, the search return-focus callback reset at `17db2a1`, the reviewed README and CONTRIBUTING at `d97a99f`, and records last in this commit. GitHub settings and the seven Dependabot PR closures are complete. Acceptance passes; no push was performed. Production serves UX-P1 at `929e9ec`, public and unannounced.
+SITE-P18 clears the PROJ-A2 maintenance backlog across `312a441`–`ce3b2b0`. SITE-P18 changed no rendered page. The Fumadocs update restyled the search dialog (smaller result text) and removed an axe aria-allowed-attr violation in it; accepted by operator decision 2026-11-23. Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. SITE-P18-V completed cross-family VERIFY. PROJ-A2.1-A completed the ADVERSARY read. The next task is the UX-R2 fix batch.
 
 ## What Was Done Last Session
 
-- Verified UX-P1 pushed through `929e9ec`: Production deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902` all succeeded.
-- Recorded the operator-reported review outcomes: UX-P1-V (Codex, same-family live measurements) PASS, with F10 operator-verified on device; UX-P1-V2 (Claude, cross-family code read) PASS WITH FINDINGS, 2 LOW.
-- Set the repository homepage, 97-character curriculum description, and ten topics; disabled wiki and Projects. Closed Dependabot PRs #1–#7 with the requested grouping comment; none were merged.
-- Added weekly Monday Dependabot groups while keeping npm major updates separate and limiting open npm PRs to two (`20529b6`).
-- Reset the saved search return-focus callback to a no-op immediately after invoking it, addressing UX-P1-V2 Finding 1 (`17db2a1`).
-- Rewrote README and aligned CONTRIBUTING for public readers. Applied the operator's title, badge, heading, wording, and shell-block revisions before the explicitly approved documentation commit (`d97a99f`).
-- Confirmed that the `lib/content/validate.ts` assertion renders the essays index route with `renderToStaticMarkup` and checks published/unpublished titles. It does not read a built page.
-- Validation and all 18 Node tests pass. The production build passes with both reading-route budgets unchanged at 36.63 KiB. The private scan exits 0; README and CONTRIBUTING private-identifier checks return zero hits.
-- The operator authorized all four proposed commits. Records are last and pin `d97a99f`, the preceding README/CONTRIBUTING commit. No push was performed; canon and published content are unchanged.
+- Recorded PROJ-A2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 9 MED, 10 LOW, 5 INFO), UX-R2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 10 MED, 12 LOW; production confirmed at `be81ae1`), and the PROJ-A2.1 history-residue disposition for manifest lines 26–31.
+- Updated npm dependencies within current majors (`312a441`): Next `16.4.6`, Fumadocs `16.19.7` (`fumadocs-mdx` `15.6.4`), React `19.3.1`, Tailwind `4.3.5`, Zod `4.6.7`, `@types/node` `24.19.2`, and remaining minor/patch devDependencies.
+- Applied SHA-pinned GitHub Action updates from PR #12 verified against release tags, expanded CI lanes to Node `22.23.1`, `24`, and `26`, updated `engines.node` to `>=22 <27`, and ignored `@types/node` semver-major updates in `.github/dependabot.yml` (`c3bc725`).
+- Reworked `scripts/check-private.sh` and `scripts/hooks/pre-push` to scan git-tracked files only plus pushed commit added diff lines and commit messages, normalize space/hyphen/underscore separators on literal case-insensitive substrings without echoing terms or matched text, preserve fail-closed exit codes, and expand synthetic temp-repo tests (`280cc7a`). Real tree and range scans exited 0.
+- Added `vercel.json` with `"buildCommand": "pnpm validate && pnpm build"` so hosting builds execute lint, typecheck, tests, design validation, content validation, and JS budget while excluding the private scanner and Lighthouse lab (`e37430a`).
+- Added `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY`, and `Content-Security-Policy: frame-ancestors 'none'` on all routes in `next.config.mjs` with unit test coverage and verified `curl -sI` responses from a local production build including preserved `.md` alternate `X-Robots-Tag` headers (`405b6ab`).
+- Added `/essays/agent-enforcement-hooks` to `scripts/lighthouserc.cjs` with thresholds unchanged (`ce3b2b0`).
+- Reconciled `PROJECT_STATE.md` and `DEVELOPMENT-PLAN.md` in this records commit, pinning `Current through` to the Dependabot and CI comment corrections (`dc6884dc6a50b5099373c04d6d1c83cc386c230d`).
 
 ## Active Blockers
 
@@ -76,6 +75,13 @@ None.
 
 ## Open Items
 
+- UX-R2 fix batch (3 HIGH, 10 MED, 12 LOW findings from the 2026-11-23 review).
+- Canon status-line reconciliation (`AGENTS.md`, `CLAUDE.md`, and `CODEX.md` still state the public flip is pending).
+- Deferred major upgrades: TypeScript 7, ESLint 10, and pnpm 12 (`@types/node` majors are upgraded manually).
+- Full Content-Security-Policy: current CSP sets `frame-ancestors 'none'` only; a full CSP is a separate decision.
+- Harden the private scanner for file paths, binary files, Git-quoted file names, and untrimmed manifest entries.
+- Set a minimum package release age for installs.
+- Confirm the hosting build's Node major from the first deployment after the SITE-P18 push.
 - JS-budget SITE-P15.2 deferred findings: case-insensitive filesystems can accept a case-mismatched path (Linux CI is the case-sensitive compensating control, strengthened by SITE-P16); async-verdict label precedence is diagnostics-only (F2); `checkBudget` orchestration is untested (F3); suffix-walk tail collision is specified behavior (F4); the summary prints twice (F5); and bracket-prefixed route groups are mislabeled but fail closed (F6).
 - IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
 - Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
@@ -86,15 +92,14 @@ None.
 
 ## Resolved This Session
 
-- UX-P1 deployment, both CI lanes, IndexNow, the two review outcomes, and operator device verification are recorded against `929e9ec`.
-- UX-P1-V2 Finding 1 is corrected in `17db2a1`; the validator assertion is described as rendering the essays index route.
-- REPO-P1 repository settings and seven Dependabot PR closures are complete; grouped updates and the reviewed public documentation are committed locally with operator authorization.
+- PROJ-A2 maintenance backlog cleared across commits `312a441`, `c3bc725`, `280cc7a`, `e37430a`, `405b6ab`, and `ce3b2b0` with all 28 Node tests, validation gates, and production builds passing (reading-route JS at 39.03 KiB).
+- `PROJECT_STATE.md` currency reconciled against production `be81ae1` (deployment `6525316643`, REPO-P1 pushed 2026-09-18) and `DEVELOPMENT-PLAN.md` `/accounts` wording corrected as planned and not yet published.
 
 ## Immediate Next Tasks (In Order)
 
-1. Complete cross-family verification of REPO-P1 before the operator-run push. All four local commits are authorized; records pin `d97a99f`. GitHub settings are already applied; local files remain pending push.
+1. Execute the UX-R2 fix batch and canon status-line reconciliation.
 2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
-3. Follow up on profile avatars and the OG/social-card image. Run ESSAY-P3-V F-3 and Markdown ZIP work after the flip; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
+3. Follow up on profile avatars, OG/social-card image, full CSP decision, deferred majors (TypeScript 7, ESLint 10, pnpm 12), ESSAY-P3-V F-3, and Markdown ZIP work; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
 
 ## Session Log
 
@@ -175,18 +180,24 @@ None.
 | UX-P1 | 2026-09-08 | F1–F11 and the environment-gated LAN development-origin revision implemented; validation, build, contrast and floor probes pass; 36.63 KiB reading-route budgets; pushed through `929e9ec`; successful Production deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902` | 5d29339, f033a2d, 929e9ec |
 | UX-P1-V | 2026-09-10 (recorded) | Operator-reported result: Codex, same-family live measurements — PASS; F10 operator-verified on device | 929e9ec |
 | UX-P1-V2 | 2026-09-10 (recorded) | Operator-reported result: Claude, cross-family code read — PASS WITH FINDINGS (2 LOW); Finding 1 addressed by the ref reset in REPO-P1; validator wording clarified to renders the essays index route | 929e9ec |
-| REPO-P1 | 2026-09-10 | Homepage and curriculum description set; ten topics added; wiki and Projects disabled; seven Dependabot PRs closed without merging; Monday grouping added; search return-focus ref reset; public README and CONTRIBUTING reviewed and approved; validation, build, budgets, and private checks pass; records last; no push | 20529b6, 17db2a1, d97a99f, this commit |
+| REPO-P1 | 2026-09-10 | Homepage and curriculum description set; ten topics added; wiki and Projects disabled; seven Dependabot PRs closed without merging; Monday grouping added; search return-focus ref reset; public README and CONTRIBUTING reviewed and approved; validation, build, budgets, and private checks pass; pushed 2026-09-18 (Production deployment `6525316643`) | 20529b6, 17db2a1, d97a99f, be81ae1 |
+| PROJ-A2 | 2026-11-23 | Read-only audit (Claude Code, Opus 5.5) — PASS WITH FINDINGS (0 BLOCKING, 3 HIGH, 9 MED, 10 LOW, 5 INFO) | be81ae1 |
+| UX-R2 | 2026-11-23 | Read-only review (Claude Code, Fable 5.2) — PASS WITH FINDINGS (0 BLOCKING, 3 HIGH, 10 MED, 12 LOW); production confirmed at `be81ae1`; fixes queued as a UX batch | be81ae1 |
+| SITE-P18 | 2026-11-23 | Maintenance batch (Cursor, Gemini 4 Neon): `312a441` npm updates within current majors; `c3bc725` SHA-pinned actions, Node 26 CI lane, `engines.node >=22 <27`, and `@types/node` major ignore; `280cc7a` tracked-only and pushed-range private scanner rework; `e37430a` hosting validation build command in `vercel.json`; `405b6ab` baseline response security headers; `ce3b2b0` published essay added to Lighthouse URLs | 312a441, c3bc725, 280cc7a, e37430a, 405b6ab, ce3b2b0 |
+| SITE-P18-V | 2026-11-23 | Claude Code, Opus 5.5, cross-family VERIFY. PASS WITH FINDINGS (0 BLOCKING, 1 HIGH, 3 MED, 6 LOW, 6 INFO). 36 of 36 page screenshots pixel-identical to the pre-batch baseline. The search-dialog restyle (HIGH) was accepted. Clean-host build passes on Node 22 and Node 26. | ce3b2b0 |
+| SITE-P18.1 | 2026-11-23 | Codex (GPT-6.2 Sol) removed tool co-author trailers from the unpushed range with trees unchanged, corrected two comments (`dc6884d`), and corrected the records. SITE-P18.2 amended this records commit with the PROJ-A2.1-A outcome. | dc6884d, this commit |
+| PROJ-A2.1-A | 2026-11-23 | Cross-family ADVERSARY read (Codex, GPT-6.2 Sol; model name supplied by the operator, the harness reports GPT-6). NOT CONFIRMED as existence-only. Occurrence count matched the earlier scan (2 exact and 5 variant hit lines) with one location corrected. No occurrences in pull-request or issue text, the repository description or topics. Residue accepted by operator decision. | be81ae1 |
 
 ## Decisions
 
 - Licenses: MIT (code) + CC BY-SA 4.0 (content), 2026-09-05. Production brand assets and derivatives are excluded from both and are not licensed for reuse (`f650fa4`).
-- History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); HOST-V adjudication accepted the historical residue recorded above.
+- History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); HOST-V adjudication accepted the historical residue recorded above. PROJ-A2.1 (2026-11-23): full-history scan of private-manifest lines 26-31. Lines 26-30 are category words (business-arrangement wording, a downloads-folder path, a token name with no value), accepted as residue under the existing history decision (0671e7b). Line 31 is the name of a private product layer; it occurs in earlier revisions of two records files and in one commit subject, and nowhere in the current tree. A cross-family ADVERSARY read (PROJ-A2.1-A, 2026-11-23) did not confirm that history discloses the layer's existence only: early revisions of the development plan also name two planned artifacts and a planned first implementation for it. No implementation, data model, scoring logic, customers or commercial terms appear in history. Accepted as residue with that knowledge by operator decision 2026-11-23; no history rewrite.
 - Minimum Viable Launch: flip quiet; announce at the operator's launch-readiness gate. Phase 2 is public, unannounced — announcement deferred to the gate.
 - Public-state rule: state records carry outcomes and hashes only. Full rule landed in WORKING-PROTOCOL.md at fa02157.
 
 ## Session Notes
 
-Production on Vercel serves UX-P1 at `929e9ec`, with successful deployment `6327182276`, CI `34224106222` on both Node lanes, and IndexNow `34224207902`. The operator reports UX-P1-V PASS for Codex same-family live measurements with F10 verified on device, and UX-P1-V2 PASS WITH FINDINGS (2 LOW) for Claude cross-family code review. REPO-P1 applies the return-focus ref reset, Dependabot grouping, and approved public documentation; GitHub settings and all seven PR closures are complete. Validation and build pass with reading-route JavaScript at 36.63 KiB. Records are last and pin `d97a99f`; no push was performed. The repository remains public, unannounced, and the published essay is unchanged.
+Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. PROJ-A2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 9 MED, 10 LOW, 5 INFO) and UX-R2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 10 MED, 12 LOW) completed on `be81ae1`, and PROJ-A2.1 dispositioned historical residue for manifest lines 26–31. SITE-P18 clears the PROJ-A2 maintenance backlog across `312a441`–`ce3b2b0`. SITE-P18 changed no rendered page. The Fumadocs update restyled the search dialog (smaller result text) and removed an axe aria-allowed-attr violation in it; accepted by operator decision 2026-11-23. Validation, all 28 Node tests, production builds (reading-route JS at 39.03 KiB), and real private scans pass. Records pin `dc6884d`. The repository remains public, unannounced, and the published essay is unchanged.
 
 ---
 

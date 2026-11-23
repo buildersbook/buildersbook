@@ -3,7 +3,7 @@
 **Repo:** `buildersbook/buildersbook` (public)
 **Governance:** LEAD-V v5 — SCOUT plans · IMPLEMENT is the sole writer · VERIFY propose-only · ADVERSARY cross-family, mandatory on sensitive scope
 **Rule Zero:** The codebase is the only source of truth. This plan is Layer 2 state; verify claims against the repo before acting on them.
-**Last updated:** 2026-09-07
+**Last updated:** 2026-11-23
 
 ---
 
@@ -18,7 +18,7 @@
 4. **Minimum viable launch (closed):** scaffold + frontmatter validation + landing + about + **essay #1** + llms.txt + sitemap. Flip quiet; announce at the operator's launch-readiness gate. Everything beyond this trails content — never the reverse.
 5. **Identity:** the org owns the repo; all commits are authored from the personal account via a repo-local git identity pin. The private scanner runs on `pre-push`, not `pre-commit`, and stays outside CI by design. First-commit attribution is permanent.
 6. **Hosting:** production on Vercel, Git auto-deploy from main.
-7. **Private identity material is never committed.** The identity register lives outside all repos. Its public counterpart is the `/accounts` page.
+7. **Private identity material is never committed.** The identity register lives outside all repos. Its planned public counterpart is an `/accounts` page (not yet published).
 
 ---
 
