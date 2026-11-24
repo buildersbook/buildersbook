@@ -5,3 +5,8 @@ export const siteNavigation = [
 ] as const;
 
 export const repositoryUrl = 'https://github.com/buildersbook/buildersbook';
+
+export const siteAuthor = {
+  name: 'Dustin Matlock',
+  url: 'https://github.com/dustinmatlock',
+};

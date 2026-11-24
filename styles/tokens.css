@@ -17,6 +17,16 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
+/* Calibrate the local serif's width for the reading measure during the font swap. */
+@font-face {
+  font-family: 'Times New Roman Adjusted';
+  src: local('Times New Roman');
+  ascent-override: 87.87%;
+  descent-override: 28.41%;
+  line-gap-override: 0%;
+  size-adjust: 110%;
+}
+
 :root {
   color-scheme: light;
 
@@ -24,6 +34,36 @@
   --marginalia-prose-size: 0.875rem;
   --header-height: 4.0625rem;
   --header-mark-mobile-size: 1.5rem;
+  --target-min: 2.75rem;
+  --reading-shell: 57rem;
+  --reading-measure: 38.75rem;
+  --marginalia-gap: 2.75rem;
+  --marginalia-measure: 10.5rem;
+  --reading-inline-gutter: clamp(1rem, 6vw, 2.5rem);
+  --header-measure: 75rem;
+  --static-gutter: 1.25rem;
+  --nav-gap: 1.75rem;
+  --mobile-control-gap: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  --space-3xl: 2.5rem;
+  --space-4xl: 3rem;
+  --page-section-padding: clamp(2rem, 6vw, 4rem);
+  --hairline: 0.0625rem;
+  --rule-width: 0.125rem;
+  --panel-radius: 0;
+  --compact-label-size: 0.75rem;
+  --essay-index-title-size: 1.1875rem;
+  --first-read-size: 1.75rem;
+  --inline-code-scale: 0.90em;
+  --footer-size: 1rem;
+  --menu-measure: 26rem;
+  --dialog-shadow: 0 0.75rem 2rem rgb(0 0 0 / 22%);
+  --menu-scrim: color-mix(in srgb, var(--ink) 35%, transparent);
+  --search-scrim: color-mix(in srgb, var(--ink) 20%, transparent);
 
   --paper: #F7F5EF;
   --surface: #E3E1D9;
@@ -53,7 +93,7 @@
   --color-fd-accent: var(--surface);
   --color-fd-accent-foreground: var(--ink);
   --color-fd-ring: var(--accent);
-  --color-fd-overlay: color-mix(in srgb, var(--ink) 20%, transparent);
+  --color-fd-overlay: var(--search-scrim);
   --color-fd-diff-add: var(--surface);
   --color-fd-diff-add-symbol: var(--ink);
   --color-fd-diff-remove: var(--surface);
@@ -79,4 +119,8 @@
   --code-bg: #0F0F0F;
   --code-ink: #D3D3D3;
   --code-muted: #979797;
+  --dialog-shadow: 0 0.75rem 2rem rgb(0 0 0 / 60%);
+  --dark-scrim: rgb(0 0 0 / 72%);
+  --menu-scrim: var(--dark-scrim);
+  --search-scrim: var(--dark-scrim);
 }

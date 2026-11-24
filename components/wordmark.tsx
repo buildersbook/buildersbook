@@ -1,8 +1,11 @@
 import Link from 'next/link';
 
+import { CurrentPageLink } from './current-page-link';
+
 export function Wordmark({ showIcon = false }: { showIcon?: boolean }) {
+  const WordmarkLink = showIcon ? CurrentPageLink : Link;
   return (
-    <Link className="wordmark" href="/" aria-label="The Builder’s Book home">
+    <WordmarkLink className="wordmark" href="/" aria-label="The Builder’s Book home">
       {showIcon ? (
         <svg
           aria-hidden="true"
@@ -17,6 +20,6 @@ export function Wordmark({ showIcon = false }: { showIcon?: boolean }) {
         </svg>
       ) : null}
       The Builder&rsquo;s Book
-    </Link>
+    </WordmarkLink>
   );
 }

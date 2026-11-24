@@ -1,7 +1,6 @@
-import Link from 'next/link';
-
 import { siteNavigation } from '@/lib/navigation';
 
+import { CurrentPageLink } from './current-page-link';
 import { SiteHeaderActions } from './site-header-actions';
 import { Wordmark } from './wordmark';
 
@@ -12,7 +11,7 @@ export function SiteHeader() {
         <Wordmark showIcon />
         <nav className="desktop-navigation" aria-label="Primary">
           {siteNavigation.map((item) => (
-            <Link href={item.href} key={item.href}>{item.label}</Link>
+            <CurrentPageLink href={item.href} key={item.href}>{item.label}</CurrentPageLink>
           ))}
         </nav>
         <SiteHeaderActions />

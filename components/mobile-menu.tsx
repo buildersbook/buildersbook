@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { siteNavigation } from '@/lib/navigation';
+
+import { CurrentPageLink } from './current-page-link';
 
 export function MobileMenu({ onSearch }: { onSearch: (returnFocus: () => void) => void }) {
   const [open, setOpen] = useState(false);
@@ -86,9 +87,9 @@ export function MobileMenu({ onSearch }: { onSearch: (returnFocus: () => void) =
             </button>
           </div>
           <nav aria-label="Mobile">
-            <Link href="/" onClick={closeMenu}>Home</Link>
+            <CurrentPageLink href="/" onClick={closeMenu}>Home</CurrentPageLink>
             {siteNavigation.map((item) => (
-              <Link href={item.href} key={item.href} onClick={closeMenu}>{item.label}</Link>
+              <CurrentPageLink href={item.href} key={item.href} onClick={closeMenu}>{item.label}</CurrentPageLink>
             ))}
             <button
               ref={searchRef}

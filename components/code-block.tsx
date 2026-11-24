@@ -1,6 +1,7 @@
 import { isValidElement, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 
 import { CodeCopyButton } from './code-copy-button';
+import { CodeScroll } from './code-scroll';
 
 type CodeBlockProps = ComponentPropsWithoutRef<'pre'> & {
   title?: string;
@@ -22,14 +23,16 @@ export function CodeBlock({ children, title, ...props }: CodeBlockProps) {
         <span className="code-block-filename functional-label">{title ?? 'Code'}</span>
         <CodeCopyButton value={value} />
       </figcaption>
-      <pre
-        {...props}
-        tabIndex={0}
-        aria-label={title ? `Code: ${title}` : 'Code sample'}
-        role="region"
-      >
-        {children}
-      </pre>
+      <CodeScroll>
+        <pre
+          {...props}
+          tabIndex={0}
+          aria-label={title ? `Code: ${title}` : 'Code sample'}
+          role="region"
+        >
+          {children}
+        </pre>
+      </CodeScroll>
     </figure>
   );
 }

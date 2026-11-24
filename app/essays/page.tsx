@@ -1,6 +1,6 @@
+import { EssayIndex, type EssayIndexEntry } from '@/components/essay-index';
+import { StaticPage } from '@/components/static-page';
 import { pageMetadata } from '@/lib/metadata';
-
-import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { publishedPages } from '@/lib/source';
 
 export const metadata = pageMetadata({
@@ -12,24 +12,20 @@ export const metadata = pageMetadata({
 export default function EssaysIndexPage() {
   const essays = publishedPages
     .filter((page) => page.url.startsWith('/essays/'))
-    .map((page): BookIndexEntry => {
+    .map((page): EssayIndexEntry => {
       if (!('category' in page.data) || page.data.publicationStatus !== 'published') {
         throw new Error(`${page.url}: expected published essay frontmatter.`);
       }
-      return {
-        number: page.data.publishedAt,
-        title: page.data.title,
-        href: page.url,
-        state: 'published',
-      };
+      return { date: page.data.publishedAt, title: page.data.title, href: page.url };
     });
 
   return (
-    <main id="main-content" className="stage-one-main">
-      <p className="functional-label">Field notes and post-mortems</p>
-      <h1>Essays</h1>
-      <p>Essays from the work of building production software with coding agents.</p>
-      <BookIndex ariaLabel="Essays" entries={essays} variant="essays" />
-    </main>
+    <StaticPage
+      title="Essays"
+      kicker="Field notes and post-mortems"
+      lede="Essays from the work of building production software with coding agents."
+    >
+      <EssayIndex entries={essays} />
+    </StaticPage>
   );
 }

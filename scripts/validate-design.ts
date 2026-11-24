@@ -199,7 +199,11 @@ function validateFunctionalTextFloor(): void {
     .filter((path) => path.endsWith('.css'))
     .map((path) => ({ label: repoRelative(path), source: readFileSync(path, 'utf8') }));
   // Resolve the declared size tokens; reject overrides instead of guessing at the cascade.
-  const sizeTokenValues = new Map<string, string>();
+  const tokenSource = stylesheets.find(({ label }) => label === 'styles/tokens.css')?.source ?? '';
+  const rootTokens = tokenSource.match(/:root\s*\{([^}]*)\}/)?.[1] ?? '';
+  const sizeTokenValues = new Map(
+    [...rootTokens.matchAll(/(--[a-z-]+)\s*:\s*([^;]+);/g)].map((match) => [match[1], match[2].trim()]),
+  );
   for (const [token, minimum] of [['--label-size', 13], ['--marginalia-prose-size', 14]] as const) {
     const declarations = stylesheets.flatMap(({ label, source }) =>
       [...source.matchAll(/([^{}]+)\{([^{}]*)\}/g)].flatMap((rule) =>
@@ -231,18 +235,11 @@ function validateFunctionalTextFloor(): void {
   const parentFixtures = [
     ['.functional-label', 16],
     ['.heading-anchor', 19],
-    ['.book-index-number', 16],
+    ['.essay-index-date', 16],
+    ['.content-body :not(pre) > code', 17],
     ['.footnote-ref', 17],
   ] as const;
   const parentPixelsBySelector = new Map<string, number>(parentFixtures);
-  const exemptions = new Map([
-    ['.static-page h1 .wordmark', {
-      expectedValue: 'inherit',
-      reason: 'decorative wordmark inherits the large static-page heading size',
-    }],
-  ]);
-  const exercisedExemptions = new Set<string>();
-
   for (const { label, source } of stylesheets) {
     for (const rule of source.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
       const selectors = rule[1].trim().split(',').map((selector) => selector.trim());
@@ -250,16 +247,6 @@ function validateFunctionalTextFloor(): void {
       for (const declaration of declarations) {
         const value = declaration[1].trim();
         for (const selector of selectors) {
-          const exemption = exemptions.get(selector);
-          if (exemption) {
-            exercisedExemptions.add(selector);
-            invariant(
-              value === exemption.expectedValue,
-              `${label}: ${selector}: exemption only permits ${exemption.expectedValue} (${exemption.reason})`,
-            );
-            continue;
-          }
-
           try {
             invariant(
               fontSizeToPixels(resolveFontSize(value), parentPixelsBySelector.get(selector)) >= functionalTextFloor,
@@ -271,10 +258,6 @@ function validateFunctionalTextFloor(): void {
         }
       }
     }
-  }
-
-  for (const selector of exemptions.keys()) {
-    invariant(exercisedExemptions.has(selector), `${selector}: stale functional-text exemption`);
   }
 
   for (const [selector, parentPixels] of parentFixtures) {

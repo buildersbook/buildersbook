@@ -7,13 +7,16 @@ import { JetBrains_Mono, Source_Serif_4 } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 
+import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { rootMetadata } from '@/lib/metadata';
 import { themeColors } from '@/lib/theme-colors';
 
 const sourceSerif = Source_Serif_4({
   axes: ['opsz'],
+  adjustFontFallback: false,
   display: 'swap',
+  fallback: ['Times New Roman Adjusted', 'serif'],
   subsets: ['latin'],
   style: 'normal',
   variable: '--font-source-serif',
@@ -22,7 +25,9 @@ const sourceSerif = Source_Serif_4({
 
 const sourceSerifItalic = Source_Serif_4({
   axes: ['opsz'],
+  adjustFontFallback: false,
   display: 'swap',
+  fallback: ['Times New Roman Adjusted', 'serif'],
   subsets: ['latin'],
   style: 'italic',
   variable: '--font-source-serif-italic',
@@ -62,6 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <a className="skip-link" href="#main-content">Skip to content</a>
             <SiteHeader />
             {children}
+            <SiteFooter />
           </ThemeProvider>
         </NextProvider>
       </body>

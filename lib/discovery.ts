@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { llms, loader } from 'fumadocs-core/source';
 
 import { getProcessedMarkdown } from './content/processed-markdown';
+import { siteAuthor } from './navigation';
 import { publishedPages } from './source';
 
 export { publishedPages };
@@ -169,8 +170,8 @@ export function articleJsonLd(page: PublishedPage): string {
     headline: page.data.title,
     description: page.data.description,
     mainEntityOfPage: absoluteUrl(page.url),
-    author: { '@type': 'Organization', name: "The Builder’s Book" },
-    publisher: { '@type': 'Organization', name: "The Builder’s Book" },
+    author: { '@type': 'Person', ...siteAuthor },
+    publisher: { '@type': 'Organization', name: "The Builder's Book" },
     ...(publishedAt(page) ? { datePublished: `${publishedAt(page)}T00:00:00Z` } : {}),
     ...(modified ? { dateModified: modified } : {}),
   };

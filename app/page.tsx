@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { pageMetadata } from '@/lib/metadata';
 
 import { Wordmark } from '@/components/wordmark';
-import { repositoryUrl } from '@/lib/navigation';
+import { pageMetadata } from '@/lib/metadata';
+import { siteAuthor } from '@/lib/navigation';
 
 export const metadata = pageMetadata({ path: '/' });
 
@@ -11,25 +11,17 @@ export default function HomePage() {
     <main id="main-content" className="landing-page">
       <section className="landing-hero" aria-labelledby="landing-title">
         <h1 id="landing-title"><Wordmark /></h1>
-        <p>An open curriculum for engineers who ship production software by orchestrating coding agents. Written in public. Failures included.</p>
-        <span className="functional-label">Volume I · In progress</span>
+        <p className="landing-description">An open curriculum for engineers who ship production software by orchestrating coding agents. Written in public. Failures included.</p>
+        <p className="landing-byline"><Link href="/about">Written by {siteAuthor.name}.</Link></p>
+        <span className="landing-status functional-label">
+          <span>The book is in planning.</span>{' '}
+          <span>Essays come first.</span>
+        </span>
       </section>
-      <section className="landing-paths" aria-label="Start reading">
-        <article>
-          <p className="functional-label">The Book · Read in order</p>
-          <h2><Link href="/book">Explore the curriculum&nbsp;→</Link></h2>
-          <p>A serialized curriculum about specifications, review, failure, and working in public.</p>
-        </article>
-        <article>
-          <p className="functional-label">The Essays · Standalone</p>
-          <h2><Link href="/essays">Read field notes →</Link></h2>
-          <p>Post-mortems and practical notes that keep the record visible.</p>
-        </article>
-      </section>
-      <section className="landing-draft surface-strip">
-        <span className="functional-label">Chapter planned · Not yet published</span>
-        <a href={`${repositoryUrl}/blob/main/content/book/sample-chapter.mdx`}>View the sample chapter draft in the repository</a>
-      </section>
+      <nav className="landing-paths" aria-label="Start reading">
+        <Link className="landing-first-read" href="/essays/agent-enforcement-hooks">Start here: We Built Agent Enforcement Hooks and Then Killed Them →</Link>
+        <Link href="/essays">All essays →</Link>
+      </nav>
     </main>
   );
 }

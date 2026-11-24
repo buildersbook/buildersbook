@@ -1,7 +1,6 @@
 'use client';
 
-import { useDocsSearch } from 'fumadocs-core/search/client';
-import { flexsearchStaticClient } from 'fumadocs-core/search/client/flexsearch-static';
+import { useFlexsearchStatic } from 'fumadocs-core/search/client/flexsearch-static';
 import {
   SearchDialog,
   SearchDialogClose,
@@ -13,21 +12,25 @@ import {
   type SharedProps,
 } from 'fumadocs-ui/components/dialog/search';
 
-const searchClient = flexsearchStaticClient();
-
 export function SiteSearchDialog({ onReturnFocus, ...props }: SharedProps & { onReturnFocus: () => void }) {
-  const { search, setSearch, query } = useDocsSearch({ client: searchClient });
-  const items = query.data === 'empty' ? [] : query.data;
+  const { search, onSearchChange, isLoading, data, error } = useFlexsearchStatic();
+  const hasQuery = search.trim() !== '';
+  const results = hasQuery && data?.query === search ? data : undefined;
+  const resultCount = results?.items.reduce((count, item) => count + (item.type === 'table' ? item.rows.length : 1), 0);
+  const status = resultCount === undefined ? '' : `${resultCount} ${resultCount === 1 ? 'result' : 'results'}`;
 
   return (
     <SearchDialog
       {...props}
       search={search}
-      onSearchChange={setSearch}
-      isLoading={query.isLoading}
+      onSearchChange={onSearchChange}
+      isLoading={hasQuery && isLoading}
+      data={results}
+      error={hasQuery && !isLoading ? error : undefined}
     >
-      <SearchDialogOverlay />
+      <SearchDialogOverlay className="site-search-overlay" />
       <SearchDialogContent
+        className="site-search-dialog"
         aria-label="Search Builder's Book"
         onCloseAutoFocus={(event) => {
           event.preventDefault();
@@ -35,10 +38,11 @@ export function SiteSearchDialog({ onReturnFocus, ...props }: SharedProps & { on
         }}
       >
         <SearchDialogHeader>
-          <SearchDialogInput aria-label="Search query" placeholder="Search the book and essays" />
-          <SearchDialogClose>Close</SearchDialogClose>
+          <SearchDialogInput aria-label="Search query" />
+          <SearchDialogClose aria-label="Close" className="site-search-close functional-label">Close</SearchDialogClose>
         </SearchDialogHeader>
-        <SearchDialogList items={items} />
+        <SearchDialogList Empty={() => <p className="search-empty">No results found</p>} />
+        <span className="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{status}</span>
       </SearchDialogContent>
     </SearchDialog>
   );
