@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: 72fdb0ad989120abdd56d2301777c0fdcb107948
+Current through: da7d0dd93e88de47ed5d26ceca5bcd7c02952dec
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: 72fdb0ad989120abdd56d2301777c0fdcb107948
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-11-23 (UX-P2.4)
-> Updated by: IMPLEMENT — UX-P2.4
+> Last updated: 2026-11-23 (UX-P2.5)
+> Updated by: IMPLEMENT — UX-P2.5
 
 ## Phase Status
 
@@ -21,7 +21,7 @@ Current through: 72fdb0ad989120abdd56d2301777c0fdcb107948
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07 and REPO-P1 shipped on 2026-09-18. Production served 9a0294d (deployment 8011474767) as of 2026-11-23, before the UX-P2 push. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07 and REPO-P1 shipped on 2026-09-18. Production still serves `9a0294d` (deployment `8011474767`) before the UX-P2.5 push. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
@@ -43,7 +43,7 @@ Current through: 72fdb0ad989120abdd56d2301777c0fdcb107948
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
 - Repository settings: homepage `https://buildersbook.dev`; description matches the README's open-curriculum sentence; topics `ai-agents`, `claude-code`, `codex`, `developer-workflow`, `engineering-practices`, `nextjs`, `fumadocs`, `mdx`, `technical-writing`, and `open-curriculum`; wiki and Projects disabled (REPO-P1).
 - Dependabot: weekly Monday grouping schedules `npm-minor-patch` (cap 2 open npm PRs, majors separate) and `actions` (`20529b6`), and ignores semver-major updates for `@types/node` (`c3bc725`). PRs #11, #12, and #15 closed unmerged on 2026-11-23. PR #16 was applied in `0a77910` and is expected to close as superseded after the UX-P2 push. Zero open alerts.
-- GitHub deployment records: Production served 9a0294d (deployment 8011474767) as of 2026-11-23, before the UX-P2 push. CI `45269507848` passed on Node 22.23.1, 24, and 26. IndexNow `45269765181` succeeded (SITE-P18-L, PASS WITH FINDINGS). Earlier successful Production deployments include `6327182276` for UX-P1 at `929e9ec`, `6313336300` for DESIGN-P1 at `0e8b079`, and `6313680007` for DESIGN-P1.1 at `b3be837`.
+- GitHub deployment records: `087ea08` was pushed on 2026-11-23. Its hosting build failed in postbuild (Production deployment `8016439085`), so production still serves `9a0294d` (deployment `8011474767`) before the UX-P2.5 push. CI `45309663654` passed on Node 22.23.1, 24.22.3, and 26.13.1, including postbuild in every lane. Earlier CI `45269507848` passed on Node 22.23.1, 24, and 26. IndexNow `45269765181` succeeded (SITE-P18-L, PASS WITH FINDINGS). Earlier successful Production deployments include `6327182276` for UX-P1 at `929e9ec`, `6313336300` for DESIGN-P1 at `0e8b079`, and `6313680007` for DESIGN-P1.1 at `b3be837`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
 - Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for UX-P1 on `deployment_status` (run `34224207902`, `929e9ec`); CI also passed (run `34224106222`, both Node `22.23.1` and Node `24` lanes)
 - Database: none — explicitly no database at launch
@@ -56,14 +56,12 @@ The no-JavaScript theme behavior is tracked under Open Items.
 
 ## Current Task
 
-UX-P2 is implemented across 0a77910–72fdb0a. The operator approved UX-P2.2 after dev review. UX-P2.4 fixed the 404 and metadata failures from UX-P2-V. Cross-family re-verify is pending.
+UX-P2 is implemented across `0a77910–72fdb0a`. UX-P2-V2 passed with findings, and UX-P2.5 fixes the hosting postbuild failure and expands metadata coverage. Cross-family verification of UX-P2.5 is pending.
 
 ## What Was Done Last Session
 
-- Recorded SITE-P18-L and SITE-P18-N production checks and the Dependabot dispositions.
-- Completed UX-P2.1 screenshot baseline verification and UX-P2.2 design follow-up. UX-P2.3 verified default-bundler dev on `0a77910` and the reviewed tree. Home and the essay returned HTTP 200, all font requests returned 200, and both checks showed no error overlay.
-- Split the approved implementation into independently validated commits `6cc1691` and `9debd49`.
-- UX-P2.4 removed the runtime CSS read, corrected social metadata, and removed the static manifest from the brand exporter.
+- The hosting adapter wrote prerendered App Router HTML to Next.js’s scoped route cache, leaving the check’s hardcoded file path absent.
+- UX-P2.5 (`da7d0dd`) uses Next.js build manifests to locate and check all six prerendered page types. Both build layouts rejected a doubled site-name suffix and a missing Open Graph title.
 
 ## Active Blockers
 
@@ -97,11 +95,11 @@ None.
 - UX-P2 (0a77910–72fdb0a) implemented H1, H2 metadata, H3, M1–M10, L1–L3, and L5–L11, with a centred measure for pages without marginalia and the desktop shell from 912px inclusive.
 - UX-R2 L12 closed with no action after the operator accepted the 320px wordmark wrap.
 - UX-P2.4 passed the production probe without `styles/`. All 106 screenshots matched the reviewed baseline pixel for pixel.
-- Validation passed 44 tests. The largest reading-route JS budget was 40.24 KiB on Node 22.23.1. Gzip size varies with the Node build's zlib, so budgets are quoted on the pinned Node.
+- UX-P2.5 passed validation (50 tests) and production builds on Node 22.23.1 and on Node 26.13.1 with and without the local Next.js adapter. Reading-route JS measured 40.23 KiB for book and 40.24 KiB for essays on Node 22.23.1. All 106 screenshots matched the reviewed baseline with zero differing pixels.
 
 ## Immediate Next Tasks (In Order)
 
-1. Cross-family re-verify of UX-P2, including UX-P2.4.
+1. Cross-family verification of UX-P2.5.
 2. Reconcile canon status lines and adapter roster in PLAN-v2.
 3. Assess launch readiness at the operator's gate.
 
@@ -194,8 +192,10 @@ None.
 | SITE-P18-L | 2026-11-23 | Post-push production check — PASS WITH FINDINGS. Deployment 8011474767 live, CI 45269507848 green on Node 22.23.1/24/26, IndexNow 45269765181 successful. | 9a0294d |
 | SITE-P18-N | 2026-11-23 | Hosting build verified on Node 26.x via the engines override of project Node 24.x. Build ran `pnpm validate && pnpm build`. | 9a0294d |
 | UX-P2-D | 2026-11-23 | Cross-family design read (Claude Code, Fable 5.2) — PASS WITH FINDINGS. Findings fixed in UX-P2.2. | 0a77910 |
-| UX-P2 | 2026-11-23 | IMPLEMENT (Codex app, GPT-6.2 Sol, model name supplied by the operator). UX-P2.1 passed the screenshot gate, UX-P2.2 passed design checks and operator review, and UX-P2.3 passed both default-bundler dev checks and committed the approved work. UX-P2.4 passed the production probe and screenshot comparison after the VERIFY fixes. | 0a77910–72fdb0a, this records commit |
+| UX-P2 | 2026-11-23 | IMPLEMENT (Codex app, GPT-6.2 Sol, model name supplied by the operator). UX-P2.1 passed the screenshot gate, UX-P2.2 passed design checks and operator review, and UX-P2.3 passed both default-bundler dev checks and committed the approved work. UX-P2.4 passed the production probe and screenshot comparison after the VERIFY fixes. | 0a77910–72fdb0a, 087ea08 |
 | UX-P2-V | 2026-11-23 | Cross-family VERIFY (Claude Code, Fable 5.2) — FAIL (0 BLOCKING, 1 HIGH, 1 MED, 3 LOW, 9 INFO). On-demand 404 routes failed when the function trace omitted `styles/tokens.css`. The site-name suffix doubled in `og:title`. Fixed in UX-P2.4. Re-verify pending. | 0a77910–9debd49 |
+| UX-P2-V2 | 2026-11-23 | Cross-family VERIFY (Claude Code, Opus 5.5) — PASS WITH FINDINGS (0 BLOCKING, 0 HIGH, 0 MED, 2 LOW, 6 INFO). L1 found metadata coverage for 2 of 6 page types and was folded into UX-P2.5. L2 found that screenshot capture can catch the search dialog mid-fade, a tooling issue outside the repository. | 087ea08 |
+| UX-P2.5 | 2026-11-23 | Fixed postbuild metadata lookup for both Next.js build layouts and expanded coverage to all six page types. Both layouts passed validation and build and rejected both metadata regressions. | da7d0dd |
 
 ## Decisions
 
