@@ -1,7 +1,7 @@
 <!-- LEAD-V FRAMEWORK -->
 # Builder's Book — Project State
 
-Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
+Current through: 72fdb0ad989120abdd56d2301777c0fdcb107948
 
 > **How to use this file:**
 > Update at the **start** and **end** of every work session.
@@ -10,8 +10,8 @@ Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
 > This file is always current state, not a log. Replace content — don't append.
 > Previous state is preserved in git history.
 
-> Last updated: 2026-11-23 (SITE-P18.2)
-> Updated by: IMPLEMENT — SITE-P18.2
+> Last updated: 2026-11-23 (UX-P2.4)
+> Updated by: IMPLEMENT — UX-P2.4
 
 ## Phase Status
 
@@ -21,7 +21,7 @@ Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
 |-------|------|--------|-------|
 | 0 | Bootstrap | Complete | Repo created under the organization with repo-local identity pin; LEAD-V v5 selectively installed and customized; governing documents added |
 | 1 | Site scaffold | Complete | TP-002, TP-003, and TP-004 complete; sample-page criterion satisfied via validated rendering in review; sample pages remain draft and return 404; essay #1 is the first published content page and is live in production. |
-| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07 and REPO-P1 shipped on 2026-09-18. Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. Announcement is deferred to the operator's launch-readiness gate. |
+| 2 | Essay #1 and public launch | Complete — public, unannounced | Essay #1 is published and live with publication date 2026-09-06; its publication push shipped and populated publication assertions are enabled (`778c95b`, records `ccb61f1`). The repo became public on 2026-09-07 and REPO-P1 shipped on 2026-09-18. Production served 9a0294d (deployment 8011474767) as of 2026-11-23, before the UX-P2 push. Announcement is deferred to the operator's launch-readiness gate. |
 
 ## Brand Track
 
@@ -39,11 +39,11 @@ Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
 - Application configuration: the completed scaffold requires no application secrets
 - Site scaffold: provisioned with Next.js 16 App Router, Fumadocs UI/MDX, Tailwind CSS, and semantic design tokens
 - Content and search: typed local `book` and `essays` MDX collections, constrained authoring, validation, and static FlexSearch are provisioned
-- Hosting: production on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch. REPO-P1 was pushed on 2026-09-18 through `be81ae1` and auto-deployed successfully (deployment `6525316643`). `vercel.json` runs `pnpm validate && pnpm build` on hosting builds (`e37430a`); `package.json` `engines.node` is `>=22 <27` (`c3bc725`).
+- Hosting: production on Vercel at <https://buildersbook.dev>, project `buildersbook`, Git-connected to `buildersbook/buildersbook` with `main` as the production branch. `vercel.json` runs `pnpm validate && pnpm build` on hosting builds (`e37430a`). SITE-P18-N confirmed that `engines.node` `>=22 <27` (`c3bc725`) selects Node 26.x for builds and overrides the project setting of Node 24.x.
 - Repository visibility: public since 2026-09-07; public, unannounced. The active `main-protection` ruleset blocks force-pushes and restricts deletions only.
 - Repository settings: homepage `https://buildersbook.dev`; description matches the README's open-curriculum sentence; topics `ai-agents`, `claude-code`, `codex`, `developer-workflow`, `engineering-practices`, `nextjs`, `fumadocs`, `mdx`, `technical-writing`, and `open-curriculum`; wiki and Projects disabled (REPO-P1).
-- Dependabot: weekly Monday grouping schedules `npm-minor-patch` (cap 2 open npm PRs, majors separate) and `actions` (`20529b6`), and ignores semver-major updates for `@types/node` (`c3bc725`). Three Dependabot PRs were open as of 2026-11-23 (#11, #12, #15); SITE-P18 applies the contents of #12 (`c3bc725`) and #15 (`312a441`) and adds the ignore rule covering #11 (`c3bc725`).
-- GitHub deployment records: Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. Earlier successful Production deployments include `6327182276` for UX-P1 at `929e9ec`, `6313336300` for DESIGN-P1 at `0e8b079`, and `6313680007` for DESIGN-P1.1 at `b3be837`.
+- Dependabot: weekly Monday grouping schedules `npm-minor-patch` (cap 2 open npm PRs, majors separate) and `actions` (`20529b6`), and ignores semver-major updates for `@types/node` (`c3bc725`). PRs #11, #12, and #15 closed unmerged on 2026-11-23. PR #16 was applied in `0a77910` and is expected to close as superseded after the UX-P2 push. Zero open alerts.
+- GitHub deployment records: Production served 9a0294d (deployment 8011474767) as of 2026-11-23, before the UX-P2 push. CI `45269507848` passed on Node 22.23.1, 24, and 26. IndexNow `45269765181` succeeded (SITE-P18-L, PASS WITH FINDINGS). Earlier successful Production deployments include `6327182276` for UX-P1 at `929e9ec`, `6313336300` for DESIGN-P1 at `0e8b079`, and `6313680007` for DESIGN-P1.1 at `b3be837`.
 - DNS: Cloudflare serves `buildersbook.dev`; apex and `www` verification is complete
 - Discovery consoles: Google Search Console and Bing Webmaster Tools are verified; sitemaps are submitted; IndexNow succeeded for UX-P1 on `deployment_status` (run `34224207902`, `929e9ec`); CI also passed (run `34224106222`, both Node `22.23.1` and Node `24` lanes)
 - Database: none — explicitly no database at launch
@@ -52,22 +52,18 @@ Current through: dc6884dc6a50b5099373c04d6d1c83cc386c230d
 
 ## Known Bugs
 
-None.
+The no-JavaScript theme behavior is tracked under Open Items.
 
 ## Current Task
 
-SITE-P18 clears the PROJ-A2 maintenance backlog across `312a441`–`ce3b2b0`. SITE-P18 changed no rendered page. The Fumadocs update restyled the search dialog (smaller result text) and removed an axe aria-allowed-attr violation in it; accepted by operator decision 2026-11-23. Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. SITE-P18-V completed cross-family VERIFY. PROJ-A2.1-A completed the ADVERSARY read. The next task is the UX-R2 fix batch.
+UX-P2 is implemented across 0a77910–72fdb0a. The operator approved UX-P2.2 after dev review. UX-P2.4 fixed the 404 and metadata failures from UX-P2-V. Cross-family re-verify is pending.
 
 ## What Was Done Last Session
 
-- Recorded PROJ-A2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 9 MED, 10 LOW, 5 INFO), UX-R2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 10 MED, 12 LOW; production confirmed at `be81ae1`), and the PROJ-A2.1 history-residue disposition for manifest lines 26–31.
-- Updated npm dependencies within current majors (`312a441`): Next `16.4.6`, Fumadocs `16.19.7` (`fumadocs-mdx` `15.6.4`), React `19.3.1`, Tailwind `4.3.5`, Zod `4.6.7`, `@types/node` `24.19.2`, and remaining minor/patch devDependencies.
-- Applied SHA-pinned GitHub Action updates from PR #12 verified against release tags, expanded CI lanes to Node `22.23.1`, `24`, and `26`, updated `engines.node` to `>=22 <27`, and ignored `@types/node` semver-major updates in `.github/dependabot.yml` (`c3bc725`).
-- Reworked `scripts/check-private.sh` and `scripts/hooks/pre-push` to scan git-tracked files only plus pushed commit added diff lines and commit messages, normalize space/hyphen/underscore separators on literal case-insensitive substrings without echoing terms or matched text, preserve fail-closed exit codes, and expand synthetic temp-repo tests (`280cc7a`). Real tree and range scans exited 0.
-- Added `vercel.json` with `"buildCommand": "pnpm validate && pnpm build"` so hosting builds execute lint, typecheck, tests, design validation, content validation, and JS budget while excluding the private scanner and Lighthouse lab (`e37430a`).
-- Added `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: DENY`, and `Content-Security-Policy: frame-ancestors 'none'` on all routes in `next.config.mjs` with unit test coverage and verified `curl -sI` responses from a local production build including preserved `.md` alternate `X-Robots-Tag` headers (`405b6ab`).
-- Added `/essays/agent-enforcement-hooks` to `scripts/lighthouserc.cjs` with thresholds unchanged (`ce3b2b0`).
-- Reconciled `PROJECT_STATE.md` and `DEVELOPMENT-PLAN.md` in this records commit, pinning `Current through` to the Dependabot and CI comment corrections (`dc6884dc6a50b5099373c04d6d1c83cc386c230d`).
+- Recorded SITE-P18-L and SITE-P18-N production checks and the Dependabot dispositions.
+- Completed UX-P2.1 screenshot baseline verification and UX-P2.2 design follow-up. UX-P2.3 verified default-bundler dev on `0a77910` and the reviewed tree. Home and the essay returned HTTP 200, all font requests returned 200, and both checks showed no error overlay.
+- Split the approved implementation into independently validated commits `6cc1691` and `9debd49`.
+- UX-P2.4 removed the runtime CSS read, corrected social metadata, and removed the static manifest from the brand exporter.
 
 ## Active Blockers
 
@@ -75,31 +71,39 @@ None.
 
 ## Open Items
 
-- UX-R2 fix batch (3 HIGH, 10 MED, 12 LOW findings from the 2026-11-23 review).
-- Canon status-line reconciliation (`AGENTS.md`, `CLAUDE.md`, and `CODEX.md` still state the public flip is pending).
+- Fold status-line reconciliation (`AGENTS.md`, `CLAUDE.md`, and `CODEX.md` still state the public flip is pending) and UX-P2 drift (`AGENTS.md` still lists the deleted `components/book-index.tsx` and names `useDocsSearch`) into the PLAN-v2 canon batch.
 - Deferred major upgrades: TypeScript 7, ESLint 10, and pnpm 12 (`@types/node` majors are upgraded manually).
 - Full Content-Security-Policy: current CSP sets `frame-ancestors 'none'` only; a full CSP is a separate decision.
 - Harden the private scanner for file paths, binary files, Git-quoted file names, and untrimmed manifest entries.
 - Set a minimum package release age for installs.
-- Confirm the hosting build's Node major from the first deployment after the SITE-P18 push.
+- Align the hosting project's Node setting to 26.x.
+- Watch `DEP0205` deprecation warnings under Node 26.
 - JS-budget SITE-P15.2 deferred findings: case-insensitive filesystems can accept a case-mismatched path (Linux CI is the case-sensitive compensating control, strengthened by SITE-P16); async-verdict label precedence is diagnostics-only (F2); `checkBudget` orchestration is untested (F3); suffix-walk tail collision is specified behavior (F4); the summary prints twice (F5); and bracket-prefixed route groups are mislabeled but fail closed (F6).
 - IndexNow SITE-P15.6 deferred findings: CDATA inside `<loc>` parses silently but is unreachable with the current generator (F4); and the script reads the production alias rather than the event's deployment URL, so alias lag can make a run stale by one deployment before it self-corrects (F5, design note).
 - Protocol: reconcile WORKING-PROTOCOL checkpoint-commit clause with AGENTS/CLAUDE single-diff authorization (Phase 3, SITE-P17.2-V finding).
 - PROJ-A1 F1/G2/G3 remain in Phase 3; F2 remains in Phase 4. A2 logo intake is complete (`f650fa4`, `6bce7af`, `b63b16b`).
-- Brand follow-up: profile avatar rollout and an OG/social-card image. No social-card image was built in BRAND-P9.
+- Brand follow-up: profile avatar rollout.
+- Share-card image. The site webfonts use WOFF2, and `next/og` requires TTF, OTF, or WOFF. Restore `twitter:card` to `summary_large_image` when the image ships.
+- `brand:export --check` fails on `app/icon.svg` (pre-existing).
+- Revisit the centred measure before the first page with marginalia ships.
+- Visitors who prefer dark mode and disable JavaScript see a light page with the “Light mode” label (LOW).
+- `theme-color` follows the system preference independently of the site toggle (LOW).
+- Review UX-R2 L4 straight quotes, apostrophe style, and tagline variants in the PLAN-v2 editorial pass.
 - ESSAY-P3-V F-3 is queued for post-flip follow-up.
 - Phase 1 Markdown ZIP is queued for post-flip follow-up.
 
 ## Resolved This Session
 
-- PROJ-A2 maintenance backlog cleared across commits `312a441`, `c3bc725`, `280cc7a`, `e37430a`, `405b6ab`, and `ce3b2b0` with all 28 Node tests, validation gates, and production builds passing (reading-route JS at 39.03 KiB).
-- `PROJECT_STATE.md` currency reconciled against production `be81ae1` (deployment `6525316643`, REPO-P1 pushed 2026-09-18) and `DEVELOPMENT-PLAN.md` `/accounts` wording corrected as planned and not yet published.
+- UX-P2 (0a77910–72fdb0a) implemented H1, H2 metadata, H3, M1–M10, L1–L3, and L5–L11, with a centred measure for pages without marginalia and the desktop shell from 912px inclusive.
+- UX-R2 L12 closed with no action after the operator accepted the 320px wordmark wrap.
+- UX-P2.4 passed the production probe without `styles/`. All 106 screenshots matched the reviewed baseline pixel for pixel.
+- Validation passed 44 tests. The largest reading-route JS budget was 40.24 KiB on Node 22.23.1. Gzip size varies with the Node build's zlib, so budgets are quoted on the pinned Node.
 
 ## Immediate Next Tasks (In Order)
 
-1. Execute the UX-R2 fix batch and canon status-line reconciliation.
-2. Assess launch readiness at the operator's gate; announce only when that gate is met. The repo remains public, unannounced.
-3. Follow up on profile avatars, OG/social-card image, full CSP decision, deferred majors (TypeScript 7, ESLint 10, pnpm 12), ESSAY-P3-V F-3, and Markdown ZIP work; retain PROJ-A1 F1/G2/G3 for Phase 3 and F2 for Phase 4.
+1. Cross-family re-verify of UX-P2, including UX-P2.4.
+2. Reconcile canon status lines and adapter roster in PLAN-v2.
+3. Assess launch readiness at the operator's gate.
 
 ## Session Log
 
@@ -185,8 +189,13 @@ None.
 | UX-R2 | 2026-11-23 | Read-only review (Claude Code, Fable 5.2) — PASS WITH FINDINGS (0 BLOCKING, 3 HIGH, 10 MED, 12 LOW); production confirmed at `be81ae1`; fixes queued as a UX batch | be81ae1 |
 | SITE-P18 | 2026-11-23 | Maintenance batch (Cursor, Gemini 4 Neon): `312a441` npm updates within current majors; `c3bc725` SHA-pinned actions, Node 26 CI lane, `engines.node >=22 <27`, and `@types/node` major ignore; `280cc7a` tracked-only and pushed-range private scanner rework; `e37430a` hosting validation build command in `vercel.json`; `405b6ab` baseline response security headers; `ce3b2b0` published essay added to Lighthouse URLs | 312a441, c3bc725, 280cc7a, e37430a, 405b6ab, ce3b2b0 |
 | SITE-P18-V | 2026-11-23 | Claude Code, Opus 5.5, cross-family VERIFY. PASS WITH FINDINGS (0 BLOCKING, 1 HIGH, 3 MED, 6 LOW, 6 INFO). 36 of 36 page screenshots pixel-identical to the pre-batch baseline. The search-dialog restyle (HIGH) was accepted. Clean-host build passes on Node 22 and Node 26. | ce3b2b0 |
-| SITE-P18.1 | 2026-11-23 | Codex (GPT-6.2 Sol) removed tool co-author trailers from the unpushed range with trees unchanged, corrected two comments (`dc6884d`), and corrected the records. SITE-P18.2 amended this records commit with the PROJ-A2.1-A outcome. | dc6884d, this commit |
+| SITE-P18.1 | 2026-11-23 | Codex (GPT-6.2 Sol) removed tool co-author trailers from the unpushed range with trees unchanged, corrected two comments (`dc6884d`), and corrected the records. SITE-P18.2 amended this records commit with the PROJ-A2.1-A outcome. | dc6884d, 9a0294d |
 | PROJ-A2.1-A | 2026-11-23 | Cross-family ADVERSARY read (Codex, GPT-6.2 Sol; model name supplied by the operator, the harness reports GPT-6). NOT CONFIRMED as existence-only. Occurrence count matched the earlier scan (2 exact and 5 variant hit lines) with one location corrected. No occurrences in pull-request or issue text, the repository description or topics. Residue accepted by operator decision. | be81ae1 |
+| SITE-P18-L | 2026-11-23 | Post-push production check — PASS WITH FINDINGS. Deployment 8011474767 live, CI 45269507848 green on Node 22.23.1/24/26, IndexNow 45269765181 successful. | 9a0294d |
+| SITE-P18-N | 2026-11-23 | Hosting build verified on Node 26.x via the engines override of project Node 24.x. Build ran `pnpm validate && pnpm build`. | 9a0294d |
+| UX-P2-D | 2026-11-23 | Cross-family design read (Claude Code, Fable 5.2) — PASS WITH FINDINGS. Findings fixed in UX-P2.2. | 0a77910 |
+| UX-P2 | 2026-11-23 | IMPLEMENT (Codex app, GPT-6.2 Sol, model name supplied by the operator). UX-P2.1 passed the screenshot gate, UX-P2.2 passed design checks and operator review, and UX-P2.3 passed both default-bundler dev checks and committed the approved work. UX-P2.4 passed the production probe and screenshot comparison after the VERIFY fixes. | 0a77910–72fdb0a, this records commit |
+| UX-P2-V | 2026-11-23 | Cross-family VERIFY (Claude Code, Fable 5.2) — FAIL (0 BLOCKING, 1 HIGH, 1 MED, 3 LOW, 9 INFO). On-demand 404 routes failed when the function trace omitted `styles/tokens.css`. The site-name suffix doubled in `og:title`. Fixed in UX-P2.4. Re-verify pending. | 0a77910–9debd49 |
 
 ## Decisions
 
@@ -194,10 +203,11 @@ None.
 - History rewrite declined to preserve the commit references in the evidence trail (`0671e7b`); HOST-V adjudication accepted the historical residue recorded above. PROJ-A2.1 (2026-11-23): full-history scan of private-manifest lines 26-31. Lines 26-30 are category words (business-arrangement wording, a downloads-folder path, a token name with no value), accepted as residue under the existing history decision (0671e7b). Line 31 is the name of a private product layer; it occurs in earlier revisions of two records files and in one commit subject, and nowhere in the current tree. A cross-family ADVERSARY read (PROJ-A2.1-A, 2026-11-23) did not confirm that history discloses the layer's existence only: early revisions of the development plan also name two planned artifacts and a planned first implementation for it. No implementation, data model, scoring logic, customers or commercial terms appear in history. Accepted as residue with that knowledge by operator decision 2026-11-23; no history rewrite.
 - Minimum Viable Launch: flip quiet; announce at the operator's launch-readiness gate. Phase 2 is public, unannounced — announcement deferred to the gate.
 - Public-state rule: state records carry outcomes and hashes only. Full rule landed in WORKING-PROTOCOL.md at fa02157.
+- Model roster updated on 2026-11-23. SCOUT uses Opus 5.5 by default and Fable 5.2 on escalation. IMPLEMENT uses Codex GPT-6.2 Sol (operator-supplied model name). VERIFY uses Claude Code Opus 5.5. ADVERSARY uses Gemini 4 Carbon, provisional pending calibration. Canon adapter updates are tracked in PLAN-v2.
 
 ## Session Notes
 
-Production served be81ae1 (deployment 6525316643) as of 2026-11-23, before the SITE-P18 push. PROJ-A2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 9 MED, 10 LOW, 5 INFO) and UX-R2 (PASS WITH FINDINGS: 0 BLOCKING, 3 HIGH, 10 MED, 12 LOW) completed on `be81ae1`, and PROJ-A2.1 dispositioned historical residue for manifest lines 26–31. SITE-P18 clears the PROJ-A2 maintenance backlog across `312a441`–`ce3b2b0`. SITE-P18 changed no rendered page. The Fumadocs update restyled the search dialog (smaller result text) and removed an axe aria-allowed-attr violation in it; accepted by operator decision 2026-11-23. Validation, all 28 Node tests, production builds (reading-route JS at 39.03 KiB), and real private scans pass. Records pin `dc6884d`. The repository remains public, unannounced, and the published essay is unchanged.
+The repository remains public and unannounced. The published essay source matched the prior revision.
 
 ---
 
