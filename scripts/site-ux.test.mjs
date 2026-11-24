@@ -7,6 +7,7 @@ import { register } from 'fumadocs-mdx/node';
 import { PathnameContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime.js';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import ts from 'typescript';
 
 register();
 
@@ -50,7 +51,7 @@ for (const [path, metadata] of routes) {
     assert.equal(metadata.openGraph.url, canonical);
     assert.equal(metadata.openGraph.siteName, "The Builder's Book");
     assert.equal(metadata.openGraph.locale, 'en_US');
-    assert.equal(metadata.twitter.card, 'summary_large_image');
+    assert.equal(metadata.twitter.card, 'summary');
     assert.deepEqual(metadata.alternates.types, feedTypes);
   });
 }
@@ -60,6 +61,25 @@ test('404 has its own title and feed links', () => {
   assert.equal(notFound.metadata.alternates.canonical, undefined);
   assert.equal(notFound.metadata.openGraph.url, undefined);
   assert.deepEqual(notFound.metadata.alternates.types, feedTypes);
+});
+
+test('theme colors are literals in a dependency-free module', () => {
+  const filename = 'lib/theme-colors.ts';
+  const source = readFileSync(new URL(`../${filename}`, import.meta.url), 'utf8');
+  const { statements } = ts.createSourceFile(filename, source, ts.ScriptTarget.Latest);
+  assert.equal(statements.length, 1, `${filename} must contain only the theme color declaration`);
+  const [statement] = statements;
+  assert.ok(ts.isVariableStatement(statement));
+  const { declarations } = statement.declarationList;
+  assert.equal(declarations.length, 1);
+  const { initializer } = declarations[0];
+  assert.ok(initializer && ts.isObjectLiteralExpression(initializer));
+  for (const property of initializer.properties) {
+    assert.ok(
+      ts.isPropertyAssignment(property) && ts.isIdentifier(property.name) && ts.isStringLiteral(property.initializer),
+      `${filename} must use literal property names and values`,
+    );
+  }
 });
 
 test('navigation marks only the link to the current page', () => {

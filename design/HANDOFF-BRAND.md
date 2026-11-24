@@ -24,7 +24,7 @@
 | Archived final brand board | `design/reference/Builders Book Logo.dc.html` |
 | Canonical production icon and intake measurements | `design/brand/icon.svg` and `design/brand/NOTES.md` |
 | Brand license boundary | `design/brand/README.md` |
-| Site icon set | `app/icon.svg`, `app/favicon.ico`, `app/apple-icon.png`, `app/manifest.webmanifest`, and `public/icon-{192,512}.png` |
+| Site icon set | `app/icon.svg`, `app/favicon.ico`, `app/apple-icon.png`, and `public/icon-{192,512}.png`. `app/manifest.ts` serves `/manifest.webmanifest`. |
 | Avatar PNGs (light/dark, 400/800/1024px) | Exported outside the repository; not committed |
 | Round 1/2 exploration boards | internal only, do not commit |
 

@@ -143,18 +143,6 @@ add(join(repoRoot, 'app/favicon.ico'), ico([
 for (const [path, size] of [['app/apple-icon.png', 180], ['public/icon-192.png', 192], ['public/icon-512.png', 512]]) {
   add(join(repoRoot, path), await png(glyphSvg(size, 'light', true)));
 }
-add(join(repoRoot, 'app/manifest.webmanifest'), JSON.stringify({
-  name: 'The Builder’s Book',
-  short_name: 'Builder’s Book',
-  description: 'An open curriculum for engineers who build production software with coding agents.',
-  lang: 'en',
-  start_url: '/',
-  scope: '/',
-  display: 'browser',
-  background_color: modes.light.paper,
-  theme_color: modes.light.paper,
-  icons: [192, 512].map((size) => ({ src: `/icon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any' })),
-}, null, 2) + '\n');
 if (avatarDirectory) {
   for (const mode of ['light', 'dark']) {
     for (const size of [400, 800, 1024]) {

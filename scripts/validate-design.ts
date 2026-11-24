@@ -1,6 +1,8 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve, sep } from 'node:path';
 
+import { themeColors } from '../lib/theme-colors';
+
 const repoRoot = resolve(import.meta.dirname, '..');
 const lintOnly = process.argv.includes('--lint-only');
 const functionalTextFloor = 12;
@@ -24,8 +26,10 @@ const excludedFiles = new Set([
   'next-env.d.ts',
 ]);
 const rawValueExcludedFiles = new Set([
-  // Semantic token definitions are the one permitted source of raw colors.
+  // Semantic token definitions are the source of truth for raw colors.
   'styles/tokens.css',
+  // Metadata needs paper literals at runtime. The full validator checks them against the CSS tokens.
+  'lib/theme-colors.ts',
 ]);
 
 function invariant(condition: unknown, message: string): asserts condition {
@@ -98,7 +102,7 @@ function validateContrast(): void {
     ['ink', 'paper', 4.5, 'body text'],
     ['ink-secondary', 'paper', 4.5, 'secondary text'],
     ['ink-muted', 'paper', 4.5, 'muted text'],
-    ['ink', 'surface', 4.5, 'surface-strip text'],
+    ['ink', 'surface', 4.5, 'header and search close button text'],
     ['code-ink', 'code-bg', 4.5, 'code text including Shiki spans (UX-P1 light-mode regression)'],
     ['code-bg', 'code-ink', 4.5, 'copied-code feedback'],
     ['code-muted', 'code-bg', 4.5, 'code metadata'],
@@ -114,7 +118,13 @@ function validateContrast(): void {
     ['ink-muted', 'code-bg', 3, 'code-block border against code background'],
   ] as const;
 
-  for (const [mode, tokens] of Object.entries(modes)) {
+  for (const mode of ['light', 'dark'] as const) {
+    const tokens = modes[mode];
+    const selector = mode === 'light' ? ':root' : '.dark';
+    invariant(
+      themeColors[mode] === tokens.paper,
+      `lib/theme-colors.ts: ${mode} must match --paper in ${selector} in styles/tokens.css`,
+    );
     for (const [foreground, background, minimum, role] of mode === 'dark' ? [...roles, ...darkRoles] : roles) {
       invariant(Boolean(tokens[foreground] && tokens[background]), `${mode}: missing tokens for ${role}`);
       if (tokens[foreground] && tokens[background]) {
@@ -303,4 +313,4 @@ if (violations.length > 0) {
   process.exit(1);
 }
 
-console.log(lintOnly ? 'Design lint passed.' : 'Design validation passed: raw values, contrast, type floor, and Fumadocs bridge.');
+console.log(lintOnly ? 'Design lint passed.' : 'Design validation passed: raw values, theme colors, contrast, type floor, and Fumadocs bridge.');

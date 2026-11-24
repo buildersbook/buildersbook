@@ -3,6 +3,8 @@ import { posix, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { gzipSync } from 'node:zlib';
 
+import { checkPageMetadata } from './check-page-metadata.mjs';
+
 const repoRoot = resolve(import.meta.dirname, '..');
 const limit = 100 * 1024;
 const routes = ['book', 'essays'];
@@ -298,4 +300,7 @@ function checkBudget() {
   }
 }
 
-if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) checkBudget();
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+  checkBudget();
+  checkPageMetadata(resolve(repoRoot, '.next/server/app'));
+}

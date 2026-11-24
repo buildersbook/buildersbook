@@ -21,6 +21,9 @@ const openGraphDefaults = {
   locale: 'en_US',
 };
 
+// See the share-card image open item in PROJECT_STATE.md.
+const twitterCard = 'summary';
+
 export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: siteTitle, template: titleTemplate },
@@ -28,11 +31,11 @@ export const rootMetadata: Metadata = {
   alternates: pageAlternates(),
   openGraph: {
     ...openGraphDefaults,
-    title: { default: siteTitle, template: titleTemplate },
+    title: siteTitle,
     description: siteDescription,
     type: 'website',
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: twitterCard },
 };
 
 type PageMetadataOptions = {
@@ -54,6 +57,6 @@ export function pageMetadata({ path, title, description = siteDescription, artic
     openGraph: article
       ? { ...social, type: 'article', publishedTime: article.publishedTime }
       : { ...social, type: 'website' },
-    twitter: { card: 'summary_large_image', title: socialTitle, description },
+    twitter: { card: twitterCard, title: socialTitle, description },
   };
 }
