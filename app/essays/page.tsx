@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/metadata';
 
 import { BookIndex, type BookIndexEntry } from '@/components/book-index';
 import { publishedPages } from '@/lib/source';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
+  path: '/essays',
   title: 'Essays',
   description: "Builder's Book field notes and post-mortems.",
-  alternates: { canonical: '/essays' },
-};
+});
 
 export default function EssaysIndexPage() {
   const essays = publishedPages

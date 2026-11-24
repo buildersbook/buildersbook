@@ -1,7 +1,7 @@
 import { EssayRenderer } from '@/components/renderers/essay-renderer';
 import { articleJsonLd } from '@/lib/discovery';
 import { essaysSource } from '@/lib/source';
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
 
 type PageProps = {
@@ -21,23 +21,17 @@ export default async function EssayContentPage({ params }: PageProps) {
   );
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const page = essaysSource.getPage(slug);
   if (!page || page.data.publicationStatus !== 'published') notFound();
 
-  return {
+  return pageMetadata({
+    path: page.url,
     title: page.data.title,
     description: page.data.description,
-    alternates: { canonical: page.url },
-    openGraph: {
-      type: 'article',
-      title: page.data.title,
-      description: page.data.description,
-      url: page.url,
-      publishedTime: page.data.publishedAt,
-    },
-  };
+    article: { publishedTime: page.data.publishedAt },
+  });
 }
 
 export function generateStaticParams() {

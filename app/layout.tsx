@@ -2,12 +2,14 @@ import '../styles/tokens.css';
 import '../styles/site.css';
 
 import { NextProvider } from 'fumadocs-core/framework/next';
-import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 import { JetBrains_Mono, Source_Serif_4 } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 
 import { SiteHeader } from '@/components/site-header';
+import { rootMetadata } from '@/lib/metadata';
+import { themeColors } from '@/lib/theme-colors';
 
 const sourceSerif = Source_Serif_4({
   axes: ['opsz'],
@@ -35,20 +37,14 @@ const jetBrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://buildersbook.dev'),
-  title: {
-    default: "The Builder’s Book",
-    template: "%s · The Builder’s Book",
-  },
-  description: 'An open curriculum for engineers who build production software with coding agents.',
-  alternates: {
-    canonical: '/',
-    types: {
-      'application/atom+xml': '/atom.xml',
-      'application/rss+xml': '/rss.xml',
-    },
-  },
+export const metadata = rootMetadata;
+
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: themeColors.light },
+    { media: '(prefers-color-scheme: dark)', color: themeColors.dark },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

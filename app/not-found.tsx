@@ -1,5 +1,12 @@
 import Link from 'next/link';
 
+import { pageMetadata } from '@/lib/metadata';
+
+export const metadata = {
+  ...pageMetadata({ title: 'Page not found' }),
+  title: { absolute: 'Page not found' },
+};
+
 export default function NotFoundPage() {
   return (
     <main id="main-content" className="not-found-page">

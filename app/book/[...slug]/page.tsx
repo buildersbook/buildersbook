@@ -1,7 +1,7 @@
 import { BookRenderer } from '@/components/renderers/book-renderer';
 import { articleJsonLd } from '@/lib/discovery';
 import { bookSource } from '@/lib/source';
-import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/metadata';
 import { notFound } from 'next/navigation';
 
 type PageProps = {
@@ -21,22 +21,17 @@ export default async function BookContentPage({ params }: PageProps) {
   );
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const page = bookSource.getPage(slug);
   if (!page || page.data.publicationStatus !== 'published') notFound();
 
-  return {
+  return pageMetadata({
+    path: page.url,
     title: page.data.title,
     description: page.data.description,
-    alternates: { canonical: page.url },
-    openGraph: {
-      type: 'article',
-      title: page.data.title,
-      description: page.data.description,
-      url: page.url,
-    },
-  };
+    article: {},
+  });
 }
 
 export function generateStaticParams() {
